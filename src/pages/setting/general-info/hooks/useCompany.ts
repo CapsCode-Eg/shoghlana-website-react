@@ -1,0 +1,305 @@
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import parsePhoneNumberFromString from "libphonenumber-js";
+import { HttpMethod, useApi } from "../../../../utils/hooks/useApi";
+import axiosInstance from "../../../../utils/axiosInstance";
+import { appendToFormData } from "../../../../utils/functions/formData";
+import { editCompanyValidation } from "../../../../utils/validation/companyValidation";
+
+
+interface SocialMedia {
+    platform: string;
+    url: string;
+  }
+  
+
+
+export interface SocialMediaTwo {
+    id: string;
+    name: string;
+    url: string;
+  }
+  
+
+export function useCompany() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [company,setCompany]=useState<any>({})
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [data, setData] = useState<any>({})
+    const [countries,setCountries]=useState([])
+    const [cities,setCities]=useState([])
+    const { fetchData, payLoad } = useApi({
+        endPoint: 'company/profile',
+        method: HttpMethod.GET,
+        withOutToast: true
+    })
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    useEffect(() => {
+        if (payLoad?.data) {
+            setCompany(payLoad?.data?.data)
+        }
+    }, [payLoad])
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setData((prevData: any) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    }
+
+    const [industries,setIndustries]=useState([])
+
+    useEffect(() => {
+        axiosInstance.get('/country').then((res) => {
+            setCountries(res.data.data)
+        })
+        axiosInstance.get(`/industries`).then((res)=>{
+            setIndustries(res.data.data)
+        })
+    }, [])
+
+    const [documentFiles, setDocumentFiles] = useState<File[]>([]);
+    
+
+    const [files, setFiles] = useState<File[]>([]);
+
+    const [errors, setErrors] = useState<{
+        first_name: string;
+        email: string;
+        password: string;
+        mobile: string;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+image: any;
+        status: string;
+        // General Data
+        hiring_title: string;
+        country_id: string;
+        city_id: string;
+        company_size: string;
+        founded_year: string;
+        about: string;
+        // Pdf
+        tax_card: string;
+        // Social Info
+        social_media: SocialMedia[];
+        // Industry
+        industries: string;
+    }>({
+          // Main Data
+          first_name: "",
+          email: "",
+          password: "",
+          mobile: "",
+          image:"",
+          status:'',
+          // General Data
+          hiring_title: "",
+          country_id: "",
+          city_id:"",
+          company_size:"",
+          founded_year:'',
+          about:"",
+          // Pdf
+          tax_card:"",
+  
+          // Social Info
+          social_media:[
+              {
+                  platform:"",
+                  url:""
+              }
+          ],
+          // Industry
+          industries:'',
+    });
+    const [loading, setLoading] = useState(false);
+   
+    const handleFilesChange = (newFiles: File[]) => {
+      setFiles(newFiles);
+    };
+
+        // To Change number of mobile
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const handleChangeNumber = (e: any) => {
+            const phoneNumberObj = parsePhoneNumberFromString(e);
+            if (data?.mobile && data?.mobile?.length > 4) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            setErrors((prevErrors: any) => ({
+                    ...prevErrors,
+                    mobile: phoneNumberObj?.isValid() ? '' : 'Please enter a valid phone number',
+                }));
+            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            setData((prevData: any) => ({
+                ...prevData,
+                mobile: phoneNumberObj?.number.slice(1) ?? '',
+            }));
+        };
+
+        const handleArrayChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+            const { value } = event.target;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const updatedSocialMedia = [...data.social_media];
+            updatedSocialMedia[index] = { ...updatedSocialMedia[index], url: value };
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            setData((prevData: any) => ({
+                ...prevData,
+                social_media: updatedSocialMedia,
+            }));
+        };
+    
+    useEffect(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setData((prevData:any) => ({
+        ...prevData,
+        image: files.length > 0 ? files[0] : '',
+      }));
+    }, [files]);
+
+    useEffect(() => {    
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setData((prevData:any) => ({
+        ...prevData,
+        tax_card: documentFiles[0] ? documentFiles[0] : '',
+      }));
+    }, [documentFiles]);
+
+
+    const handleSubmit = async() => {
+        setErrors({
+               // Main Data
+        first_name: "",
+        email: "",
+        password: "",
+        mobile: "",
+        image:"",
+        status:"",
+        // General Data
+        hiring_title: "",
+        country_id: "",
+        city_id:"",
+        company_size:"",
+        founded_year:'',
+        about:"",
+        // Pdf
+        tax_card:"",
+
+        // Social Info
+        social_media:[
+            {
+                platform:"",
+                url:""
+            }
+        ],
+        // Industry
+        industries:"",
+        })
+        try{
+            setLoading(true);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const newData = {...data, social_media: data?.social_media?.filter((sm:any) => sm?.url !== ''),status: data?.status ? 1 : 0};
+            let formData = new FormData();
+            
+            await editCompanyValidation.validate(data, { abortEarly: false });
+            if(typeof newData?.tax_card ==="string"){
+                delete newData?.tax_card;
+            }
+            if(typeof newData?.image ==="string"){
+                delete newData?.image;
+            }
+            formData = appendToFormData(formData, newData);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const NewArray = data?.social_media?.filter((sm:any) => sm?.url !== '');
+            if(NewArray&&NewArray?.length > 0){
+                formData = appendToFormData(formData, { social_media: NewArray });
+            }else{
+                formData.delete('social_media');
+            }
+            // formData.append('_method','PATCH') 
+            axiosInstance.post(`/company/update-profile`,formData).then((res)=>{
+                window.localStorage.setItem('user',JSON.stringify({type:'company',...res?.data?.data}))
+                toast.success('Edit Successfully',{id:'add-companies'});
+            }).catch((error)=> {
+                toast.error(error?.response?.data?.message,{id:'add-companies'})
+            })
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            }catch (err: any) {
+                if (err.inner) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const validationErrors: any = {};
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                err.inner.forEach((error: any) => {
+                    validationErrors[error.path] = error.message;
+                });
+                setErrors(validationErrors);
+            }
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(()=>{
+        if(company?.email){
+            const defaultPlatforms = [
+                { platform: "linkedin", url: "" },
+                { platform: "facebook", url: "" },
+                { platform: "snapchat", url: "" },
+                { platform: "youtube", url: "" },
+                { platform: "instagram", url: "" },
+                { platform: "website", url: "" },
+            ];
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const existingSocialMedia = company?.social_media?.map((sm: any) => ({
+                platform: sm.platform.toLowerCase(),
+                url: sm.url
+            })) || [];
+            
+            const filledSocialMedia = [
+                ...existingSocialMedia,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ...defaultPlatforms.filter(dp => !existingSocialMedia.some((sm:any) => sm.platform === dp.platform))
+            ];
+            setFiles([company?.image])
+            setDocumentFiles([company?.company_info?.tax_card])
+            setData({
+                first_name:company.name || "",
+                mobile:company.mobile || "",
+                status: company?.status|| 0,
+                email:company.email || "",
+                hiring_title:company.company_info.hiring_title || "",
+                founded_year:company.company_info.founded_year || "",
+                about:company.company_info.about || "",
+                city_id:company.company_info.city || "",
+                country_id:company.company_info.country || "",
+                company_size:company.company_info.company_size || "",
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                industry:company.industries?.map((i:any) => +(i.id)) || "",
+                social_media:filledSocialMedia
+            })
+        }
+    },[company])
+    
+    useEffect(() => {
+        if (data?.country_id) {
+            axiosInstance.get(`/get-cities-by-country-id/${data?.country_id}`).then((res) => {
+                setCities(res.data.data)
+            })
+        }
+    }, [data?.country_id])
+    const handleDocumentFilesChange = (newFiles: File[]) => {
+        setDocumentFiles(newFiles);
+    }; 
+    return {
+        data,cities,countries,
+        errors,handleDocumentFilesChange,
+        setData,industries,handleInputChange,
+        handleSubmit,handleChangeNumber,handleArrayChange,
+        loading,handleFilesChange,files,documentFiles
+    };
+}

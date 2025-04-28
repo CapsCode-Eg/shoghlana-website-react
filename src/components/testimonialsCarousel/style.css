@@ -1,0 +1,13 @@
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+  }
+  
+  .scrollbar-body{
+    width: clamp(350px,48.4rem,1468px);
+    height: 128px;
+  }

@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-main: #0357D9;
+  --color-text:#405678;
+  --breakpoint-xs: 375px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1440px;
+  --breakpoint-3xl: 1920px;
+  --breakpoint-4xl: 2360px;
+}
+
+@font-face {
+    font-family: "Geist";
+    src: url("/node_modules/geist/font/GeistVariable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+  }
+  
+  body {
+    font-family: "Geist", sans-serif;
+  }
+  
+.no-scroll{
+    overflow: hidden;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+}
+
+.scrollbar-body{
+  width: clamp(350px,48.4rem,1468px);
+  height: 128px;
+}
