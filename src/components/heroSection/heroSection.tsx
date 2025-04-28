@@ -1,4 +1,3 @@
-import React from 'react'
 import Background from '../background/background'
 import HomePageSearch from '../homePageSearch/homePageSearch'
 

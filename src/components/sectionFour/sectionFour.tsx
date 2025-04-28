@@ -1,4 +1,3 @@
-import React from 'react'
 import { TestimonialsCorouse } from '../testimonialsCarousel/testimonialsCarouse'
 
 export default function SectionFour() {

@@ -1,4 +1,3 @@
-import React from 'react'
 import ParallaxImage from '../paralleixImages/paralleixImage'
 
 export default function SectionTwo() {

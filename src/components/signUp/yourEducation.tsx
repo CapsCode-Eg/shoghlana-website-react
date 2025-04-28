@@ -1,4 +1,3 @@
-import React from 'react'
 import CustomSelectMenu from '../customeSelectMenu/customSelectMenu'
 import InputAndLabel from '../input/inputAndLabel'
 
