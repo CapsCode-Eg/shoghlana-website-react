@@ -59,14 +59,8 @@ export default function ProfileButton() {
             {isOpen && (
                 <div className="absolute z-[100] start-[-30%] lg:-start-2 mt-2 w-56 bg-white rounded-md shadow-lg">
                     <ul className="py-1">
-                        <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                            <div className="ml-3 flex-1">
-                                <p className="font-bold">Fathy Tamer</p>
-                                <p className="text-sm text-gray-500">Fathytameruix@gmail.com</p>
-                            </div>
-                        </li>
                         <li>
-                            <Link to="/profile" onClick={() => setIsOpen(false)} className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            <Link to={userData?.type === 'company' ? "/company_profile" : "/profile"} onClick={() => setIsOpen(false)} className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
                                 View Profile
                             </Link>
                         </li>

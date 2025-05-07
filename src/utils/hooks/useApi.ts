@@ -41,7 +41,7 @@ export function useApi<T>({ toast_message,withOutToast = false, endPoint, naviga
             // await axiosInstance.get("/sanctum/csrf-cookie");
             const response = await axiosInstance({
                 method,
-                url: `/api/${endPoint}`,
+                url: `/${endPoint}`,
                 data: payload,
             });
             setData(response);

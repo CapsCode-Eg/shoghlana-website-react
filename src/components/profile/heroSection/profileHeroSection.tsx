@@ -3,8 +3,9 @@ import { Link } from "react-router";
 import useCopyToClipboard from "../../../utils/hooks/useCopyHook";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function ProfileHeroSection({ userData, isCompany }: { isCompany?: boolean, userData?: any }) {
+export default function ProfileHeroSection({ userData, isCompany, cities, countries }: { cities?: any, countries?: any, isCompany?: boolean, userData?: any }) {
     const copyToClipboard = useCopyToClipboard();
+    console.log(cities)
     return (
         <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] pb-8 flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
             <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">
@@ -38,7 +39,7 @@ export default function ProfileHeroSection({ userData, isCompany }: { isCompany?
                     isCompany ?
                         <div className='flex flex-col gap-1 -mt-1'>
                             <span className='text-[#4D6182] text-[14px] mt-1 font-[500] max-w-[400px] line-clamp-2'>{userData?.company_info?.about}</span>
-                            <p className="text-[#4D6182] text-[13px] font-[400] mt-1">{`${userData?.company_info?.city}`}, {`${userData?.company_info?.country}`}</p>
+                            <p className="text-[#4D6182] text-[13px] font-[400] mt-1">{`${cities?.find((city: any) => city.id === userData?.company_info?.city)?.name}`}, {`${countries?.find((country: any) => country.id === userData?.company_info?.country)?.name}`}</p>
                             <span className='text-[#4D6182] text-[13px] font-[400]'>{company_size[userData?.company_info?.company_size]}</span>
                             <div className='flex flex-row divide-x-2 divide-[#4D6182]/20 space-x-2 -ms-2'>
                                 {

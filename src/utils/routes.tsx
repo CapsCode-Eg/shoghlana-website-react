@@ -22,6 +22,7 @@ import ExperiencePage from "../pages/setting/experience/page";
 import GeneralInfo from "../pages/setting/general-info/page";
 import SocialMedia from "../pages/setting/online-presence/page";
 import PublicProfile from "../pages/setting/public-profile/page";
+import PostJob from "../pages/company_profile/post_job/post_job";
 
 export const router = createBrowserRouter([
     {
@@ -107,5 +108,9 @@ export const router = createBrowserRouter([
     {
         path: '/setting/public-profile',
         element: <PublicProfile />
+    },
+    {
+        path: '/post_job/:func?/:id?',
+        element: <PostJob />
     }
 ]);
