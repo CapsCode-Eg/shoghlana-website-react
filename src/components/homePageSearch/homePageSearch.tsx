@@ -22,9 +22,9 @@ export default function HomePageSearch() {
                 <div className='w-[100%] lg:w-[39%] xl:w-[28.5%]'>
                     <CustomSelectMenu placeholder='Find Location (e.g. inside Egypt)' icon={
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_3_4685)">
-                                <path d="M21 9.99951C21 16.9995 12 22.9995 12 22.9995C12 22.9995 3 16.9995 3 9.99951C3 7.61256 3.94821 5.32338 5.63604 3.63555C7.32387 1.94772 9.61305 0.999512 12 0.999512C14.3869 0.999512 16.6761 1.94772 18.364 3.63555C20.0518 5.32338 21 7.61256 21 9.99951Z" stroke="#464646" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M12 12.9995C13.6569 12.9995 15 11.6564 15 9.99951C15 8.34266 13.6569 6.99951 12 6.99951C10.3431 6.99951 9 8.34266 9 9.99951C9 11.6564 10.3431 12.9995 12 12.9995Z" stroke="#464646" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <g clipPath="url(#clip0_3_4685)">
+                                <path d="M21 9.99951C21 16.9995 12 22.9995 12 22.9995C12 22.9995 3 16.9995 3 9.99951C3 7.61256 3.94821 5.32338 5.63604 3.63555C7.32387 1.94772 9.61305 0.999512 12 0.999512C14.3869 0.999512 16.6761 1.94772 18.364 3.63555C20.0518 5.32338 21 7.61256 21 9.99951Z" stroke="#464646" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M12 12.9995C13.6569 12.9995 15 11.6564 15 9.99951C15 8.34266 13.6569 6.99951 12 6.99951C10.3431 6.99951 9 8.34266 9 9.99951C9 11.6564 10.3431 12.9995 12 12.9995Z" stroke="#464646" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </g>
                             <defs>
                                 <clipPath id="clip0_3_4685">

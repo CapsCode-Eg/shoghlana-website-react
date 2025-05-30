@@ -1,51 +1,11 @@
 
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import InputAndLabel from "../../../components/input/inputAndLabel";
-import { Link, useNavigate } from "react-router";
-import { useState } from "react";
-import { userSchema } from "./validation/userSchema";
+import { Link } from "react-router";
+import { useCompanySignUp } from "./hooks/useCompanySignUp";
 
-export default function SignUp() {
-    const [data, setData] = useState<{
-        email?: string,
-        first_name?: string,
-        last_name?: string,
-        password?: string,
-        terms_and_conditions?: boolean | null
-    }>({
-        email: '',
-        first_name: '',
-        last_name: '',
-        password: '',
-        terms_and_conditions: null,
-    })
-    const [errors, setErrors] = useState<{
-        email?: string,
-        first_name?: string,
-        last_name?: string,
-        password?: string,
-        terms_and_conditions?: string
-    }>({})
-    const navigate = useNavigate()
-    const handleSubmit = async () => {
-        try {
-            await userSchema.validate(data, { abortEarly: false });
-            localStorage.setItem('signUpData', JSON.stringify(data))
-            navigate('/signup-intro')
-        } catch (err: any) {
-            // For Validation
-            if (err.inner) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const validationErrors: any = {};
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                err.inner.forEach((error: any) => {
-                    validationErrors[error.path] = error.message;
-                });
-                setErrors(validationErrors);
-            }
-            return null;
-        }
-    }
+export default function CompanySignUp() {
+    const { handleLogin, errors, data, setData, loading } = useCompanySignUp();
     return (
         <div
             className="w-full min-h-screen flex px-30 items-center justify-center bg-cover bg-center"
@@ -60,10 +20,12 @@ export default function SignUp() {
                     <form className="space-y-4 flex flex-col items-center max-w-[385px]">
                         <InputAndLabel name='email' setData={setData} error={errors?.email} type="email" value={data.email || ""} isLogin label="Email" placeholder="Shoghlana@email.com" />
                         <div className="grid grid-cols-2 gap-4">
-                            <InputAndLabel name='first_name' setData={setData} error={errors?.first_name} type="text" value={data.first_name || ""} isLogin label="First Name" placeholder="Ahmed" />
-                            <InputAndLabel name='last_name' setData={setData} error={errors?.last_name} type="text" value={data.last_name || ""} isLogin label="Last Name" placeholder="Mohamed" />
+                            <InputAndLabel name='first_name' setData={setData} error={errors?.first_name} type="email" value={data.first_name || ""} isLogin label="First Name" placeholder="Shoghlana" />
+                            <InputAndLabel name='last_name' setData={setData} error={errors?.last_name} type="email" value={data.last_name || ""} isLogin label="Last name" placeholder="Academy" />
                         </div>
+                        <InputAndLabel name='mobile' setData={setData} error={errors?.mobile} type="number" value={data.mobile || ""} isLogin label="Company Mobile" placeholder="201******" />
                         <InputAndLabel see name='password' setData={setData} error={errors?.password} type="password" value={data.password || ""} isLogin label="Password" placeholder="Password" />
+                        <InputAndLabel name='hiring_title' setData={setData} error={errors?.hiring_title} type="text" value={data.hiring_title || ""} isLogin label="Hiring title" placeholder="Softoware Engineer" />
 
                         <div className="flex flex-col  w-[349px] items-start gap-1">
                             <div className="flex items-start gap-5">
@@ -75,18 +37,22 @@ export default function SignUp() {
                             <span className="text-[#FF0000] text-[12px]">{errors?.terms_and_conditions}</span>
                         </div>
 
-
                         <button
-                            type="button"
-                            onClick={handleSubmit}
-                            className="w-[393px] bg-[#0055D9] text-white py-2 rounded-lg text-md font-medium hover:bg-blue-700 transition">
-                            <span className="text-white font-medium">Start Now</span>
+                            type='button'
+                            title='Submit'
+                            onClick={handleLogin} disabled={loading} className="w-full md:w-[440.61px] bg-main text-white py-3 rounded-lg text-[15.7px] font-medium mb-6">
+                            {loading &&
+                                <span className="flex w-full items-center justify-center h-full">
+                                    <div className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                                </span>
+                            }
+                            {!loading && "Sign In"}
                         </button>
                     </form>
 
                     <div className="text-center font-medium text-[14px] mt-3 mb-5">
                         <p className="text-black">
-                            Already on Shoghlana? <Link to="/login" className="text-[#0055D9] font-medium">Log in</Link>
+                            Already have an account with Shoghlana? <Link to="/login-as-company" className="text-[#0055D9] font-medium">Log in</Link>
                         </p>
                     </div>
 

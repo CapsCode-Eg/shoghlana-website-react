@@ -1,8 +1,11 @@
 import { Link } from "react-router";
 import InputAndLabel from "../../../components/input/inputAndLabel";
+import { useLogin } from "../login/hooks/useLogin";
 
 
 export default function LoginAsCompany() {
+    const { handleLogin, errors, data, setData, loading } = useLogin();
+
     return (
         <div
             className="w-full min-h-screen flex overflow-hidden px-30 bg-cover bg-center"
@@ -13,10 +16,13 @@ export default function LoginAsCompany() {
                     <h1 className=" text-[#202020] w-[340px] text-[40.36px] p-0 ms-2 md:ms-0 md:p-8 font-bold">Log in, buddy!</h1>
 
                     <form className="space-y-4 px-0 md:px-10">
-                        <InputAndLabel isLogin label="Email" placeholder="Shoghlana@email.com" />
-                        <InputAndLabel isLogin label="Password" placeholder="Password" see={true} />
+                        <InputAndLabel name='email' setData={setData} error={errors?.email} type="email" value={data.email || ""} isLogin label="Email" placeholder="Shoghlana@email.com" />
+                        <InputAndLabel see name='password' setData={setData} error={errors?.password} type="password" value={data.password || ""} isLogin label="Password" placeholder="Password" />
 
-                        <button className="w-full md:w-[440.61px] bg-main text-white py-3 rounded-lg text-[15.7px] font-medium mb-6">
+                        <button
+                            type='button'
+                            title='Submit'
+                            onClick={handleLogin} disabled={loading} className="w-full md:w-[440.61px] bg-main text-white py-3 rounded-lg text-[15.7px] font-medium mb-6">
                             Sign In
                         </button>
                     </form>
@@ -27,8 +33,8 @@ export default function LoginAsCompany() {
 
                     <div className="border border-[#DCDBDD] w-[385px] mx-14"></div>
 
-                    <div className="text-center mt-3 text-[#202020] text-[15.7px] mb-16">
-                        New user to Shoghlana? <Link to="/signup" className="text-[#0055D9] text-[15.7px]">Create an account</Link>
+                    <div className="text-center mt-3 text-[#202020] text-[15.7px] mb-16 max-w-[75%] mx-auto">
+                        New Company to Shoghlana? <Link to="/signup-as-company" className="text-[#0055D9] text-[15.7px]">Start your account as company</Link>
                     </div>
 
                     <p className="text-xs text-[#84818A] text-13.45px mt-6 text-center mb-10">

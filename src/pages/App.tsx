@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Footer from "../components/footer/footer";
 import HeroSection from "../components/heroSection/heroSection";
 import Navbar from "../components/navbar/navbar";
@@ -6,11 +7,17 @@ import SectionFour from "../components/sectionFour/sectionFour";
 import SectionSix from "../components/sectionSix/sectionSix";
 import SectionThree from "../components/sectionThree/sectionThree";
 import SectionTwo from "../components/sectionTwo/SectionTwo";
+import NavbarTwo from "../components/common/navbarTwo/navbarTwo";
 
 export default function Home() {
+    // @ts-ignore
+    const [data, setData] = useState<any>({});
+    useEffect(() => {
+        setData(JSON.parse(localStorage.getItem('user') || '{}'))
+    }, [])
     return (
         <div className="relative overflow-hidden ">
-            <Navbar />
+            {data?.first_name ? <NavbarTwo /> : <Navbar />}
             <HeroSection />
             <SectionTwo />
             <SectionThree />

@@ -23,6 +23,7 @@ import GeneralInfo from "../pages/setting/general-info/page";
 import SocialMedia from "../pages/setting/online-presence/page";
 import PublicProfile from "../pages/setting/public-profile/page";
 import PostJob from "../pages/company_profile/post_job/post_job";
+import CompanySignUp from "../pages/auth/company_signUp/companySignUp";
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
     {
         path: '/signup',
         element: <SignUp />
+    },
+    {
+        path: '/signup-as-company',
+        element: <CompanySignUp />
     },
     {
         path: '/signup-intro',

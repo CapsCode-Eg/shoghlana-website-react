@@ -33,7 +33,7 @@ export default function ProgressBar({ currentStep }: { currentStep: number }) {
                                     {
                                         index < currentStep && (
                                             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_3_11947)">
+                                                <g clipPath="url(#clip0_3_11947)">
                                                     <path d="M6.50009 10.9186L4.18676 8.60522C3.92676 8.34522 3.50676 8.34522 3.24676 8.60522C2.98676 8.86522 2.98676 9.28522 3.24676 9.54522L6.03342 12.3319C6.29342 12.5919 6.71342 12.5919 6.97342 12.3319L14.0268 5.27855C14.2868 5.01855 14.2868 4.59855 14.0268 4.33855C13.7668 4.07855 13.3468 4.07855 13.0868 4.33855L6.50009 10.9186Z" fill="white" />
                                                 </g>
                                                 <defs>

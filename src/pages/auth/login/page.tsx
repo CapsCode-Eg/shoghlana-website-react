@@ -30,10 +30,10 @@ export default function Login() {
                             {!loading && "Sign In"}
                         </button>
                     </div>
-
+                    {/* 
                     <div className="text-center my-4">
                         <a href="#" className="text-[#0055D9] text-[15.7px]">Forgot Password?</a>
-                    </div>
+                    </div> */}
 
                     <div className="border border-[#DCDBDD] w-[385px] mx-14"></div>
 

@@ -36,7 +36,7 @@ export default function Navbar() {
                     <Logo />
                 </div>
                 <div className="text-[15px]  font-[600] text-text hidden md:flex flex-row">
-                    <Link to='/company' className="flex flex-row items-center me-[28px] hover:scale-105 duration-300">
+                    <Link to='/login-as-company' className="flex flex-row items-center me-[28px] hover:scale-105 duration-300">
                         <img width={17} height={15} src="/bag.svg" alt="bag" className="me-2" />
                         <span>Post Job</span>
                     </Link>
@@ -61,7 +61,7 @@ export default function Navbar() {
                     >
                         <img width={150} height={150} src={'/assets/logoBlue.png'} alt='background' className='object-cover' />
                         <div className="mt-[30px] border-t-[1px] border-dashed flex flex-col w-full divide-y-[1px] gap-6 text-[20px] font-bold  pt-[30px]">
-                            <Link to="login" className="text-[18px] text-text px-[12px]">Post Job</Link>
+                            <Link to="/login-as-company" className="text-[18px] text-text px-[12px]">Post Job</Link>
                             <Link to="login" className="text-[18px] text-text px-[12px] pt-6">Log In</Link>
                             <Link to="login" className="text-[18px] text-text px-[12px] pt-6">Sign Up</Link>
                         </div>

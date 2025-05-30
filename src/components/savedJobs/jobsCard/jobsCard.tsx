@@ -61,7 +61,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
                 {
                     isDone && !isAccepted && <span className='flex flex-row gap-2 items-center justify-center text-[#E41216] text-[12px] font-[400] bg-[#E41216]/[14%] px-2 py-1 w-[90px] h-[40px] rounded-[4px]'>
                         <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.23242 5.48071L14.062 13.3103M6.23242 13.3103L14.062 5.48071" stroke="#E41216" stroke-width="1.9574" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M6.23242 5.48071L14.062 13.3103M6.23242 13.3103L14.062 5.48071" stroke="#E41216" strokeWidth="1.9574" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         Rejected
                     </span>

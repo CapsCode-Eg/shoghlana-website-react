@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import axiosInstance from '../../../../utils/axiosInstance';
 import { Link } from 'react-router';
+import Logo from '../../../logo/logo';
 
 export default function ProfileButton() {
     const [isOpen, setIsOpen] = useState(false);
@@ -43,13 +44,14 @@ export default function ProfileButton() {
                 className="flex items-center cursor-pointer"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <img
+                {userData?.image ? <img
                     src={userData?.image ? userData?.image : ''}
                     alt="Profile"
                     width={40}
                     height={40}
                     className="rounded-full w-[44px] h-[44px] object-cover flex-1 flex-shrink-0"
-                />
+                /> :
+                    <Logo isDisabled={true} />}
                 <div className="ml-3 flex-1 hidden lg:block">
                     <p className="font-bold">{userData?.name || userData?.first_name || 'Loading...'}</p>
                     <p className="text-sm text-gray-500">{userData?.email || 'Loading...'}</p>
