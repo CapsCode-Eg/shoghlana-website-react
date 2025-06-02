@@ -56,7 +56,6 @@ export default function CompanyProfile() {
             toast.error("Something went wrong")
         })
     }
-    console.log(data)
     return (
         <div className='flex flex-col max-w-screen min-h-screen overflow-hidden pb-4'>
             <NavbarTwo />

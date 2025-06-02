@@ -9,6 +9,7 @@ type InputAndLabelProps = {
     placeholder?: string;
     icon?: React.ReactNode;
     see?: boolean;
+    normalChange?: boolean;
     isLogin?: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setData?: React.Dispatch<React.SetStateAction<any>>;
@@ -25,6 +26,7 @@ export default function InputAndLabel({
     setData,
     see = false,
     type,
+    normalChange = false,
     ...props
 }: InputAndLabelProps) {
     const [visible, setVisible] = useState(true);
@@ -63,7 +65,7 @@ export default function InputAndLabel({
                     placeholder={placeholder}
                     id={label}
                     {...props}
-                    onChange={handleOnChange}
+                    onChange={!normalChange ? handleOnChange : props.onChange}
                     type={typeInput || type}
                     className={`${icon ? 'px-12' : ''
                         }

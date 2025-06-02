@@ -1,12 +1,20 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { File as FileIcon } from 'lucide-react';
 
-export function DocumentUpload({ setFile }: {
-    setFile?: (file: File) => void
+export function DocumentUpload({ setFile, file }: {
+    setFile?: (file: File) => void,
+    file?: File | null
 }) {
     const [fileName, setFileName] = useState<string | null>(null);
     const [, setIsDragging] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (file) {
+            console.log(file)
+            setFileName(file.name);
+        }
+    }, [file]);
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();

@@ -1,9 +1,10 @@
 
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import InputAndLabel from "../../../components/input/inputAndLabel";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useState } from "react";
 import { userSchema } from "./validation/userSchema";
+import { HttpMethod, useApi } from "../../../utils/hooks/useApi";
 
 export default function SignUp() {
     const [data, setData] = useState<{
@@ -19,33 +20,16 @@ export default function SignUp() {
         password: '',
         terms_and_conditions: null,
     })
-    const [errors, setErrors] = useState<{
-        email?: string,
-        first_name?: string,
-        last_name?: string,
-        password?: string,
-        terms_and_conditions?: string
-    }>({})
-    const navigate = useNavigate()
-    const handleSubmit = async () => {
-        try {
-            await userSchema.validate(data, { abortEarly: false });
-            localStorage.setItem('signUpData', JSON.stringify(data))
-            navigate('/signup-intro')
-        } catch (err: any) {
-            // For Validation
-            if (err.inner) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const validationErrors: any = {};
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                err.inner.forEach((error: any) => {
-                    validationErrors[error.path] = error.message;
-                });
-                setErrors(validationErrors);
-            }
-            return null;
-        }
-    }
+
+    const { fetchData, errors, loading } = useApi({
+        endPoint: "user/register",
+        method: HttpMethod.POST,
+        payload: data,
+        toast_message: 'Sign up Successfully',
+        validation: userSchema,
+        navigateTo: '/signup-intro'
+    })
+
     return (
         <div
             className="w-full min-h-screen flex px-30 items-center justify-center bg-cover bg-center"
@@ -78,9 +62,15 @@ export default function SignUp() {
 
                         <button
                             type="button"
-                            onClick={handleSubmit}
+                            onClick={fetchData}
+                            disabled={loading}
                             className="w-[393px] bg-[#0055D9] text-white py-2 rounded-lg text-md font-medium hover:bg-blue-700 transition">
-                            <span className="text-white font-medium">Start Now</span>
+                            {loading &&
+                                <span className="flex w-full items-center justify-center h-full">
+                                    <div className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                                </span>
+                            }
+                            {!loading && <span className="text-white font-medium">Start Now</span>}
                         </button>
                     </form>
 

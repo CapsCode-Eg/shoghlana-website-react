@@ -13,7 +13,9 @@ export default function Home() {
     // @ts-ignore
     const [data, setData] = useState<any>({});
     useEffect(() => {
-        setData(JSON.parse(localStorage.getItem('user') || '{}'))
+        if (localStorage.getItem('user')) {
+            setData(localStorage.getItem('user') || JSON.parse(localStorage.getItem('user') || '{}'))
+        }
     }, [])
     return (
         <div className="relative overflow-hidden ">
