@@ -130,8 +130,7 @@ export function useSignUpIntro() {
     
         const currentYear = new Date().getFullYear();
         const startYear = 1990;
-        const years = [];
-    
+        const years: { label: string; value: number; }[] = [];
         for (let year = currentYear; year >= startYear; year--) {
             years.push({ label: year.toString(), value: year });
         }

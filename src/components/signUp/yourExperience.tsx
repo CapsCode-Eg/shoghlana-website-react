@@ -1,15 +1,9 @@
-import { useState } from 'react'
 import CustomSelectMenu from '../customeSelectMenu/customSelectMenu'
 import InputAndLabel from '../input/inputAndLabel'
 import { DocumentUpload } from './uploadCv'
 
 export default function YourExperience({ handleNext, handleBack, setData, years, job_category, formData, errors }: { errors: any, formData: any, job_category: any, years: any, setData: React.Dispatch<React.SetStateAction<any>>, handleNext: () => void, handleBack: () => void }) {
-
-
-
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const handleFileUpload = (file: File) => {
-        setSelectedFile(file);
         setData((prev) => ({ ...prev, cv: file }))
         console.log('Uploaded file:', file);
     };
