@@ -10,7 +10,6 @@ import SectionTwo from "../components/sectionTwo/SectionTwo";
 import NavbarTwo from "../components/common/navbarTwo/navbarTwo";
 
 export default function Home() {
-    // @ts-ignore
     const [data, setData] = useState<any>('');
     useEffect(() => {
         if (localStorage.getItem('token')) {
