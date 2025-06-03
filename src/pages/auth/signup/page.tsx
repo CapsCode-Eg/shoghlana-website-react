@@ -27,12 +27,12 @@ export default function SignUp() {
         payload: data,
         toast_message: 'Sign up Successfully',
         validation: userSchema,
-        navigateTo: '/signup-intro'
+        navigateTo: '/login'
     })
 
     return (
         <div
-            className="w-full min-h-screen flex px-30 items-center justify-center bg-cover bg-center"
+            className="w-full min-h-screen flex sm:px-30 items-center justify-center bg-cover bg-center"
             style={{ backgroundImage: "url('/assets/front-view-office-desk-with-laptop-chair 1.png')" }}
         >
             <div className="w-full flex flex-col xl:flex-row items-center justify-center">

@@ -39,12 +39,7 @@ export const SingUpAsUser = Yup.object().shape({
   min_salary: Yup.number().min(0).required('Minimum salary is required'),
   hide_salary: Yup.number().oneOf([0, 1]).required(),
 
-  languages: Yup.array().of(
-    Yup.object().shape({
-      language: Yup.string().required('Language is required'),
-      level: Yup.number().min(1).max(5).required('Language level is required'),
-    })
-  ).required().length(1, 'At least one language is required'),
+  languages: Yup.array().required(),
 
   skills: Yup.array()
     .of(Yup.number().required('Skill ID must be a number'))

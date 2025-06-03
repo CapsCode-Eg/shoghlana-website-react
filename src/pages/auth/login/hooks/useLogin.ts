@@ -35,7 +35,11 @@ export function useLogin() {
             if(res?.data?.user?.type === 'company'){
                 navigate('/company_profile')
             }else{
-                navigate('/explore')
+                if(res?.data?.user?.register_status == 1){
+                    navigate('/signup-intro')
+                }else{
+                    navigate('/')
+                }
             }
         }
     }

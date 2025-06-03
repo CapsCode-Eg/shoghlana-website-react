@@ -103,8 +103,12 @@ export function useSignUpIntro() {
             payload: formData,
             toast_message: 'Signup Successfully',
             validation: SingUpAsUser,
+            navigateTo:'/login',
+            withFormData: true
         })
-    
+        useEffect(()=>{
+            setFormData((prev) => ({ ...prev, languages: formData.languages.filter((lang) => lang.language !== "") }));
+        },[step])
         useEffect(() => {
             axiosInstance.get(`/country`).then((res) => {
                 setCountries(res.data.data)

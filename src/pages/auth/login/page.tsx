@@ -7,7 +7,7 @@ export default function Login() {
     const { handleLogin, errors, data, setData, loading } = useLogin();
     return (
         <div
-            className="w-full min-h-screen flex overflow-hidden px-30 bg-cover bg-center"
+            className="w-full min-h-screen flex overflow-hidden sm:px-30 bg-cover bg-center"
             style={{ backgroundImage: "url('/assets/front-view-office-desk-with-laptop-chair 1.png')" }}
         >
             <div className="w-full flex flex-col xl:flex-row items-center justify-center xl:justify-between gap-10">

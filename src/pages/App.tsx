@@ -11,15 +11,16 @@ import NavbarTwo from "../components/common/navbarTwo/navbarTwo";
 
 export default function Home() {
     // @ts-ignore
-    const [data, setData] = useState<any>({});
+    const [data, setData] = useState<any>('');
     useEffect(() => {
-        if (localStorage.getItem('user')) {
-            setData(localStorage.getItem('user') || JSON.parse(localStorage.getItem('user') || '{}'))
+        if (localStorage.getItem('token')) {
+            setData(localStorage.getItem('token') || JSON.parse(localStorage.getItem('token') || ''))
         }
     }, [])
+    console.log(data)
     return (
         <div className="relative overflow-hidden ">
-            {data?.first_name ? <NavbarTwo /> : <Navbar />}
+            {data ? <NavbarTwo /> : <Navbar />}
             <HeroSection />
             <SectionTwo />
             <SectionThree />

@@ -4,6 +4,7 @@ import axiosInstance from "../axiosInstance";
 import { toast } from "sonner";
 import { flattenObject } from "../functions/flattenObject";
 import { useNavigate } from "react-router";
+import { appendToFormData } from "../functions/formData";
 
 export enum HttpMethod {
     GET = "get",
@@ -21,10 +22,11 @@ interface Props {
     validation?: yup.Schema;
     navigateTo?: string
     withOutToast?: boolean
-    toast_message?: string
+    toast_message?: string,
+    withFormData?: boolean
 }
 
-export function useApi<T>({ toast_message,withOutToast = false, endPoint, navigateTo, method = HttpMethod.GET, validation, payload }: Props) {
+export function useApi<T>({ toast_message,withOutToast = false, endPoint, navigateTo, method = HttpMethod.GET, validation, payload ,withFormData=false }: Props) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [payLoad, setData] = useState<T | null | any>(null);
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -39,10 +41,13 @@ export function useApi<T>({ toast_message,withOutToast = false, endPoint, naviga
         try {
             if (validation) await validation.validate(payload, { abortEarly: false });
             // await axiosInstance.get("/sanctum/csrf-cookie");
+            let formData = new FormData();
+            formData = appendToFormData(formData, payload)
+            console.log('Is FormData:', payload instanceof FormData);
             const response = await axiosInstance({
                 method,
                 url: `/${endPoint}`,
-                data: payload,
+                data: withFormData ? formData : payload,
             });
             setData(response);
             // eslint-disable-next-line  @typescript-eslint/no-unused-expressions
