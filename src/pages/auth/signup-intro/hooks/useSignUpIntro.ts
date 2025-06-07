@@ -103,7 +103,7 @@ export function useSignUpIntro() {
             payload: formData,
             toast_message: 'Signup Successfully',
             validation: SingUpAsUser,
-            navigateTo:'/login',
+            navigateTo:'/profile',
             withFormData: true
         })
         useEffect(()=>{

@@ -50,7 +50,10 @@ export default function CareerInteresting({ handleBack, setData, handleSubmit, f
             </div>
             <div className='flex flex-row items-center w-full justify-end sm:justify-center gap-4 mt-12 mb-4 pe-10 sm:pe-0'>
                 <button type='button' onClick={handleBack} className='w-[130px] sm:w-[249px] h-[45px] rounded-[8px] flex flex-col items-center justify-center text-[20px] font-medium text-black border-[1px] border-[#D9D9D9]'>Back</button>
-                <button type='button' disabled={loading} onClick={handleSubmit} title='submit' className='w-[130px] sm:w-[249px] h-[45px] rounded-[8px] flex flex-col items-center justify-center text-[20px] font-medium text-white bg-main'>Submit</button>
+                <button type='button' disabled={loading} onClick={() => {
+                    handleSubmit();
+                    console.log('submitted');
+                }} title='submit' className='w-[130px] sm:w-[249px] h-[45px] rounded-[8px] flex flex-col items-center justify-center text-[20px] font-medium text-white bg-main'>Submit</button>
             </div>
         </div>
     )

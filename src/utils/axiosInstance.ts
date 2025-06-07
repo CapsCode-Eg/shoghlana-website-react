@@ -26,8 +26,8 @@ axiosInstance.interceptors.response.use(
       error.response.status === 401 
       // error.response.data.message === "You are not authenticated"
     ) {
-          window.localStorage.clear();
-          window.location.replace("/");
+          // window.localStorage.clear();
+          // window.location.replace("/");
     } 
     return Promise.reject(error);
   }

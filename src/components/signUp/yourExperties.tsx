@@ -20,7 +20,6 @@ export default function YourExperties({ handleNext, handleBack, setData, skills,
         { id: 4, name: "fluent" },
         { id: 5, name: "native" }
     ];
-    console.log(formData)
     useEffect(() => {
         console.log('languages', formData?.languages)
         if (formData?.languages?.length > 1) {

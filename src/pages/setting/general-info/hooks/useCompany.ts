@@ -35,7 +35,7 @@ export function useCompany() {
     })
 
     useEffect(() => {
-        fetchData()
+        if(JSON.parse(localStorage.getItem('user') || '{}').type === 'company') fetchData()
     }, [])
 
     useEffect(() => {
