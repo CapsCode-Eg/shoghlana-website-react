@@ -11,7 +11,6 @@ import { useSignUpIntro } from "./hooks/useSignUpIntro";
 
 export default function SignUpIntro() {
     const { step, handleNext, handleBack, countries, nationalties, skills, cities, job_category, formData, setFormData, years, errors, loading, fetchData } = useSignUpIntro();
-    console.log(errors)
     return (
         <div className="flex flex-col min-h-screen overflow-x-hidden">
             <div className="flex flex-row justify-center items-center h-[91px] w-screen">

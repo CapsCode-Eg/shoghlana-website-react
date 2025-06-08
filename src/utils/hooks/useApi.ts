@@ -43,7 +43,6 @@ export function useApi<T>({ toast_message,withOutToast = false, endPoint, naviga
             // await axiosInstance.get("/sanctum/csrf-cookie");
             let formData = new FormData();
             formData = appendToFormData(formData, payload)
-            console.log('Is FormData:', payload instanceof FormData);
             const response = await axiosInstance({
                 method,
                 url: `/${endPoint}`,

@@ -1,10 +1,12 @@
 
 import { Link } from "react-router";
 import useCopyToClipboard from "../../../utils/hooks/useCopyHook";
+import { company_size, educationLevels } from "../../../utils/constant/profile";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ProfileHeroSection({ userData, isCompany, cities, countries }: { cities?: any, countries?: any, isCompany?: boolean, userData?: any }) {
     const copyToClipboard = useCopyToClipboard();
+    console.log('userData in ProfileHeroSection:', userData);
     return (
         <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] pb-8 flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
             <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">
@@ -51,12 +53,12 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
                         </div> :
                         <>
                             <p className="mt-3 text-[#7A7A7A] text-[10px]">
-                                <strong className='text-[#676565]'>Bachelor`s Degree</strong> in Computer Engineering
+                                <strong className='text-[#676565]'>{educationLevels.find((level: any) => level.id == userData?.education?.education_level)?.name}</strong> in {userData?.education?.field_of_study}
                                 <br />
-                                Modern Academy for Engineering and Technology (2015 - Jan 2023)
+                                {userData?.education?.university} ({userData?.education?.graduation_year})
                             </p>
                             <p className="mt-3  text-[#7A7A7A] text-[10px] max-w-[372px]">
-                                <strong className='text-[#676565]'>Skills and tools:</strong> Figma, Design, Software Engineering, Computer Engineering, UI/UX Design, Adobe Photoshop
+                                <strong className='text-[#676565]'>Skills and tools:</strong> {userData?.skills?.map((skill: any) => skill.name).join(', ')}
                             </p>
                         </>
                 }
@@ -88,10 +90,3 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
 };
 
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const company_size: any = {
-    0: 'Less than 10 employees',
-    1: '10-50 employees',
-    2: '50-200 employees',
-    3: 'More than 200 employees',
-}

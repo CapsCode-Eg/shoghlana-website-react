@@ -16,7 +16,6 @@ export default function Home() {
             setData(localStorage.getItem('token') || JSON.parse(localStorage.getItem('token') || ''))
         }
     }, [])
-    console.log(data)
     return (
         <div className="relative overflow-hidden ">
             {data ? <NavbarTwo /> : <Navbar />}
