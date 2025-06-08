@@ -3,7 +3,6 @@ import NavbarTwo from "../../../components/common/navbarTwo/navbarTwo";
 import Footer from "../../../components/footer/footer";
 import ProfileHeroSection from "../../../components/profile/heroSection/profileHeroSection";
 import PersonalInformation from "../../../components/profile/personalInformation/personalInformation";
-import PortfolioActivities from "../../../components/profile/portfolioActivities/portfolioActivities";
 import { HttpMethod, useApi } from "../../../utils/hooks/useApi";
 import axiosInstance from "../../../utils/axiosInstance";
 import { toast } from "sonner";
@@ -14,7 +13,10 @@ export default function Profile() {
     const [data, setData] = useState<any>({})
 
     useEffect(() => {
-        setData(JSON.parse(localStorage.getItem('user')))
+        const user = localStorage.getItem('user');
+        if (user !== null) {
+            setData(JSON.parse(user));
+        }
     }, [])
 
     const { fetchData, payLoad } = useApi({
@@ -57,7 +59,6 @@ export default function Profile() {
             <ProfileHeroSection userData={payLoad?.data?.data ? payLoad?.data?.data : data} isCompany={false} />
             <PersonalInformation jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data ? payLoad?.data?.data : data} deleteCV={deleteCV} />
             <SkillsAndExperience userData={payLoad?.data?.data ? payLoad?.data?.data : data} />
-            {/* <PortfolioActivities /> */}
             <Footer />
         </div>
     )
