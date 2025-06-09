@@ -1,30 +1,57 @@
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Layout from '../../../components/setting/layout';
 import InputAndLabel from '../../../components/input/inputAndLabel';
+import axiosInstance from '../../../utils/axiosInstance';
+import { toast } from 'sonner';
+import { changePasswordSchema } from './validation/passwordValidation';
 
 export default function PublicProfile() {
     const [formData, setFormData] = useState({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-        newEmail: '',
-        confirmEmail: '',
+        current_password: '',
+        password: '',
+        password_confirmation: '',
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
+    const [errors, setErrors] = useState<any>({});
 
-    const handleSaveChanges = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log('Saved Data:', formData);
-    };
+    const handleSaveChanges = async () => {
+        setErrors({});
+        try {
+            await changePasswordSchema.validate(formData, { abortEarly: false });
+            axiosInstance.post('/update-password', formData).then(() => {
+                setFormData({
+                    current_password: '',
+                    password: '',
+                    password_confirmation: '',
+                });
 
+                toast.success('Password changed successfully');
+                setTimeout(() => {
+                    localStorage.clear();
+                    window.location.href = '/';
+                }, 2000);
+            }).catch((err) => {
+                toast.error(err?.response?.data?.message || 'Something went wrong');
+            })
+        } catch (err: any) {
+            if (err.inner) {
+                const validationErrors: any = {};
+                err.inner.forEach((error: any) => {
+                    validationErrors[error.path] = error.message;
+                });
+                setErrors(validationErrors);
+            }
+        };
+    }
     const handleDeleteAccount = () => {
         if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-            console.log('Account deleted');
+            axiosInstance.post('/delete-account').then(() => {
+                window.localStorage.clear();
+                window.location.href = '/';
+            }).catch(() => {
+                toast.error('Failed to delete account');
+            })
         }
     };
 
@@ -34,25 +61,42 @@ export default function PublicProfile() {
                 {/* Public Profile Settings */}
                 <div>
                     <h2 className="text-lg font-bold mb-4">Public Profile Settings</h2>
-                    <form onSubmit={handleSaveChanges} className="space-y-4">
-                        {[
-                            { label: 'Current Password', name: 'currentPassword' },
-                            { label: 'New Password', name: 'newPassword' },
-                            { label: 'Confirm Password', name: 'confirmPassword' },
-                            { label: 'New Email', name: 'newEmail' },
-                            { label: 'Confirm Email', name: 'confirmEmail' },
-                        ].map(({ label, name }) => (
-                            <div key={name} className="flex flex-col xl:flex-row items-start xl:items-center space-x-4">
-                                <InputAndLabel label={label} placeholder={label} type={name === 'currentPassword' || name === 'confirmPassword' || name === 'newPassword' ? 'password' : 'text'} see={name === 'currentPassword' || name === 'confirmPassword' || name === 'newPassword' ? true : false} name={name} onChange={handleChange} />
-                            </div>
-                        ))}
+                    <div className="flex flex-col items-end gap-4 justify-end">
+                        <InputAndLabel
+                            label="Current Password"
+                            name="current_password"
+                            type="password"
+                            value={formData.current_password}
+                            setData={setFormData}
+                            error={errors.current_password}
+                            see
+                        />
+                        <InputAndLabel
+                            label="New Password"
+                            name="password"
+                            type="password"
+                            value={formData.password}
+                            setData={setFormData}
+                            error={errors.password}
+                            see
+                        />
+                        <InputAndLabel
+                            label="Confirm New Password"
+                            name="password_confirmation"
+                            type="password"
+                            value={formData.password_confirmation}
+                            setData={setFormData}
+                            error={errors.password_confirmation}
+                            see
+                        />
                         <button
-                            type="submit"
+                            type="button"
+                            onClick={handleSaveChanges}
                             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
                         >
                             Save Changes
                         </button>
-                    </form>
+                    </div>
                 </div>
 
                 {/* Delete Account */}

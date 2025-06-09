@@ -6,7 +6,6 @@ import { company_size, educationLevels } from "../../../utils/constant/profile";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ProfileHeroSection({ userData, isCompany, cities, countries }: { cities?: any, countries?: any, isCompany?: boolean, userData?: any }) {
     const copyToClipboard = useCopyToClipboard();
-    console.log('userData in ProfileHeroSection:', userData);
     return (
         <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] pb-8 flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
             <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">

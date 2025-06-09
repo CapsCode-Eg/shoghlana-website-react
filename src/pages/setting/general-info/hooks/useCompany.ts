@@ -5,6 +5,7 @@ import { HttpMethod, useApi } from "../../../../utils/hooks/useApi";
 import axiosInstance from "../../../../utils/axiosInstance";
 import { appendToFormData } from "../../../../utils/functions/formData";
 import { editCompanyValidation } from "../../../../utils/validation/companyValidation";
+import { userSchemaForProfile } from "../validation/userProfile";
 
 
 interface SocialMedia {
@@ -22,12 +23,11 @@ export interface SocialMediaTwo {
   
 
 export function useCompany() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [company,setCompany]=useState<any>({})
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [data, setData] = useState<any>({})
     const [countries,setCountries]=useState([])
     const [cities,setCities]=useState([])
+    const [nationalties, setNationalties] = useState([])
     const { fetchData, payLoad } = useApi({
         endPoint: 'company/profile',
         method: HttpMethod.GET,
@@ -35,9 +35,27 @@ export function useCompany() {
     })
 
     useEffect(() => {
-        if(JSON.parse(localStorage.getItem('user') || '{}').type === 'company') fetchData()
+        if(JSON.parse(localStorage.getItem('user') || '{}').type === 'company') {
+            fetchData()
+        }else{
+            axiosInstance.get('/user-profile').then((res) => {
+                console.log(res?.data?.data)
+                setData({
+                    first_name: res?.data?.data?.first_name,
+                    last_name: res?.data?.data?.last_name,
+                    job_title: res?.data?.data?.seeker?.job_title,
+                    birth_day: res?.data?.data?.seeker?.birth_day,
+                    gender: res?.data?.data?.seeker?.gender,
+                    mobile: res?.data?.data?.mobile,
+                    nationality_id: res?.data?.data?.seeker?.nationality_id,
+                    country_id: res?.data?.data?.seeker?.country_id,
+                    city_id: res?.data?.data?.seeker?.city_id,
+                    image: res?.data?.data?.image,
+                    type: res?.data?.data?.type
+                })
+            })
+        }
     }, [])
-
     useEffect(() => {
         if (payLoad?.data) {
             setCompany(payLoad?.data?.data)
@@ -61,6 +79,9 @@ export function useCompany() {
         axiosInstance.get(`/industries`).then((res)=>{
             setIndustries(res.data.data)
         })
+              axiosInstance.get('/nationalities').then((res) => {
+                        setNationalties(res.data.data)
+                    })
     }, [])
 
     const [documentFiles, setDocumentFiles] = useState<File[]>([]);
@@ -68,7 +89,7 @@ export function useCompany() {
 
     const [files, setFiles] = useState<File[]>([]);
 
-    const [errors, setErrors] = useState<{
+    const [errors, setErrors] = useState< any | {
         first_name: string;
         email: string;
         password: string;
@@ -227,12 +248,9 @@ image: any;
             }).catch((error)=> {
                 toast.error(error?.response?.data?.message,{id:'add-companies'})
             })
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             }catch (err: any) {
                 if (err.inner) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const validationErrors: any = {};
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 err.inner.forEach((error: any) => {
                     validationErrors[error.path] = error.message;
                 });
@@ -244,8 +262,83 @@ image: any;
         }
     }
 
+    const handleSubmitUserProfile = async() => {
+        setErrors({})
+        let formData = new FormData();
+         try{
+            setLoading(true);
+            await userSchemaForProfile.validate(data, { abortEarly: false });
+            if(typeof data?.image ==="string"){
+                delete data?.image;
+            }
+            formData = appendToFormData(formData, data);
+                axiosInstance.post('/update-general-data',formData,{
+                    headers: {
+                    "Content-Type": "multipart/form-data",
+                    },
+                }).then((res)=>{
+                    axiosInstance.get('/user-profile').then((res) => {
+                    setData({
+                        first_name: res?.data?.data?.first_name,
+                        last_name: res?.data?.data?.last_name,
+                        job_title: res?.data?.data?.seeker?.job_title,
+                        birth_day: res?.data?.data?.seeker?.birth_day,
+                        gender: res?.data?.data?.seeker?.gender,
+                        mobile: res?.data?.data?.mobile,
+                        nationality_id: res?.data?.data?.seeker?.nationality_id,
+                        country_id: res?.data?.data?.seeker?.country_id,
+                        city_id: res?.data?.data?.seeker?.city_id,
+                        image: res?.data?.data?.image,
+                        type: res?.data?.data?.type
+                    })
+                    toast.success('Edit Successfully')
+                    return res?.data?.data
+                })
+                return res
+            }).catch((error)=> {
+                toast.error('Failed to update profile')
+                return error
+            })
+         }catch (err: any) {
+                if (err.inner) {
+                const validationErrors: any = {};
+                err.inner.forEach((error: any) => {
+                    validationErrors[error.path] = error.message;
+                });
+                setErrors(validationErrors);
+            }
+            }finally {
+            setLoading(false);
+        }
+
+    }
+
+    const deleteImage = () => {
+        axiosInstance.post('/delete-image').then(() => {
+            axiosInstance.get('/user-profile').then((res) => {
+                    setData({
+                        first_name: res?.data?.data?.first_name,
+                        last_name: res?.data?.data?.last_name,
+                        job_title: res?.data?.data?.seeker?.job_title,
+                        birth_day: res?.data?.data?.seeker?.birth_day,
+                        gender: res?.data?.data?.seeker?.gender,
+                        mobile: res?.data?.data?.mobile,
+                        nationality_id: res?.data?.data?.seeker?.nationality_id,
+                        country_id: res?.data?.data?.seeker?.country_id,
+                        city_id: res?.data?.data?.seeker?.city_id,
+                        image: res?.data?.data?.image,
+                        type: res?.data?.data?.type
+                    })
+                    toast.success('Deleted Successfully')   
+                    return res?.data?.data
+                }).catch((error) => {
+                    toast.error('Failed to update profile')
+                    return error
+                })
+        })
+    }
     useEffect(()=>{
-        if(company?.email){
+        if(company?.email && localStorage.getItem('user')?.includes('company')){
             const defaultPlatforms = [
                 { platform: "linkedin", url: "" },
                 { platform: "facebook", url: "" },
@@ -271,15 +364,15 @@ image: any;
                 first_name:company.name || "",
                 mobile:company.mobile || "",
                 status: company?.status|| 0,
-                email:company.email || "",
-                hiring_title:company.company_info.hiring_title || "",
-                founded_year:company.company_info.founded_year || "",
-                about:company.company_info.about || "",
-                city_id:company.company_info.city || "",
-                country_id:company.company_info.country || "",
-                company_size:company.company_info.company_size || "",
+                email:company?.email || "",
+                hiring_title:company?.company_info.hiring_title || "",
+                founded_year:company?.company_info.founded_year || "",
+                about:company?.company_info.about || "",
+                city_id:company?.company_info.city || "",
+                country_id:company?.company_info.country || "",
+                company_size:company?.company_info.company_size || "",
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                industry:company.industries?.map((i:any) => +(i.id)) || "",
+                industry:company?.industries?.map((i:any) => +(i.id)) || "",
                 social_media:filledSocialMedia
             })
         }
@@ -299,7 +392,7 @@ image: any;
         data,cities,countries,
         errors,handleDocumentFilesChange,
         setData,industries,handleInputChange,
-        handleSubmit,handleChangeNumber,handleArrayChange,
-        loading,handleFilesChange,files,documentFiles
+        handleSubmit,handleChangeNumber,handleArrayChange,deleteImage,
+        loading,handleFilesChange,files,documentFiles,nationalties,handleSubmitUserProfile
     };
 }

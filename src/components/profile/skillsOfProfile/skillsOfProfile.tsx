@@ -21,7 +21,6 @@ export function SkillsAndExperience({ userData }: { userData: any }) {
                 {
                     userData?.experience?.length > 0 ? (
                         userData.experience.map((exp: any, index: number) => {
-                            console.log('Experience:', exp);
                             return (
                                 (
                                     <div className="flex items-center space-x-4">

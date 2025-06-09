@@ -23,9 +23,9 @@ export const languageLevels = [
         { id: 5, name: "native" }];
 
 export const experienceLevels = [
-        { id: 0, name: "junior" },
-        { id: 1, name: "mid_level" },
-        { id: 2, name: "senior" }
+        { id: 0, name: "Junior" },
+        { id: 1, name: "Mid level" },
+        { id: 2, name: "Senior" }
     ];
 export const jobTypes = [
         { id: 0, name: "Full-time" },

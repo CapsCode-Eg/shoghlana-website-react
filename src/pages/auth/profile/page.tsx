@@ -33,7 +33,6 @@ export default function Profile() {
         }
     }, [data])
 
-    console.log('Profile Data:', payLoad);
 
     const deleteCV = async () => {
         axiosInstance.delete('/delete-cv').then(() => {
@@ -53,11 +52,34 @@ export default function Profile() {
         })
     }, [])
 
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log('here')
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("cv", file); // "cv" should match your backend field name
+
+        try {
+            const response = await axiosInstance.post("/upload-cv", {
+                body: formData,
+            });
+
+
+            if (!response) throw new Error("Upload failed");
+
+            const data = await response;
+            console.log("Upload success:", data);
+            // Optionally show success UI or refresh CV preview
+        } catch (error) {
+            console.error("Upload error:", error);
+        }
+    };
     return (
         <div className='flex flex-col max-w-screen overflow-hidden'>
             <NavbarTwo />
             <ProfileHeroSection userData={payLoad?.data?.data ? payLoad?.data?.data : data} isCompany={false} />
-            <PersonalInformation jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data ? payLoad?.data?.data : data} deleteCV={deleteCV} />
+            <PersonalInformation handleFileChange={handleFileChange} jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data ? payLoad?.data?.data : data} deleteCV={deleteCV} />
             <SkillsAndExperience userData={payLoad?.data?.data ? payLoad?.data?.data : data} />
             <Footer />
         </div>

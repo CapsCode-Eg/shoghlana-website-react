@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { educationLevels, jobTypes, personal_type, workModes } from "../../../utils/constant/profile";
 import { useEffect, useState } from "react";
 
-export default function PersonalInformation({ userData, deleteCV, countries, jobCategory }: { jobCategory: any, countries: any, userData: any, deleteCV?: () => void }) {
+export default function PersonalInformation({ userData, deleteCV, countries, jobCategory, handleFileChange }: { jobCategory: any, countries: any, userData: any, deleteCV?: () => void, handleFileChange }) {
     function getAge(dateString: string): number {
         const birthDate = new Date(dateString);
         const today = new Date();
@@ -26,7 +26,6 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
             setNewJobCategory(jobCategories);
         }
     }, [userData])
-    console.log('Job Categories:', newJobCategory);
     return (
         <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px]  flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md relative overflow-hidden py-[33px] px-[28.68px]">
             {/* Contact Info */}
@@ -75,7 +74,7 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
                     <h2 className="text-[16px] text-[#001433] font-bold mb-4">My CV:</h2>
                     <div className="flex relative items-center justify-between max-w-[400px] min-w-[300px] h-[70px] bg-gray-100 p-4 rounded-lg shadow">
                         <div className="flex items-center space-x-4">
-                            <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">PDF</span>
+                            <span className="bg-red-500 text-white text-xs font-bold px-2 py-3 rounded">PDF</span>
                             <div>
                                 <p className="text-gray-800 font-medium">Cv</p>
                             </div>
@@ -90,7 +89,8 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
                         <div className="flex space-x-4 text-blue-600 text-[10px] md:text-sm">
                             <Link to={userData?.seeker?.cv} target="_blank" className="hover:underline">Preview CV</Link>
                             <div className="w-[1px] h-4 bg-gray-300" />
-                            <button className="hover:underline">Update CV</button>
+                            <label htmlFor="cv" className="hover:underline">Update CV</label>
+                            <input accept="application/pdf" id="cv" type="file" onChange={handleFileChange} className="hidden" />
                         </div>
                     </div>
                 </div>
