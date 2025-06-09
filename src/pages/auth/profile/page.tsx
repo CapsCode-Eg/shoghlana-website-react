@@ -14,7 +14,7 @@ export default function Profile() {
 
     useEffect(() => {
         const user = localStorage.getItem('user');
-        if (user !== null) {
+        if (user !== null && user !== 'undefined') {
             setData(JSON.parse(user));
         }
     }, [])
