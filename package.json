@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.4",
     "axios": "^1.9.0",
     "framer-motion": "^12.9.2",
@@ -19,6 +20,7 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-international-phone": "^4.5.0",
+    "react-redux": "^9.2.0",
     "react-router": "^7.5.2",
     "react-select": "^5.10.1",
     "react-select-async-paginate": "^0.7.10",

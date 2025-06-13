@@ -6,6 +6,9 @@ import axiosInstance from "../../../../utils/axiosInstance";
 import { appendToFormData } from "../../../../utils/functions/formData";
 import { editCompanyValidation } from "../../../../utils/validation/companyValidation";
 import { userSchemaForProfile } from "../validation/userProfile";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../utils/redux/store";
+import { setUserData } from "../../../../utils/redux/Slice/userSlice";
 
 
 interface SocialMedia {
@@ -33,13 +36,12 @@ export function useCompany() {
         method: HttpMethod.GET,
         withOutToast: true
     })
-
+    const dispatch = useDispatch<AppDispatch>()
     useEffect(() => {
         if(JSON.parse(localStorage.getItem('user') || '{}').type === 'company') {
             fetchData()
         }else{
             axiosInstance.get('/user-profile').then((res) => {
-                console.log(res?.data?.data)
                 setData({
                     first_name: res?.data?.data?.first_name,
                     last_name: res?.data?.data?.last_name,
@@ -53,6 +55,19 @@ export function useCompany() {
                     image: res?.data?.data?.image,
                     type: res?.data?.data?.type
                 })
+                dispatch(setUserData({
+                     first_name: res?.data?.data?.first_name,
+                    last_name: res?.data?.data?.last_name,
+                    job_title: res?.data?.data?.seeker?.job_title,
+                    birth_day: res?.data?.data?.seeker?.birth_day,
+                    gender: res?.data?.data?.seeker?.gender,
+                    mobile: res?.data?.data?.mobile,
+                    nationality_id: res?.data?.data?.seeker?.nationality_id,
+                    country_id: res?.data?.data?.seeker?.country_id,
+                    city_id: res?.data?.data?.seeker?.city_id,
+                    image: res?.data?.data?.image,
+                    type: res?.data?.data?.type
+                }))
             })
         }
     }, [])
@@ -291,6 +306,19 @@ image: any;
                         image: res?.data?.data?.image,
                         type: res?.data?.data?.type
                     })
+                dispatch(setUserData({
+                     first_name: res?.data?.data?.first_name,
+                    last_name: res?.data?.data?.last_name,
+                    job_title: res?.data?.data?.seeker?.job_title,
+                    birth_day: res?.data?.data?.seeker?.birth_day,
+                    gender: res?.data?.data?.seeker?.gender,
+                    mobile: res?.data?.data?.mobile,
+                    nationality_id: res?.data?.data?.seeker?.nationality_id,
+                    country_id: res?.data?.data?.seeker?.country_id,
+                    city_id: res?.data?.data?.seeker?.city_id,
+                    image: res?.data?.data?.image,
+                    type: res?.data?.data?.type
+                }))
                     toast.success('Edit Successfully')
                     return res?.data?.data
                 })

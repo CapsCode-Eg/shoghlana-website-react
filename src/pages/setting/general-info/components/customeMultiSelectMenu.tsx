@@ -16,6 +16,7 @@ interface CustomSelectMenuProps {
     defaultData?: number[];
     customstyle?: object;
     loading?: boolean;
+    noValue?: boolean;
     error?: string;
     width?: string;
     height?: string;
@@ -27,6 +28,7 @@ const CustomSelectMultipleMenu: FC<CustomSelectMenuProps> = ({
     label,
     error,
     isDisabled,
+    noValue,
     placeholder,
     onChange,
     customstyle,
@@ -105,9 +107,9 @@ const CustomSelectMultipleMenu: FC<CustomSelectMenuProps> = ({
                 isSearchable={true}
                 isClearable={false}
                 isLoading={loading}
-                defaultValue={selectedValue}
+                defaultValue={noValue ? [] : selectedValue}
                 isMulti={true}
-                value={selectedValue}
+                value={noValue ? [] : selectedValue}
                 name={name}
                 onChange={handleOnChange}
                 getOptionLabel={(option) => option.name}

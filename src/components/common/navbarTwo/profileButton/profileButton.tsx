@@ -3,10 +3,12 @@ import { toast } from 'sonner';
 import axiosInstance from '../../../../utils/axiosInstance';
 import { Link } from 'react-router';
 import Logo from '../../../logo/logo';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../utils/redux/store';
 
 export default function ProfileButton() {
     const [isOpen, setIsOpen] = useState(false);
-
+    const User = useSelector((state: RootState) => state.UserData.user)
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -45,7 +47,7 @@ export default function ProfileButton() {
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {userData?.image ? <img
-                    src={userData?.image ? userData?.image : ''}
+                    src={userData?.image ? User?.image || userData?.image : ''}
                     alt="Profile"
                     width={40}
                     height={40}

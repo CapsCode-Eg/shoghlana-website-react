@@ -53,7 +53,6 @@ export default function Profile() {
     }, [])
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('here')
         const file = event.target.files?.[0];
         if (!file) return;
 
@@ -70,7 +69,6 @@ export default function Profile() {
 
             const data = await response;
             console.log("Upload success:", data);
-            // Optionally show success UI or refresh CV preview
         } catch (error) {
             console.error("Upload error:", error);
         }
