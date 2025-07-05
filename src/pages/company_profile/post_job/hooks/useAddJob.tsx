@@ -81,7 +81,7 @@ export function useAddJob() {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (id) {
-            axiosInstance.get(`/jobs/${id}`).then((res) => {
+            axiosInstance.get(`/company/jobs/${id}`).then((res) => {
                 setData({
                     ...res?.data?.data, skills: res?.data?.data?.skills?.map((item: any) => {
                         return item.id
@@ -176,14 +176,14 @@ export function useAddJob() {
             setLoading(true);
             await jobDataSchema.validate(data, { abortEarly: false });
             if (id) {
-                axiosInstance.put(`/jobs/${id}`, data).then(() => {
+                axiosInstance.put(`/company/jobs/${id}`, data).then(() => {
                     toast.success('Updated Successfully', { id: 'add-industries' });
                     navigate(-1)
                 }).catch((error) => {
                     toast.error(error?.response?.data?.message, { id: 'add-industries' })
                 })
             } else {
-                axiosInstance.post('/jobs', data).then(() => {
+                axiosInstance.post('/company/jobs', data).then(() => {
                     toast.success('Add Successfully', { id: 'add-industries' });
                     navigate(-1)
                 }).catch((error) => {
