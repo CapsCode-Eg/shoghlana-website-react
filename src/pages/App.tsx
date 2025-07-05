@@ -8,10 +8,26 @@ import SectionSix from "../components/sectionSix/sectionSix";
 import SectionThree from "../components/sectionThree/sectionThree";
 import SectionTwo from "../components/sectionTwo/SectionTwo";
 import NavbarTwo from "../components/common/navbarTwo/navbarTwo";
+import { HttpMethod, useApi } from "../utils/hooks/useApi";
 
 export default function Home() {
     const [data, setData] = useState<any>('');
+    const { fetchData } = useApi({
+        endPoint: "home",
+        method: HttpMethod.GET,
+        withOutToast: true
+    })
+    const [home, setHome] = useState<any>({})
+    console.log(home)
+
+    const handleFetchData = async () => {
+        const res = await fetchData()
+        if (res?.data) {
+            setHome(res?.data?.data)
+        }
+    }
     useEffect(() => {
+        handleFetchData()
         if (localStorage.getItem('token')) {
             setData(localStorage.getItem('token') || JSON.parse(localStorage.getItem('token') || ''))
         }
@@ -19,13 +35,13 @@ export default function Home() {
     return (
         <div className="relative overflow-hidden ">
             {data ? <NavbarTwo /> : <Navbar />}
-            <HeroSection />
+            <HeroSection bannar={home?.slider} />
             <SectionTwo />
-            <SectionThree />
+            {home?.job_categories && <SectionThree jobs={home?.job_categories} />}
             <SectionFour />
             <SectionFive />
             <SectionSix />
-            <Footer />
+            <Footer data={home?.settings} />
         </div>
     );
 }
