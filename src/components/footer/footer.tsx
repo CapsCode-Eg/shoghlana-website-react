@@ -4,10 +4,9 @@ import Background from "../background/background";
 export default function Footer({ data }: { data?: any }) {
     const date = new Date();
     const year = date.getFullYear();
-    console.log(data)
     return (
         <div className='mx-[8px] w-[calc(100%-16px)] rounded-[25px] relative pb-[24px]
-         bg-main my-[10px] overflow-hidden '>
+         bg-main my-[10px] overflow-hidden shrink-0 '>
             <Background linesOnly />
             <div className="mx-auto pt-[35px] px-[20px] md:px-[40px] pb-[16px] relative z-[6]">
                 <div className="grid grid-cols-1 xl:grid-cols-5 gap-10">

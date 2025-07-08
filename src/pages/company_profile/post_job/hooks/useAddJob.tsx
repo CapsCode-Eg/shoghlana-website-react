@@ -79,14 +79,19 @@ export function useAddJob() {
         post_type: "",
     });
     const [loading, setLoading] = useState(false);
+    const [jobQuestion, setJobQuestion] = useState<any>(null);
     useEffect(() => {
         if (id) {
-            axiosInstance.get(`/company/jobs/${id}`).then((res) => {
+            axiosInstance.get(`/jobs/${id}`).then((res) => {
                 setData({
                     ...res?.data?.data, skills: res?.data?.data?.skills?.map((item: any) => {
                         return item.id
+                    }),
+                    questions: res?.data?.data?.questions?.map((item: any) => {
+                        return item.question
                     })
                 })
+                setJobQuestion(res?.data?.data)
             })
         }
     }, [id])
@@ -210,7 +215,7 @@ export function useAddJob() {
         skills,
         cities,
         errors,
-        setData,
+        setData, jobQuestion,
         handleSubmit, job_category,
         handleOnChange, loading
     };

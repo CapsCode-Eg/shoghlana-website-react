@@ -7,10 +7,11 @@ import ButtonGroup from "../../../components/common/buttonGroup/buttonGroup";
 import { useAddJob } from "./hooks/useAddJob";
 import { LEVELS, PLACES, TYPES } from "../../../utils/constant/job";
 import CustomSelectMultipleMenu from "../../setting/general-info/components/customeMultiSelectMenu";
+import QuestionList from "../../../components/questionList/QuestionList";
 
 export default function PostJob() {
     const { func } = useParams();
-    const { data, errors, cities, countries, skills, setData, handleSubmit, loading, job_category } = useAddJob();
+    const { data, errors, cities, countries, skills, setData, handleSubmit, loading, job_category, jobQuestion } = useAddJob();
     console.log(data)
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
@@ -50,8 +51,9 @@ export default function PostJob() {
                         <CustomSelectMenu isDisabled={func === 'view'} defaultData={data?.post_type && +(data?.post_type) || null} label="Type" placeholder="Select Type" options={TYPES} onChange={(value: any) => setData({ ...data, post_type: value?.id })} error={errors?.post_type} />
                         <CustomSelectMenu isDisabled={func === 'view'} defaultData={data?.work_place && +(data?.work_place) || null} label="Work Place" placeholder="Select Work Place" options={PLACES} onChange={(value: any) => setData({ ...data, work_place: value?.id })} error={errors?.work_place} />
                         <CustomSelectMenu isDisabled={func === 'view'} defaultData={data?.level && +(data?.level) || null} label="Experience" placeholder="Select Experience" options={LEVELS} onChange={(value: any) => setData({ ...data, level: value?.id })} error={errors?.level} />
-
                     </div>
+                    <QuestionList setData={setData} data={data} jobQuestion={jobQuestion} />
+
                     <div className="flex flex-row justify-end w-[100%] pb-10">
                         <ButtonGroup handleSubmit={handleSubmit} isDisabled={loading || func === 'view'} isLoading={loading} />
                     </div>

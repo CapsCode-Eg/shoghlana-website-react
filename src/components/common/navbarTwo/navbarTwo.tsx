@@ -10,7 +10,13 @@ export default function NavbarTwo() {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null)
-
+    const [isCompany, setIsCompany] = useState(false);
+    useEffect(() => {
+        if (window.localStorage.getItem('user')) {
+            const user = JSON.parse(window.localStorage.getItem('user') || '{}');
+            setIsCompany(user?.type === 'company');
+        }
+    }, [])
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             // @ts-expect-error: Type mismatch
@@ -45,32 +51,32 @@ export default function NavbarTwo() {
 
             {/* Center Section (Navigation Links) */}
             <div className="hidden items-center lg:flex space-x-8">
-                <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
                     {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
                         <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
                     )}
-                    Explore</Link>
-                <Link to="/saved" className={`${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                    Explore</Link>}
+                {!isCompany && <Link to="/saved" className={`${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
                     {location.pathname === "/saved" && (
                         <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
                     )}
-                    (1) Saved</Link>
-                <Link to="/applications" className={`${location.pathname === "/applications" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                    Saved</Link>}
+                {!isCompany && <Link to="/applications" className={`${location.pathname === "/applications" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
                     {location.pathname === "/applications" && (
                         <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
                     )}
-                    Application</Link>
+                    Application</Link>}
             </div>
 
             {/* Search Bar */}
-            <div className="relative flex-grow max-w-md mx-6 hidden xl:block">
+            {!isCompany && <div className="relative flex-grow max-w-md mx-6 hidden xl:block">
                 <input
                     type="text"
                     placeholder="Search for job, companies..."
                     className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
                 <FaSearch className="absolute top-3 right-3 text-gray-500" />
-            </div>
+            </div>}
 
             {/* Right Section (Profile) */}
             <ProfileButton />
@@ -85,12 +91,12 @@ export default function NavbarTwo() {
                 >
                     <img width={150} height={150} src={'/assets/logoBlue.png'} alt='background' className='object-cover' />
                     <div className="mt-[30px] border-t-[1px] px-[10px] border-dashed flex flex-col w-full divide-y-[1px] gap-4 text-[20px] font-bold  pt-[30px]">
-                        <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                        {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
 
-                            Explore</Link>
-                        <Link to="/saved" className={`pt-4 ${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
-                            (1) Saved</Link>
-                        <Link to="#" className="pt-4 text-[#4D6182] font-semibold text-[20px]">Application</Link>
+                            Explore</Link>}
+                        {!isCompany && <Link to="/saved" className={`pt-4 ${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                            Saved</Link>}
+                        {!isCompany && <Link to="#" className="pt-4 text-[#4D6182] font-semibold text-[20px]">Application</Link>}
                     </div>
                 </div>
             </div>

@@ -1,45 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import JobsCard from '../savedJobs/jobsCard/jobsCard';
+import axiosInstance from '../../utils/axiosInstance';
 
 export default function TabsForJobs() {
-    const [activeTab, setActiveTab] = useState('Recommended');
+    // const [activeTab, setActiveTab] = useState('Recommended');
 
-    const tabs = ['Recommended', 'Outside Egypt'];
-
-    const jobs = [
-        {
-            title: 'UI UX Designer',
-            company: 'CapsCode EG',
-            location: 'Cairo, Egypt',
-            type: 'Full Time',
-            mode: 'On-site',
-            description: 'Experienced (Non-Manager) · 3-6 Yrs of Exp · 2 Vacancies · Females Preferred · UI · UX · UX Design · UI Design · UI/UX · Design · English · Figma · Graphic Design · Wireframes',
-            daysAgo: '4 days ago',
-        },
-        {
-            title: 'UI UX Designer',
-            company: 'CapsCode EG',
-            location: 'Cairo, Egypt',
-            type: 'Full Time',
-            mode: 'On-site',
-            description: 'Experienced (Non-Manager) · 3-6 Yrs of Exp · 2 Vacancies · Females Preferred · UI · UX · UX Design · UI Design · UI/UX · Design · English · Figma · Graphic Design · Wireframes',
-            daysAgo: '4 days ago',
-        },
-        {
-            title: 'UI UX Designer',
-            company: 'CapsCode EG',
-            location: 'Cairo, Egypt',
-            type: 'Full Time',
-            mode: 'On-site',
-            description: 'Experienced (Non-Manager) · 3-6 Yrs of Exp · 2 Vacancies · Females Preferred · UI · UX · UX Design · UI Design · UI/UX · Design · English · Figma · Graphic Design · Wireframes',
-            daysAgo: '4 days ago',
-        },
-        // Add more job objects as needed
-    ];
-
+    // const tabs = ['Recommended', 'Outside Egypt'];
+    const [data, setData] = useState<any>({})
+    useEffect(() => {
+        axiosInstance.get('/jobs').then((res) => {
+            setData(res.data.data)
+        }).catch((err) => {
+            console.error(err);
+        })
+    }, [])
     return (
         <div className="w-full bg-white flex-1 rounded-lg shadow-md p-4">
-            <div className="flex border-b mb-4">
+            {/* <div className="flex border-b mb-4">
                 {tabs.map((tab) => (
                     <button
                         key={tab}
@@ -49,11 +26,15 @@ export default function TabsForJobs() {
                         {tab}
                     </button>
                 ))}
-            </div>
-            <div className='pb-5 space-y-4'>
-                {jobs.map((_, index) => (
-                    <JobsCard key={index} />
-                ))}
+            </div> */}
+            <div className=' mx-auto gap-4 mt-[20px] xl:mt-[54px] flex flex-col'>
+                {
+                    data?.data?.length > 0 && data?.data?.map((job, index) => {
+                        return (
+                            <JobsCard key={index} job={job} />
+                        )
+                    })
+                }
             </div>
         </div>
     );

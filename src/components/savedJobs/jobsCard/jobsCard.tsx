@@ -2,6 +2,8 @@ import { Link } from "react-router";
 import { LEVELS, PLACES, TYPES } from "../../../utils/constant/job";
 import { useEffect, useState } from "react";
 import { Edit, Eye, Trash2 } from "lucide-react";
+import axiosInstance from "../../../utils/axiosInstance";
+import { toast } from "sonner";
 
 export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { handleDelete?: (id: number) => void, job?: any, isDone?: boolean, isAccepted?: boolean }) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,12 +14,30 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
             setUserData(JSON.parse(user));
         }
     }, [])
+    const [data, setData] = useState<any>({});
+    useEffect(() => {
+        if (job) {
+            setData(job);
+        }
+    }, [job])
 
+    const handleSaveJob = () => {
+        axiosInstance.post('/saved-jobs', { company_job_id: job?.id }).then(() => {
+            toast.success('Job saved successfully')
+            setData((prevData: any) => ({
+                ...prevData,
+                is_saved: true
+            }))
+        }).catch((err) => {
+            toast.error('Failed to save job')
+            return err;
+        })
+    }
     return (
         <div className="max-w-[98%] w-full mx-auto relative bg-white rounded-lg shadow-md p-4 flex items-start">
             <div className="flex-grow">
                 <h2 className="text-xl font-bold flex flex-row flex-wrap text-blue-600">
-                    <Link to={`/job/1`}>{job?.title || 'Loading'}</Link>
+                    <Link to={`/job/${job?.id}/view`}>{job?.title || 'Loading'}</Link>
                     <span className="ml-2 text-sm font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
                         {TYPES.find((type) => type.id == job?.post_type)?.name || 'Loading'}
                     </span>
@@ -67,14 +87,24 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
                     </span>
                 }
                 {userData?.type !== 'company' && <>
-                    <button type='button' title='Share' className='bg-[#0055D9] rounded-[5px] flex flex-col items-center w-[38px] h-[40px] justify-center'>
+                    <button onClick={() => {
+                        if (!data?.is_saved) {
+                            handleSaveJob()
+                        } else {
+                            axiosInstance.delete(`/saved-jobs/${data?.id}`).then(() => {
+                                toast.success('Job unsaved successfully')
+                                setData((prevData: any) => ({
+                                    ...prevData,
+                                    is_saved: false
+                                }))
+                            }).catch((err) => {
+                                toast.error('Failed to unsave job')
+                                return err;
+                            })
+                        }
+                    }} type='button' title='Share' className={`${data?.is_saved ? "bg-[#0055D9]" : "bg-gray-500"}  rounded-[5px] hidden md:flex flex-col items-center w-[38px] h-[40px] justify-center`}>
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7 4.5C5.9 4.5 5 5.4 5 6.5V20.5L12 17.5L19 20.5V6.5C19 5.4 18.1 4.5 17 4.5H7Z" fill="white" />
-                        </svg>
-                    </button>
-                    <button type='button' title='Share' className='bg-white border-[1px] border-[#4D6182] rounded-[5px] flex flex-col items-center w-[38px] h-[40px] justify-center'>
-                        <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.8 14.652V18.343L21 12.036L13.8 5.75V9.336C6.802 10.243 4.012 14.736 3 19.25C5.497 16.086 8.805 14.652 13.8 14.652Z" fill="#4D6182" />
                         </svg>
                     </button>
                 </>}

@@ -15,6 +15,7 @@ export default function CompanyProfile() {
         method: HttpMethod.GET,
         withOutToast: true
     })
+
     const [countries, setCountries] = useState([])
     const [cities, setCities] = useState([])
     useEffect(() => {
@@ -38,22 +39,22 @@ export default function CompanyProfile() {
             setData(payLoad?.data?.data)
         }
     }, [payLoad])
-    const [jobs, setJobs] = useState([])
+    const [jobs, setJobs] = useState<any>([])
     useEffect(() => {
-        axiosInstance.get('/jobs').then((res) => {
+        axiosInstance.get('/company/jobs-pagination').then((res) => {
             setJobs(res.data.data)
         })
     }, [])
 
     const handleDelete = (id: number) => {
-        axiosInstance.delete(`/jobs/${id}`).then(() => {
+        axiosInstance.delete(`/company/jobs-pagination/${id}`).then(() => {
             toast.success('Job deleted successfully');
             axiosInstance.get('/jobs').then((res) => {
                 setJobs(res.data.data)
             })
         }).catch((err) => {
-            console.log(err)
             toast.error("Something went wrong")
+            return console.error(err)
         })
     }
     return (
@@ -75,7 +76,8 @@ export default function CompanyProfile() {
             </div>
             <div className='w-[98%] xl:w-[80%] mx-auto gap-4 mt-[20px] xl:mt-[54px] flex flex-col'>
                 {
-                    jobs?.length > 0 && jobs?.map((job, index) => {
+
+                    jobs?.data?.length > 0 && jobs?.data?.map((job, index) => {
                         return (
                             <JobsCard key={index} job={job} handleDelete={handleDelete} />
                         )

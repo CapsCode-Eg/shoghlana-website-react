@@ -71,11 +71,11 @@ export const router = createBrowserRouter([
         element: <Explore />
     },
     {
-        path: '/job',
+        path: '/job/:id/view',
         element: <ViewJob />
     },
     {
-        path: '/job/:id',
+        path: '/job/:id/apply',
         element: <ApplyForJob />
     },
     {

@@ -7,7 +7,8 @@ export default function Background({ linesOnly, blueOnly, image }: { blueOnly?: 
                 <img src={'/assets/lines.png'} alt='background' className={`${linesOnly && "opacity-40"} object-cover`} />
             }
             {blueOnly &&
-                <img src={'/assets/linesBlue.png'} alt='background' className={`${linesOnly && "opacity-40"} object-cover`} />
-            }        </div>
+                <img src={'/assets/linesBlue.png'} alt='background' className={`${linesOnly && "opacity-40"} object-cover w-full`} />
+            }
+        </div>
     )
 }

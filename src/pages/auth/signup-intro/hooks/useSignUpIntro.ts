@@ -55,9 +55,9 @@ export function useSignUpIntro() {
         const handleNext = () => setStep(step + 1);
         const handleBack = () => setStep(step - 1);
         const [countries, setCountries] = useState([])
+        const [cities, setCities] = useState([])
         const [nationalties, setNationalties] = useState([])
         const [skills, setSkills] = useState([])
-        const [cities, setCities] = useState([])
         const [job_category, setJobCategory] = useState([])
         const [formData, setFormData] = useState<FormData>({
             birth_day: null,
