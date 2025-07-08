@@ -8,8 +8,8 @@ export default function SectionThree({ jobs }: { jobs: any }) {
                 <span className='font-medium text-[31px] text-[#010101]'>Job vacancies today in Egypt</span>
                 <span className='font-[400] text-[#737373] text-[20px]'>Job vacancies for all specialties in Egypt</span>
             </div>
-            <div className="w-full">
-                <ul className="mt-3 space-y-4 grid grid-cols-3 justify-between">
+            <div className="w-full flex items-center justify-between">
+                <ul className="mt-3 w-full space-y-4 grid grid-cols-1  md:grid-cols-3 justify-between">
                     {jobs?.map((job, idx) => (
                         <li key={idx} className="flex justify-between max-w-[90%] text-gray-700">
                             <a href="#" className="text-main hover:underline">{job.name}</a>
