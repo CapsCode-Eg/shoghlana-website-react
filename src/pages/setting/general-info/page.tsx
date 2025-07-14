@@ -117,11 +117,8 @@ export default function GeneralInfo() {
                             <InputAndLabel label="Hiring title" name="hiring_title" type='text' value={data?.hiring_title || ""} setData={setData} error={errors?.hiring_title} />
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                                 <CustomSelectMenu defaultData={data?.country_id && +(data?.country_id) || null} label="Country" placeholder="Select Country" options={countries} onChange={(value: any) => setData({ ...data, country_id: value?.id })} error={errors?.country_id} />
-                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                                 <CustomSelectMenu defaultData={data?.city_id && (data?.city_id) || null} label="City" placeholder="Select City" options={cities} onChange={(value: any) => setData({ ...data, city_id: value?.id })} error={errors?.city_id} />
-                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                                 <CustomSelectMenu defaultData={data?.company_size && +(data?.company_size) || null} label="Company Size" placeholder="Select Size" options={[{ id: 1, name: "2-10" }, { id: 2, name: "10-50" }, { id: 3, name: "50-100" }, { id: 4, name: "100-200" }, { id: 5, name: "200+" }]} onChange={(value: any) => setData({ ...data, company_size: value?.id })} error={errors?.company_size} />
                             </div>
                             <InputAndLabel label="Founded Year" type="number" name="founded_year" min="1900" max="2099" step="1" placeholder="YYYY" value={data?.founded_year || ""} setData={setData} error={errors?.founded_year} />
@@ -138,9 +135,8 @@ export default function GeneralInfo() {
                             <CustomSelectMultipleMenu
                                 name="industry"
                                 defaultData={data?.industry ? data?.industry : []}
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                 onChange={(value: any) => setData({ ...data, industry: value })}
-                                error={errors?.industries} label="Industries" placeholder="Select Industry" options={industries} />
+                                error={errors?.industry} label="Industries" placeholder="Select Industry" options={industries} />
                             <h1 className="text-2xl font-bold text-[#0E4E5D]">Files</h1>
                             <FileUpload
                                 oldFiles={files}
@@ -169,7 +165,6 @@ export default function GeneralInfo() {
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         {
-                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                             data?.social_media?.map((item: any, index: number) => {
                                                 return (
                                                     <InputAndLabel key={index} label={`${item?.platform || item?.name} Link`} name={`social_media[${index}].url`} type='text' value={item?.url || ""}

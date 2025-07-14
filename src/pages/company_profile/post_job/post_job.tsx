@@ -12,12 +12,11 @@ import QuestionList from "../../../components/questionList/QuestionList";
 export default function PostJob() {
     const { func } = useParams();
     const { data, errors, cities, countries, skills, setData, handleSubmit, loading, job_category, jobQuestion } = useAddJob();
-    console.log(data)
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />
             <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[24px] pb-8 px-6 flex flex-col bg-white rounded-[24px] shadow-xl ">
-                <div className="flex flex-col max-w-[81%] min-w-[80%] gap-8 mx-auto mt-6 pb-10">
+                <div className="flex flex-col md:max-w-[81%] md:min-w-[80%] gap-8 mx-auto mt-6 pb-10">
                     <InputAndLabel disabled={func === 'view'} label="Job Title" name="title" type='text' value={data?.title || ""} setData={setData} error={errors?.title} />
                     <div className="grid grid-cols-2 gap-4">
                         <InputAndLabel disabled={func === 'view'} label="Minimum Salary" name="min_salary" type='number' value={data?.min_salary || ""} setData={setData} error={errors?.min_salary} />

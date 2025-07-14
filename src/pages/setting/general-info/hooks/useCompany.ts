@@ -78,7 +78,6 @@ export function useCompany() {
     }, [payLoad])
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
         setData((prevData: any) => ({
             ...prevData,
             [name]: value,
@@ -109,7 +108,6 @@ export function useCompany() {
         email: string;
         password: string;
         mobile: string;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 image: any;
         status: string;
         // General Data
@@ -160,17 +158,14 @@ image: any;
     };
 
         // To Change number of mobile
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const handleChangeNumber = (e: any) => {
             const phoneNumberObj = parsePhoneNumberFromString(e);
             if (data?.mobile && data?.mobile?.length > 4) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             setErrors((prevErrors: any) => ({
                     ...prevErrors,
                     mobile: phoneNumberObj?.isValid() ? '' : 'Please enter a valid phone number',
                 }));
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             setData((prevData: any) => ({
                 ...prevData,
                 mobile: phoneNumberObj?.number.slice(1) ?? '',
@@ -179,10 +174,8 @@ image: any;
 
         const handleArrayChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
             const { value } = event.target;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const updatedSocialMedia = [...data.social_media];
             updatedSocialMedia[index] = { ...updatedSocialMedia[index], url: value };
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             setData((prevData: any) => ({
                 ...prevData,
                 social_media: updatedSocialMedia,
@@ -190,7 +183,6 @@ image: any;
         };
     
     useEffect(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setData((prevData:any) => ({
         ...prevData,
         image: files.length > 0 ? files[0] : '',
@@ -198,7 +190,6 @@ image: any;
     }, [files]);
 
     useEffect(() => {    
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setData((prevData:any) => ({
         ...prevData,
         tax_card: documentFiles[0] ? documentFiles[0] : '',
@@ -237,7 +228,6 @@ image: any;
         })
         try{
             setLoading(true);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const newData = {...data, social_media: data?.social_media?.filter((sm:any) => sm?.url !== ''),status: data?.status ? 1 : 0};
             let formData = new FormData();
             
@@ -249,7 +239,6 @@ image: any;
                 delete newData?.image;
             }
             formData = appendToFormData(formData, newData);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const NewArray = data?.social_media?.filter((sm:any) => sm?.url !== '');
             if(NewArray&&NewArray?.length > 0){
                 formData = appendToFormData(formData, { social_media: NewArray });
@@ -269,6 +258,7 @@ image: any;
                 err.inner.forEach((error: any) => {
                     validationErrors[error.path] = error.message;
                 });
+                console.log(validationErrors)
                 setErrors(validationErrors);
             }
             return null;
@@ -375,7 +365,6 @@ image: any;
                 { platform: "instagram", url: "" },
                 { platform: "website", url: "" },
             ];
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const existingSocialMedia = company?.social_media?.map((sm: any) => ({
                 platform: sm.platform.toLowerCase(),
                 url: sm.url
@@ -383,7 +372,6 @@ image: any;
             
             const filledSocialMedia = [
                 ...existingSocialMedia,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ...defaultPlatforms.filter(dp => !existingSocialMedia.some((sm:any) => sm.platform === dp.platform))
             ];
             setFiles([company?.image])
@@ -399,7 +387,6 @@ image: any;
                 city_id:company?.company_info.city || "",
                 country_id:company?.company_info.country || "",
                 company_size:company?.company_info.company_size || "",
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 industry:company?.industries?.map((i:any) => +(i.id)) || "",
                 social_media:filledSocialMedia
             })

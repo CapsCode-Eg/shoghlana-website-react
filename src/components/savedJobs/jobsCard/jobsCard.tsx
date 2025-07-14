@@ -6,7 +6,6 @@ import axiosInstance from "../../../utils/axiosInstance";
 import { toast } from "sonner";
 
 export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { handleDelete?: (id: number) => void, job?: any, isDone?: boolean, isAccepted?: boolean }) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [userData, setUserData] = useState<any>({});
     useEffect(() => {
         const user = window.localStorage.getItem("user");
@@ -34,7 +33,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
         })
     }
     return (
-        <div className="max-w-[98%] w-full mx-auto relative bg-white rounded-lg shadow-md p-4 flex items-start">
+        <div className=" w-full mx-auto relative bg-white rounded-lg shadow-md p-4 flex items-start min-h-[175px]">
             <div className="flex-grow">
                 <h2 className="text-xl font-bold flex flex-row flex-wrap text-blue-600">
                     <Link to={`/job/${job?.id}/view`}>{job?.title || 'Loading'}</Link>
@@ -55,7 +54,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
                     <span className='text-[11px] text-[#4D6182] text-semibold'>Cairo, Egypt</span>
                 </p>
                 <p className="text-[#4D6182] font-[400] text-[12px] mt-2 max-w-[634px]">
-                    {LEVELS.find((level) => level.id == job?.level)?.name} · {job?.min_year}-{job?.max_year} Yrs of Exp · {job?.description}
+                    {LEVELS.find((level) => level.id == job?.level)?.name} · {job?.min_year}-{job?.max_year} Yrs of Exp ·  <br />{job?.description}
                 </p>
                 {userData?.type !== 'company' && !isDone && <button className="mt-4 px-4 py-2 bg-[#0055D9]/[14%] text-[#0055D9] rounded-[10px] font-[400] text-[12px] flex flex-row items-center gap-1.5">
                     <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +68,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
                     </Link>
                 }
             </div>
-            <div className="flex absolute bottom-[10px] end-[14px] flex-row space-x-4">
+            <div className="flex absolute bottom-[10px] end-[14px] flex-row flex-wrap space-x-4">
                 {
                     isDone && isAccepted && <span className='flex flex-row gap-2 items-center justify-center text-[#2C9266] text-[12px] font-[400] bg-[#2C9266]/[14%] px-2 py-1 w-[90px] h-[40px] rounded-[4px]'>
                         <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,6 +116,9 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
                     </Link>
                     <Link to={`/post_job/view/${job.id}`} title='View' className='bg-white hover:cursor-pointer  border-[1px] border-[#4D6182] rounded-[5px] flex flex-col items-center w-[38px] h-[40px] justify-center'>
                         <Eye size={18} />
+                    </Link>
+                    <Link to={`/job_applications/${job.id}`} title='View' className='bg-white hover:cursor-pointer  border-[1px] border-[#4D6182] rounded-[5px] flex flex-col items-center px-4 h-[40px] justify-center'>
+                        View Applications
                     </Link>
                 </>}
             </div>

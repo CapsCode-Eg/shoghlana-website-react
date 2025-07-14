@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import useCopyToClipboard from "../../../utils/hooks/useCopyHook";
 import { company_size, educationLevels } from "../../../utils/constant/profile";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ProfileHeroSection({ userData, isCompany, cities, countries }: { cities?: any, countries?: any, isCompany?: boolean, userData?: any }) {
     const copyToClipboard = useCopyToClipboard();
     return (
@@ -31,7 +30,7 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
                             <h2 className={`text-[25.73px] ${isCompany ? "text-[#001433]" : "text-[#0055D9]"} font-bold`}>{userData?.first_name + " " + userData?.last_name || "Loading"}</h2>
                         }
                         {isCompany ? <p className="text-black font-[400] text-[13px] -ms-2 mt-0 md:mt-2"><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.686 6.50306L14.904 4.40706L12.979 3.55006C12.9162 3.52212 12.8659 3.47188 12.838 3.40906L11.981 1.48306L9.885 1.70306C9.81679 1.70981 9.74848 1.69131 9.693 1.65106L7.987 0.414062L6.28 1.65106C6.22465 1.69072 6.15675 1.70885 6.089 1.70206L3.992 1.48406L3.136 3.41006C3.10801 3.47262 3.05775 3.52252 2.995 3.55006L1.069 4.40806L1.289 6.50406C1.29569 6.57195 1.27718 6.63993 1.237 6.69506L0 8.40106L1.237 10.1071C1.277 10.1631 1.295 10.2311 1.288 10.2991L1.069 12.3951L2.995 13.2521C3.05727 13.28 3.1071 13.3298 3.135 13.3921L3.992 15.3181L6.089 15.0991L6.116 15.0981C6.175 15.0981 6.232 15.1161 6.279 15.1511L7.987 16.3881L9.693 15.1511C9.74835 15.1106 9.81677 15.092 9.885 15.0991L11.981 15.3191L12.838 13.3931C12.8656 13.3304 12.9155 13.2801 12.978 13.2521L14.904 12.3951L14.686 10.2991C14.6787 10.231 14.6968 10.1626 14.737 10.1071L15.974 8.40106L14.737 6.69406C14.6971 6.63884 14.6789 6.57084 14.686 6.50306Z" fill="#0065FF" />
+                            <path fillRule="evenodd" clipRule="evenodd" d="M14.686 6.50306L14.904 4.40706L12.979 3.55006C12.9162 3.52212 12.8659 3.47188 12.838 3.40906L11.981 1.48306L9.885 1.70306C9.81679 1.70981 9.74848 1.69131 9.693 1.65106L7.987 0.414062L6.28 1.65106C6.22465 1.69072 6.15675 1.70885 6.089 1.70206L3.992 1.48406L3.136 3.41006C3.10801 3.47262 3.05775 3.52252 2.995 3.55006L1.069 4.40806L1.289 6.50406C1.29569 6.57195 1.27718 6.63993 1.237 6.69506L0 8.40106L1.237 10.1071C1.277 10.1631 1.295 10.2311 1.288 10.2991L1.069 12.3951L2.995 13.2521C3.05727 13.28 3.1071 13.3298 3.135 13.3921L3.992 15.3181L6.089 15.0991L6.116 15.0981C6.175 15.0981 6.232 15.1161 6.279 15.1511L7.987 16.3881L9.693 15.1511C9.74835 15.1106 9.81677 15.092 9.885 15.0991L11.981 15.3191L12.838 13.3931C12.8656 13.3304 12.9155 13.2801 12.978 13.2521L14.904 12.3951L14.686 10.2991C14.6787 10.231 14.6968 10.1626 14.737 10.1071L15.974 8.40106L14.737 6.69406C14.6971 6.63884 14.6789 6.57084 14.686 6.50306Z" fill="#0065FF" />
                             <path d="M11.8514 5.88003C11.8715 5.91147 11.8845 5.94698 11.8894 5.98403C11.8847 6.02142 11.8717 6.0573 11.8514 6.08903L7.19635 11.644C7.12135 11.714 7.06635 11.748 7.02835 11.748C6.96535 11.748 6.90335 11.719 6.84135 11.662L4.20535 9.30003L4.14935 9.24803C4.12895 9.21698 4.11563 9.18181 4.11035 9.14503C4.11035 9.13403 4.12335 9.10503 4.14835 9.05803L4.18535 9.02403C4.53435 8.67603 4.80835 8.41003 5.00835 8.22503C5.08235 8.15503 5.13235 8.12103 5.15835 8.12103C5.20735 8.12103 5.26935 8.15603 5.34435 8.22503L6.84035 9.57903L10.5804 5.11603C10.6044 5.09303 10.6414 5.08203 10.6914 5.08203C10.7372 5.08344 10.7822 5.0947 10.8234 5.11503L11.8514 5.87903V5.88003Z" fill="white" />
                         </svg>
                         </p> : <p className="text-black font-[400] text-[13px] mt-0 md:mt-2">
@@ -48,7 +47,6 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
                             <span className='text-[#4D6182] text-[13px] font-[400]'>{userData?.company_info?.hiring_title}</span>
                             <div className='flex flex-row divide-x-2 divide-[#4D6182]/20 space-x-2 -ms-2'>
                                 {
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                     userData.industries?.map((industry: any, index: number) => (
                                         <span key={index} className='text-[#4D6182] text-[13px] ps-2 font-[400]'>{industry.name}</span>
                                     ))

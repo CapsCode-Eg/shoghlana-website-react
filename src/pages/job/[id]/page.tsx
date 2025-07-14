@@ -26,6 +26,13 @@ export default function ViewJob() {
         })
 
     }, [])
+    const [userData, setUserData] = useState<any>({});
+    useEffect(() => {
+        const user = window.localStorage.getItem("user");
+        if (user) {
+            setUserData(JSON.parse(user));
+        }
+    }, [])
     useEffect(() => {
         if (data?.country_id !== null && data?.country_id !== "") {
             axiosInstance.get(`/get-cities-by-country-id/${data?.country_id}`).then((res) => {
@@ -48,7 +55,7 @@ export default function ViewJob() {
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />
-            <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
+            <div className="w-[100%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
                 <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">
                     <img
                         src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -86,13 +93,17 @@ export default function ViewJob() {
                     {/* <span className='mt-4 text-[13px] font-[400] text-[#4D6182]'>{data?.description || 'Loading'}</span> */}
                     <div className="flex flex-col-reverse md:flex-row gap-4 md:justify-between flex-wrap justify-center items-center mt-[31px]">
                         <div className='flex flex-col-reverse md:flex-row gap-5 justify-start items-start md:items-center'>
-                            {data?.is_applied ?
-                                <span>
-                                    You Have Already Applied For This Job
-                                </span>
-                                : <Link to={`/job/${id}/apply`} className="bg-main rounded-[5px] h-[40px] w-full md:w-[160px] lg:w-[200px] text-[15px] font-[400] text-white flex flex-col items-center justify-center">
-                                    Apply For Job
-                                </Link>}
+                            {userData?.type !== 'company' &&
+                                <>
+                                    {data?.is_applied ?
+                                        <span>
+                                            You Have Already Applied For This Job
+                                        </span>
+                                        : <Link to={`/job/${id}/apply`} className="bg-main rounded-[5px] h-[40px] w-full md:w-[160px] lg:w-[200px] text-[15px] font-[400] text-white flex flex-col items-center justify-center">
+                                            Apply For Job
+                                        </Link>}
+                                </>
+                            }
                             <div className=" items-center md:flex hidden ms-0 xl:ms-[30px]">
                                 <span className="font-[600] text-[22px] xl:text-[28px] text-[#4D6182]">{data?.apply || 0}</span>
                                 <span className="font-[600] text-[13px] ms-1 xl:ms-2 text-[#4D6182]">Applicants for</span>

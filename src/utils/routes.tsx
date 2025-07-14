@@ -24,6 +24,7 @@ import SocialMedia from "../pages/setting/online-presence/page";
 import PublicProfile from "../pages/setting/public-profile/page";
 import PostJob from "../pages/company_profile/post_job/post_job";
 import CompanySignUp from "../pages/auth/company_signUp/companySignUp";
+import JobApplications from "../pages/jobApplications/jobApplications";
 
 export const router = createBrowserRouter([
     {
@@ -117,5 +118,9 @@ export const router = createBrowserRouter([
     {
         path: '/post_job/:func?/:id?',
         element: <PostJob />
+    },
+    {
+        path: '/job_applications/:id?',
+        element: <JobApplications />
     }
 ]);
