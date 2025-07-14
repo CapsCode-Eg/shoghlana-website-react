@@ -4,14 +4,16 @@ interface TextAreaProps {
     value?: string;
     onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
     placeholder?: string;
+    isDisable?: boolean;
 }
 
-const TextArea: React.FC<TextAreaProps> = ({ value = "", onChange, placeholder = "Write your answer here..." }) => {
+const TextArea: React.FC<TextAreaProps> = ({ value = "", onChange, placeholder = "Write your answer here...", isDisable = false }) => {
     return (
         <div className="relative w-full">
             <textarea
                 className="w-full p-2 border border-gray-300 rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[80px] resize-none"
                 value={value}
+                disabled={isDisable}
                 onChange={onChange}
                 placeholder={placeholder}
             />

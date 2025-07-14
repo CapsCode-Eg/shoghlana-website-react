@@ -25,6 +25,7 @@ import PublicProfile from "../pages/setting/public-profile/page";
 import PostJob from "../pages/company_profile/post_job/post_job";
 import CompanySignUp from "../pages/auth/company_signUp/companySignUp";
 import JobApplications from "../pages/jobApplications/jobApplications";
+import ApplicationDetails from "../pages/jobApplications/pages/applicationDetails";
 
 export const router = createBrowserRouter([
     {
@@ -122,5 +123,9 @@ export const router = createBrowserRouter([
     {
         path: '/job_applications/:id?',
         element: <JobApplications />
+    },
+    {
+        path: '/job_applications/details/:id?',
+        element: <ApplicationDetails />
     }
 ]);
