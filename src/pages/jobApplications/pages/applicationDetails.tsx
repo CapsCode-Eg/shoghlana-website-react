@@ -40,7 +40,7 @@ export default function ApplicationDetails() {
     }, [data?.user_id?.seeker])
     const navigate = useNavigate();
     const handleConsider = () => {
-        axiosInstance.post(`/company/consider-application/${id}`).then(() => {
+        axiosInstance.get(`/company/consider-application/${id}`).then(() => {
             toast.success("Application marked as in consideration");
             navigate(-1)
         }).catch((err) => {
@@ -48,7 +48,7 @@ export default function ApplicationDetails() {
         });
     }
     const handleAccept = () => {
-        axiosInstance.post(`/company/accept-application/${id}`).then(() => {
+        axiosInstance.get(`/company/accept-application/${id}`).then(() => {
             toast.success("Application accepted successfully");
             navigate(-1)
         }).catch((err) => {
@@ -57,7 +57,7 @@ export default function ApplicationDetails() {
     }
 
     const handleRejected = () => {
-        axiosInstance.post(`/company/reject-application/${id}`).then(() => {
+        axiosInstance.get(`/company/reject-application/${id}`).then(() => {
             toast.success("Application rejected successfully");
             navigate(-1)
         }).catch((err) => {
