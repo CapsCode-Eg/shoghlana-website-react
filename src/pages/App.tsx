@@ -18,7 +18,6 @@ export default function Home() {
         withOutToast: true
     })
     const [home, setHome] = useState<any>({})
-    console.log(home)
 
     const handleFetchData = async () => {
         const res = await fetchData()

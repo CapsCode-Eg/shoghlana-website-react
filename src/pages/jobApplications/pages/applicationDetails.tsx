@@ -106,8 +106,8 @@ export default function ApplicationDetails() {
                             <span className="mx-1">-</span>
                             <span className="text-sm text-gray-500">Years Of Experience</span>
                         </div>
-                        <span className="text-sm text-gray-500">Skills : {data?.user_id?.skills?.map((skill: any) => skill.name).join(", ")}</span>
                     </div>
+                    <span className="text-sm text-gray-500 mt-1 ms-1">Skills : {data?.user_id?.skills?.map((skill: any) => skill.name).join(", ")}</span>
                 </div>
                 <div className="flex flex-col bg-white w-[98%] xl:w-[80%] mx-auto -top-20 relative z-[2] rounded-2xl p-5 shadow-xl">
                     {data?.answers?.length > 0 && data?.answers?.map((question, index) => {
