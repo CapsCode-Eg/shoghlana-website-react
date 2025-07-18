@@ -1,5 +1,4 @@
 "use client";
-import { FaSearch } from "react-icons/fa";
 import ProfileButton from "./profileButton/profileButton";
 import { useEffect, useRef, useState } from "react";
 import { MenuIcon } from "lucide-react";
@@ -41,7 +40,6 @@ export default function NavbarTwo() {
         return () => document.body.classList.remove("no-scroll");
     }, [isOpen]);
 
-
     return (
         <nav className="bg-white relative max-w-screen px-6 py-3 flex items-center shadow-lg justify-between">
             {/* Left Section (Logo) */}
@@ -51,17 +49,22 @@ export default function NavbarTwo() {
 
             {/* Center Section (Navigation Links) */}
             <div className="hidden items-center lg:flex space-x-8">
+                <Link to="/" className={`${location.pathname === "/" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                    {(location.pathname === "/") && (
+                        <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                    )}
+                    Home</Link>
                 {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
                     {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
                         <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
                     )}
                     Explore</Link>}
-                {!isCompany && <Link to="/saved" className={`${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/saved" className={`${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
                     {location.pathname === "/saved" && (
                         <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
                     )}
                     Saved</Link>}
-                {!isCompany && <Link to="/applications" className={`${location.pathname === "/applications" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/applications" className={`${location.pathname === "/applications" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
                     {location.pathname === "/applications" && (
                         <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
                     )}
@@ -69,17 +72,19 @@ export default function NavbarTwo() {
             </div>
 
             {/* Search Bar */}
-            {!isCompany && <div className="relative flex-grow max-w-md mx-6 hidden xl:block">
+            {/* {!isCompany && <div className="relative flex-grow max-w-md mx-6 hidden xl:block">
                 <input
                     type="text"
                     placeholder="Search for job, companies..."
                     className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
                 <FaSearch className="absolute top-3 right-3 text-gray-500" />
-            </div>}
+            </div>} */}
 
             {/* Right Section (Profile) */}
-            <ProfileButton />
+            {window.localStorage.getItem('user') &&
+                <ProfileButton />
+            }
             <div className="lg:hidden" ref={menuRef}>
                 <div onClick={() => setIsOpen(!isOpen)}>
                     <MenuIcon size={30} />
@@ -94,9 +99,11 @@ export default function NavbarTwo() {
                         {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
 
                             Explore</Link>}
-                        {!isCompany && <Link to="/saved" className={`pt-4 ${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
-                            Saved</Link>}
-                        {!isCompany && <Link to="#" className="pt-4 text-[#4D6182] font-semibold text-[20px]">Application</Link>}
+                        {(!isCompany && window.localStorage.getItem('user')) !== null &&
+                            <Link to="/saved" className={`pt-4 ${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                                Saved</Link>
+                        }
+                        {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="#" className="pt-4 text-[#4D6182] font-semibold text-[20px]">Application</Link>}
                     </div>
                 </div>
             </div>

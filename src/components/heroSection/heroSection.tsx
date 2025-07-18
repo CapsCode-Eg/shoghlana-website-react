@@ -4,7 +4,7 @@ import HomePageSearch from '../homePageSearch/homePageSearch'
 export default function HeroSection({ bannar }: { bannar?: any }) {
     return (
         <div className='mx-[8px] w-[calc(100%-16px)] rounded-[25px] relative pb-[24px]
-         !bg-black/15 my-[10px] overflow-hidden'>
+         !bg-black/15 my-[10px]'>
             <Background image={bannar?.image} />
             <div className='flex flex-col items-center !pt-[200px] md:pt-[281px] text-white h-full'>
                 <div className='flex flex-col text-center'>
