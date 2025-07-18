@@ -4,62 +4,85 @@ import JobsFilter from "../../components/explore/filter";
 import JobsFilterMobile from "../../components/explore/filterMobile";
 import TabsForJobs from "../../components/explore/tabsForJobs";
 import Footer from "../../components/footer/footer";
-import axiosInstance from "../../utils/axiosInstance";
 import { useSearchParams } from "react-router";
+import axiosInstance from "../../utils/axiosInstance";
+import Pagination from "../../components/common/pagination/pagination";
 
 export default function Explore() {
-    const [data, setData] = useState<any>({})
+    const [data, setData] = useState<any>({});
+    const [page, setPage] = useState(1);
+    const [meta, setMeta] = useState<any>({});
     const [searchParams] = useSearchParams();
-    const [selectedFilters, setSelectedFilters] = useState<any>({})
+    const [selectedFilters, setSelectedFilters] = useState<any>({});
 
-    console.log(selectedFilters)
+    console.log(meta)
     function toSearchParamsString(obj: Record<string, (string | number)[]>) {
-        const params = new URLSearchParams();
-        console.log(obj)
+        const paramsArray = Object.entries(obj).map(
+            ([key, value]) => `${key}=[${value.join(',')}]`
+        );
 
-        Object.entries(obj).forEach(([key, value]) => {
-            params.set(key, JSON.stringify(value));
-        });
-        return `${params.toString()}`;
+        const paramsString = paramsArray.join('&');
+        return paramsString;
     }
-    useEffect(() => {
-        axiosInstance.get(`/jobs`, { params: toSearchParamsString(selectedFilters) }).then((res) => {
-            setData(res.data.data)
-        }).catch((err) => {
-            console.error(err);
-        })
-    }, [searchParams])
-
-
-    useEffect(() => {
-        const parsedFilters: { [key: string]: (number | string)[] } = {};
-
-        for (const [key, value] of searchParams.entries()) {
+    // Fetch data when selectedFilters change
+    const searchStringToFilters = (params: URLSearchParams) => {
+        const parsedFilters: any = {};
+        params.forEach((value, key) => {
             try {
-                const parsedValue = JSON.parse(value); // e.g., "[5]" => [5]
+                const parsedValue = JSON.parse(value);
                 if (Array.isArray(parsedValue)) {
                     parsedFilters[key] = parsedValue;
                 }
             } catch (err) {
                 console.warn(`Could not parse value for ${key}: ${value}`);
+                console.error(err);
             }
-        }
+        });
+        return parsedFilters;
+    };
 
-        setSelectedFilters(prev => ({ ...prev, ...parsedFilters }));
+    // Fetch data whenever filters change
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const paramsString = toSearchParamsString(selectedFilters);
+                const res = await axiosInstance.get(`/jobs?${paramsString}&page=${page}`);
+                setData(res.data.data);
+                setMeta(res?.data?.data?.meta);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchData();
+    }, [selectedFilters, page]);
+
+    // Update filters when URL search params change
+    useEffect(() => {
+        const newFilters = searchStringToFilters(searchParams);
+        setSelectedFilters(newFilters);
     }, [searchParams]);
+
     return (
         <div className='flex flex-col max-w-screen min-h-screen overflow-x-hidden'>
             <NavbarTwo />
             <div className='w-[98%] xl:w-[80%] min-h-[55vh] h-full flex flex-col md:flex-row gap-4 mx-auto my-[20px] xl:my-[54px]'>
-                <div className='pt-[60px] hidden  lg:block'><JobsFilter /></div>
+                <div className='pt-[60px] hidden lg:block'>
+                    <JobsFilter />
+                </div>
                 <div className='flex flex-col gap-[0px] md:gap-[22.5px] flex-1 h-fit w-full'>
-                    <span className='text-[16px] flex flex-row justify-between pe-[20px] md:text-[21px] text-[#1C3042] font-[700] ms-5 lg:ms-0'>Explore New Career Opportunities
-                        <div className='lg:hidden block'><JobsFilterMobile /></div>
+                    <span className='text-[16px] flex flex-row justify-between pe-[20px] md:text-[21px] text-[#1C3042] font-[700] ms-5 lg:ms-0'>
+                        Explore New Career Opportunities
+                        <div className='lg:hidden block'>
+                            <JobsFilterMobile />
+                        </div>
                     </span>
                     <TabsForJobs data={data} />
+                    <Pagination currentPage={meta?.current_page} totalPages={meta?.to || 1} onPageChange={(page: number) => { setPage(page) }}
+                    />
                 </div>
             </div>
             <Footer />
         </div>
-    )
+    );
 }

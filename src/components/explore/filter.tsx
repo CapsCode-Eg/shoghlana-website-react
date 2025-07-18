@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
 import { LEVELS, TYPES } from '../../utils/constant/job';
+import { useSearchParams } from 'react-router';
 
 interface Option {
     id: number | string;
@@ -20,19 +21,19 @@ interface SelectedFilters {
 const INITIAL_VISIBLE_OPTIONS = 3;
 
 export default function JobsFilter() {
-    const [data, setData] = useState<{ country_ids?: { country_ids?: string } }>({});
     const [countries, setCountries] = useState<Option[]>([]);
     const [cities, setCities] = useState<Option[]>([]);
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const [seeMore, setSeeMore] = useState<number>(INITIAL_VISIBLE_OPTIONS);
     const [searchInput, setSearchInput] = useState<string>('');
     const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
-        country: [],
+        country_ids: [],
         city: [],
         work_places: [],
         levels: [],
         types: []
     });
+    const [searchParams, setSearchParams] = useSearchParams();
 
     // Fetch data
     useEffect(() => {
@@ -49,20 +50,25 @@ export default function JobsFilter() {
         fetchData();
     }, []);
 
-    // Fetch cities when country changes
     useEffect(() => {
-        if (data?.country_ids) {
-            axiosInstance.get(`/get-cities-by-country-id/${data.country_ids}`)
-                .then((res) => setCities(res.data.data.map((item: any) => ({ id: item.id, name: item.name }))))
-                .catch(error => console.error('Error fetching cities:', error));
+        if (selectedFilters?.country_ids.length > 0) {
+            if (selectedFilters?.country_ids.length > 1) {
+                axiosInstance.get(`/get-cities-by-country-ids?ids=[${selectedFilters?.country_ids}]`).then((res) => {
+                    setCities(res.data.data.map((item: any) => ({ id: item.id, name: item.name })));
+                });
+            } else {
+                axiosInstance.get(`/get-cities-by-country-ids?ids[]=${selectedFilters.country_ids}`)
+                    .then((res) => setCities(res.data.data.map((item: any) => ({ id: item.id, name: item.name }))))
+                    .catch(error => console.error('Error fetching cities:', error));
+            }
         }
-    }, [data?.country_ids]);
+    }, [selectedFilters?.country_ids]);
 
     const filters: Filter[] = useMemo(() => [
         {
             title: 'Country',
             name: 'country_ids',
-            options: countries
+            options: countries.map(country => ({ id: +(country.id), name: country.name }))
         },
         {
             title: 'Governance',
@@ -105,6 +111,38 @@ export default function JobsFilter() {
         setOpenIndex(openIndex === index ? null : index);
         setSearchInput('');
     };
+    useEffect(() => {
+        const params: SelectedFilters = {
+            country_ids: [],
+            city: [],
+            work_places: [],
+            levels: [],
+            types: []
+        };
+
+        filters.forEach(filter => {
+            const paramValue = searchParams.get(filter.name) ||
+                searchParams.get(encodeURIComponent(filter.name));
+
+            if (paramValue) {
+                // Remove any encoding and parse
+                const rawValue = paramValue
+                    .replace(/%5B/g, '[')
+                    .replace(/%5D/g, ']')
+                    .replace(/^\[|\]$/g, '');
+                const values = rawValue.split(',')
+                    .filter(Boolean)
+                    .map(value => typeof filter.options[0]?.id === 'number' ?
+                        Number(value) :
+                        +(value)
+                    );
+
+                params[filter.name] = values;
+            }
+        });
+
+        setSelectedFilters(params);
+    }, []);
 
     const handleFilterChange = (filterName: string, optionId: number | string) => {
         setSelectedFilters(prev => {
@@ -112,20 +150,24 @@ export default function JobsFilter() {
             const newSelection = currentSelection.includes(optionId)
                 ? currentSelection.filter(id => id !== optionId)
                 : [...currentSelection, optionId];
-            setData(prevData => ({
-                ...prevData,
-                [filterName]: newSelection
-            }));
 
-            return {
+            const allFilters = {
                 ...prev,
                 [filterName]: newSelection
             };
+            const params: any = [];
+            for (const [key, values] of Object.entries(allFilters)) {
+                if (values.length > 0) {
+                    params.push(`${key}=[${values.join(',')}]`);
+                }
+            }
+            const queryString = params.join('&');
+            setSearchParams(new URLSearchParams(queryString));
+            window.history.replaceState(null, '', `?${queryString}`);
+
+            return allFilters;
         });
     };
-
-
-    console.log(data)
     return (
         <div className="w-[260px] bg-white rounded-lg shadow-md">
             <h2 className="text-lg font-bold text-blue-600 p-4">Jobs Filter</h2>
@@ -157,7 +199,7 @@ export default function JobsFilter() {
                                                     id={`${filter.name}-${option.id}`}
                                                     name={filter.name}
                                                     value={option.id}
-                                                    checked={selectedFilters[filter.name]?.includes(option.id)}
+                                                    checked={selectedFilters[filter.name]?.includes(+(option.id))}
                                                     onChange={() => handleFilterChange(filter.name, option.id)}
                                                     className="cursor-pointer"
                                                 />
@@ -165,15 +207,15 @@ export default function JobsFilter() {
                                         );
                                     })}
                                     {filter.options.length > INITIAL_VISIBLE_OPTIONS && (
-                                        <li className="text-blue-600 py-1 cursor-pointer"
-                                            onClick={() => setSeeMore(filter.options.length)}>
-                                            See More
-                                        </li>
-                                    )}
-                                    {filter.options.length > INITIAL_VISIBLE_OPTIONS && seeMore > INITIAL_VISIBLE_OPTIONS && (
-                                        <li className="text-blue-600 py-1 cursor-pointer"
-                                            onClick={() => setSeeMore(INITIAL_VISIBLE_OPTIONS)}>
-                                            See Less
+                                        <li
+                                            className="text-blue-600 py-1 cursor-pointer"
+                                            onClick={() =>
+                                                seeMore > INITIAL_VISIBLE_OPTIONS
+                                                    ? setSeeMore(INITIAL_VISIBLE_OPTIONS)
+                                                    : setSeeMore(filter.options.length)
+                                            }
+                                        >
+                                            {seeMore > INITIAL_VISIBLE_OPTIONS ? "See Less" : "See More"}
                                         </li>
                                     )}
                                 </ul>
