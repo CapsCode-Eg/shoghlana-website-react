@@ -33,7 +33,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
         })
     }
     return (
-        <div className=" w-full mx-auto relative bg-white rounded-lg shadow-md p-4 flex items-start min-h-[175px]">
+        <div className=" w-full mx-auto relative bg-white rounded-lg shadow-md p-4 flex items-start min-h-[195px]">
             <div className="flex-grow">
                 <h2 className="text-xl font-bold flex flex-row flex-wrap text-blue-600">
                     <Link to={`/job/${job?.id}/view`}>{job?.title || 'Loading'}</Link>

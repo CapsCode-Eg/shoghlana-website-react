@@ -18,7 +18,7 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
                         alt="image Profile"
                         width={80}
                         height={80}
-                        className="rounded-[10px] w-[80px] h-[80px] object-cover absolute end-[10px] top-[25px] mr-4"
+                        className="rounded-[10px] w-[80px] h-[80px] object-cover absolute end-[10px] top-[25px] mr-4 hidden md:block"
                     />
                     <div className='flex flex-col md:flex-row items-start md:items-center gap-0 md:gap-2'>
                         {isCompany ?
