@@ -26,6 +26,9 @@ import PostJob from "../pages/company_profile/post_job/post_job";
 import CompanySignUp from "../pages/auth/company_signUp/companySignUp";
 import JobApplications from "../pages/jobApplications/jobApplications";
 import ApplicationDetails from "../pages/jobApplications/pages/applicationDetails";
+import Grantee from "../pages/grantee/grantee";
+import Oldgrantees from "../pages/oldgrantees/oldgrantees";
+import LastSubscription from "../pages/lastSubscription/lastSubscription";
 
 export const router = createBrowserRouter([
     {
@@ -127,5 +130,17 @@ export const router = createBrowserRouter([
     {
         path: '/job_applications/details/:id?',
         element: <ApplicationDetails />
+    },
+    {
+        path: '/grantee',
+        element: <Grantee />
+    },
+    {
+        path: '/old-grantees',
+        element: <Oldgrantees />
+    },
+    {
+        path: '/last-Subscription',
+        element: <LastSubscription />
     }
 ]);

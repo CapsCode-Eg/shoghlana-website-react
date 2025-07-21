@@ -29,9 +29,9 @@ export default function Footer({ data }: { data?: any }) {
                         <div>
                             <h3 className="font-medium text-[20px] text-white mb-5">Company</h3>
                             <ul className="flex flex-col items-start gap-[14px]">
-                                <li><a href="#" className="hover:underline font-[400] text-[20px] text-white">About Us</a></li>
-                                <li><a href="#" className="hover:underline font-[400] text-[20px] text-white">Download</a></li>
-                                <li><a href="#" className="hover:underline font-[400] text-[20px] text-white">Blog</a></li>
+                                <li><Link to="/explore" className="hover:underline font-[400] text-[20px] text-white">Explore</Link></li>
+                                {/* <li><a href="#" className="hover:underline font-[400] text-[20px] text-white">Download</a></li> */}
+                                {/* <li><a href="#" className="hover:underline font-[400] text-[20px] text-white">Blog</a></li> */}
                             </ul>
                         </div>
                         <div className="relative z-[6]">

@@ -7,12 +7,9 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
     const copyToClipboard = useCopyToClipboard();
     return (
         <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] pb-8 flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
-            <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">
-                <img
-                    src="https://images.unsplash.com/photo-1511300636408-a63a89df3482?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Icon"
-                    className='object-cover'
-                />
+            <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden flex items-center justify-center">
+                <img src={'/assets/linesBlue.png'} alt='background' className={`absolute top-0 left-0 object-cover w-full h-full`} />
+                <span className="text-main text-[35px] md:text-[50px] font-bold">Shoghlana</span>
             </div>
             <div className="p-6 md:pb-0  pb-16 rounded-xl min-h-[200px] bg-white -mt-10 relative z-[10]">
                 <div className="flex items-center">
@@ -42,9 +39,9 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
                     isCompany ?
                         <div className='flex flex-col gap-1 -mt-1'>
                             <span className='text-[#4D6182] text-[14px] mt-1 font-[500] max-w-[400px] line-clamp-2'>{userData?.company_info?.about}</span>
-                            <p className="text-[#4D6182] text-[13px] font-[400] mt-1">{`${cities?.find((city: any) => city.id === userData?.company_info?.city)?.name}`}, {`${countries?.find((country: any) => country.id === userData?.company_info?.country)?.name}`}</p>
-                            <span className='text-[#4D6182] text-[13px] font-[400]'>{company_size[userData?.company_info?.company_size]}</span>
-                            <span className='text-[#4D6182] text-[13px] font-[400]'>{userData?.company_info?.hiring_title}</span>
+                            {userData?.company_info?.country && <p className="text-[#4D6182] text-[13px] font-[400] mt-1">{`${cities?.find((city: any) => city.id === userData?.company_info?.city)?.name || ''}` || ''}, {`${countries?.find((country: any) => country.id === userData?.company_info?.country)?.name}`}</p>}
+                            <span className='text-[#4D6182] text-[13px] font-[400]'>{company_size[userData?.company_info?.company_size] || ''}</span>
+                            <span className='text-[#4D6182] text-[13px] font-[400]'>{userData?.company_info?.hiring_title || ''}</span>
                             <div className='flex flex-row divide-x-2 divide-[#4D6182]/20 space-x-2 -ms-2'>
                                 {
                                     userData.industries?.map((industry: any, index: number) => (

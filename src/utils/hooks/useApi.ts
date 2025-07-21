@@ -56,7 +56,7 @@ export function useApi<T>({ toast_message,withOutToast = false, endPoint, naviga
             return response;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-            const errorMessage = err?.response?.data?.message || "An error occurred";
+            const errorMessage = err?.response?.data?.msg || "An error occurred";
             const backEndValidationError = err?.response?.data?.errors || err?.response?.data?.message || {};
             // For Validation
             if (err.inner) {

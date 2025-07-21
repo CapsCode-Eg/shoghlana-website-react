@@ -61,6 +61,11 @@ export default function CompanyProfile() {
         <div className='flex flex-col max-w-screen min-h-screen overflow-hidden pb-4'>
             <NavbarTwo />
             <ProfileHeroSection cities={cities} countries={countries} isCompany={true} userData={data} />
+            <div className='flex flex-row w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[24px] h-[54px] px-6 shadow-lg rounded-[16px] items-center gap-10 font-semibold text-main'>
+                <Link to='/grantee' className='flex flex-row items-center gap-2 h-[32px] px-[12px] rounded-[8px] shadow-md'>Grantee</Link>
+                <Link to='/old-grantees' className='flex flex-row items-center gap-2 h-[32px] px-[12px] rounded-[8px] shadow-md'>Your Grantees</Link>
+                <Link to='/last-subscription' className='flex flex-row items-center gap-2 h-[32px] px-[12px] rounded-[8px] shadow-md'>Last Subscription</Link>
+            </div>
             <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[24px] pb-8 px-6 flex flex-col bg-main rounded-xl shadow-md">
                 <div className="flex items-center space-x-3 mt-6">
                     <h2 className="text-xl font-semibold text-white">Ready to post a job?</h2>

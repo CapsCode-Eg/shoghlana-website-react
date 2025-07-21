@@ -10,6 +10,7 @@ interface DocumentUploadProps {
     multiple?: boolean;
     disabled?: boolean;
     oldFiles?: string;
+    title?: string
 }
 
 export function DocumentUpload({
