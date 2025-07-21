@@ -15,7 +15,6 @@ export default function Explore() {
     const [searchParams] = useSearchParams();
     const [selectedFilters, setSelectedFilters] = useState<any>({});
 
-    console.log(meta)
     function toSearchParamsString(obj: Record<string, (string | number)[]>) {
         const paramsArray = Object.entries(obj).map(
             ([key, value]) => `${key}=[${value.join(',')}]`

@@ -85,7 +85,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
                         Rejected
                     </span>
                 }
-                {userData?.type !== 'company' && <>
+                {userData?.type !== 'company' && window.localStorage.getItem("user") && <>
                     <button onClick={() => {
                         if (!data?.is_saved) {
                             handleSaveJob()

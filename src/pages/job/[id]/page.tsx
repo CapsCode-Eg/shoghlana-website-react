@@ -93,7 +93,7 @@ export default function ViewJob() {
                     {/* <span className='mt-4 text-[13px] font-[400] text-[#4D6182]'>{data?.description || 'Loading'}</span> */}
                     <div className="flex flex-col-reverse md:flex-row gap-4 md:justify-between flex-wrap justify-center items-center mt-[31px]">
                         <div className='flex flex-col-reverse md:flex-row gap-5 justify-start items-start md:items-center'>
-                            {userData?.type !== 'company' &&
+                            {userData?.type !== 'company' && window.localStorage.getItem("user") &&
                                 <>
                                     {data?.is_applied ?
                                         <span>
@@ -128,7 +128,7 @@ export default function ViewJob() {
                                 <span className="font-[600] text-[28px] text-[#4D6182]">20</span>
                                 <span className="font-[600] text-[13px] ms-2 text-[#4D6182]">Applicants for</span>
                             </div>
-                            <button onClick={() => {
+                            {window.localStorage.getItem("user") && <button onClick={() => {
                                 if (!data?.is_saved) {
                                     handleSaveJob()
                                 } else {
@@ -147,7 +147,7 @@ export default function ViewJob() {
                                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7 4.5C5.9 4.5 5 5.4 5 6.5V20.5L12 17.5L19 20.5V6.5C19 5.4 18.1 4.5 17 4.5H7Z" fill="white" />
                                 </svg>
-                            </button>
+                            </button>}
                             {/* <button type='button' title='Share' className='bg-white border-[1px] border-[#4D6182] rounded-[5px] hidden md:flex flex-col items-center w-[38px] h-[40px] justify-center'>
                                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13.8 14.652V18.343L21 12.036L13.8 5.75V9.336C6.802 10.243 4.012 14.736 3 19.25C5.497 16.086 8.805 14.652 13.8 14.652Z" fill="#4D6182" />

@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router";
 import NavbarTwo from "../../../components/common/navbarTwo/navbarTwo";
-import JobCardInCompnay from "../../../components/company/jobCardInCompnay";
 import Footer from "../../../components/footer/footer";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
+import JobsCard from "../../../components/savedJobs/jobsCard/jobsCard";
 
 export default function Company() {
     const { id } = useParams();
@@ -21,11 +21,10 @@ export default function Company() {
             <NavbarTwo />
             <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
                 <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">
-                    <img
-                        src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Icon"
-                        className='object-cover'
-                    />
+                    <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden flex items-center justify-center">
+                        <img src={'/assets/linesBlue.png'} alt='background' className={`absolute top-0 left-0 object-cover w-full h-full`} />
+                        <span className="text-main text-[35px] md:text-[50px] font-bold">Shoghlana</span>
+                    </div>
                 </div>
                 <div className="p-6 rounded-xl bg-white -mt-10 relative z-[10] pb-20 lg:pb-6">
                     <div className="flex items-center">
@@ -56,22 +55,21 @@ export default function Company() {
                             </svg>
                             {data?.email}
                         </Link>
-                        {/* <div className='w-[1px] bg-black h-[15px] mt-0.5 mx-4' />
-                        <Link to='#' className='me-4'>
-                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.0607 20.4965H16.7741V14.8988C16.7741 13.3645 16.1913 12.5078 14.9769 12.5078C13.6554 12.5078 12.9657 13.3995 12.9657 14.8998V20.4965H9.79801V9.83395H12.9657V11.2704C12.9657 11.2704 13.9173 9.50809 16.1804 9.50809C18.4414 9.50809 20.0607 10.8895 20.0607 13.7463V20.4965ZM6.02059 8.43853C5.76309 8.43762 5.50829 8.38597 5.27075 8.28655C5.03322 8.18713 4.8176 8.04189 4.63622 7.85911C4.45483 7.67634 4.31124 7.45961 4.21364 7.22132C4.11604 6.98304 4.06635 6.72785 4.0674 6.47035C4.0674 5.38381 4.94103 4.50317 6.02059 4.50317C6.27795 4.50409 6.53262 4.55571 6.77003 4.65508C7.00745 4.75445 7.22295 4.89962 7.40425 5.0823C7.58554 5.26499 7.72906 5.4816 7.82661 5.71977C7.92416 5.95793 7.97382 6.21299 7.97277 6.47035C7.97396 6.72781 7.92439 6.98297 7.82689 7.22125C7.7294 7.45953 7.5859 7.67626 7.4046 7.85905C7.2233 8.04184 7.00774 8.1871 6.77027 8.28653C6.53279 8.38597 6.27804 8.43762 6.02059 8.43853ZM4.38527 20.4965H7.68589V9.83395H4.38527V20.4965Z" fill="#4D6182" />
-                            </svg>
-                        </Link> */}
-
                     </div>
                 </div>
             </div>
-            <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] lg:mt-[54px] flex flex-col bg-white rounded-[10px] rounded-b-xl shadow-md overflow-hidden border-[1px] py-[26.22px] px-[33.11px]">
+            {data?.jobs?.length > 0 && <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] lg:mt-[54px] flex flex-col bg-white rounded-[10px] rounded-b-xl shadow-md overflow-hidden border-[1px] py-[26.22px] px-[33.11px]">
                 <span className='text-[#001433] text-[20px] font-semibold'>Jobs Shared</span>
                 <div className="mt-2 flex flex-col items-center" >
-                    <JobCardInCompnay />
+                    {
+                        data?.jobs?.map((job: any, index: number) => {
+                            return (
+                                <JobsCard key={index} job={job} />
+                            )
+                        })
+                    }
                 </div>
-            </div>
+            </div>}
             <Footer />
 
         </div>

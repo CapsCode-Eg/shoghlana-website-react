@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import NavbarTwo from "../../../components/common/navbarTwo/navbarTwo";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
@@ -79,7 +79,7 @@ export default function ApplicationDetails() {
                         }
                         <div className="flex flex-col ">
                             <div className="flex flex-row items-center gap-0.5">
-                                <span className="font-medium text-[18px] text-black">{data?.user_id?.first_name.charAt(0).toUpperCase() + data?.user_id?.first_name.slice(1)} {data?.user_id?.last_name.charAt(0).toUpperCase() + data?.user_id?.last_name.slice(1)}</span>
+                                <Link to={`/user/${data?.user_id?.id}`} className="font-medium text-[18px] text-black">{data?.user_id?.first_name.charAt(0).toUpperCase() + data?.user_id?.first_name.slice(1)} {data?.user_id?.last_name.charAt(0).toUpperCase() + data?.user_id?.last_name.slice(1)}</Link>
                                 <span className="text-[14px] text-gray-500">({data?.user_id?.seeker?.job_title.charAt(0).toUpperCase() + data?.user_id?.seeker?.job_title.slice(1)})</span>
                             </div>
                             <span className="text-gray-500 text-sm -mt-1">{data?.user_id?.email}</span>

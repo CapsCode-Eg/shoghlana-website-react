@@ -29,6 +29,7 @@ import ApplicationDetails from "../pages/jobApplications/pages/applicationDetail
 import Grantee from "../pages/grantee/grantee";
 import Oldgrantees from "../pages/oldgrantees/oldgrantees";
 import LastSubscription from "../pages/lastSubscription/lastSubscription";
+import UserProfile from "../pages/userProfile/userProfile";
 
 export const router = createBrowserRouter([
     {
@@ -142,5 +143,9 @@ export const router = createBrowserRouter([
     {
         path: '/last-Subscription',
         element: <LastSubscription />
+    },
+    {
+        path: 'user/:id',
+        element: <UserProfile />
     }
 ]);

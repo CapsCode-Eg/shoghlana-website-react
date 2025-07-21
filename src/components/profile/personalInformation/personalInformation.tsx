@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { educationLevels, jobTypes, personal_type, workModes } from "../../../utils/constant/profile";
 import { useEffect, useState } from "react";
 
-export default function PersonalInformation({ userData, deleteCV, countries, jobCategory, handleFileChange }: { jobCategory: any, countries: any, userData: any, deleteCV?: () => void, handleFileChange }) {
+export default function PersonalInformation({ userData, deleteCV, countries, jobCategory, handleFileChange, handleUnlockCv }: { jobCategory: any, countries: any, userData: any, deleteCV?: () => void, handleFileChange?: any, handleUnlockCv?: any }) {
     function getAge(dateString: string): number {
         const birthDate = new Date(dateString);
         const today = new Date();
@@ -79,18 +79,24 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
                                 <p className="text-gray-800 font-medium">Cv</p>
                             </div>
                         </div>
-                        <span onClick={deleteCV} className="absolute top-2 right-2">
+                        {deleteCV && <span onClick={deleteCV} className="absolute top-2 right-2">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.61143 14.6967C3.86688 14.6967 0.823242 11.6531 0.823242 7.90855C0.823242 4.164 3.86688 1.12036 7.61143 1.12036C11.356 1.12036 14.3996 4.164 14.3996 7.90855C14.3996 11.6531 11.356 14.6967 7.61143 14.6967ZM7.61143 2.06755C4.39099 2.06755 1.77043 4.68811 1.77043 7.90855C1.77043 11.129 4.39099 13.7496 7.61143 13.7496C10.8319 13.7496 13.4524 11.129 13.4524 7.90855C13.4524 4.68811 10.8319 2.06755 7.61143 2.06755Z" fill="#292D32" />
                                 <path d="M5.82455 10.1693C5.70458 10.1693 5.5846 10.1251 5.48988 10.0304C5.30676 9.84729 5.30676 9.54418 5.48988 9.36106L9.06394 5.787C9.24707 5.60388 9.55017 5.60388 9.73329 5.787C9.91641 5.97012 9.91641 6.27322 9.73329 6.45635L6.15923 10.0304C6.07082 10.1251 5.94453 10.1693 5.82455 10.1693Z" fill="#292D32" />
                                 <path d="M9.39862 10.1693C9.27864 10.1693 9.15866 10.1251 9.06394 10.0304L5.48988 6.45635C5.30676 6.27322 5.30676 5.97012 5.48988 5.787C5.673 5.60388 5.9761 5.60388 6.15923 5.787L9.73329 9.36106C9.91641 9.54418 9.91641 9.84729 9.73329 10.0304C9.63857 10.1251 9.51859 10.1693 9.39862 10.1693Z" fill="#292D32" />
                             </svg>
-                        </span>
+                        </span>}
                         <div className="flex space-x-4 text-blue-600 text-[10px] md:text-sm">
-                            <Link to={userData?.seeker?.cv} target="_blank" className="hover:underline">Preview CV</Link>
-                            <div className="w-[1px] h-4 bg-gray-300" />
-                            <label htmlFor="cv" className="hover:underline">Update CV</label>
-                            <input accept="application/pdf" id="cv" type="file" onChange={handleFileChange} className="hidden" />
+                            {handleUnlockCv ?
+                                <button onClick={handleUnlockCv} className="hover:underline">Unlock CV</button>
+                                : <Link to={userData?.seeker?.cv} target="_blank" className="hover:underline">Preview CV</Link>}
+                            {handleFileChange &&
+                                <>
+                                    <div className="w-[1px] h-4 bg-gray-300" />
+                                    <label htmlFor="cv" className="hover:underline">Update CV</label>
+                                    <input accept="application/pdf" id="cv" type="file" onChange={handleFileChange} className="hidden" />
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
