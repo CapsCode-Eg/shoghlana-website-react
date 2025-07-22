@@ -11,13 +11,13 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
             </div>
             <div className="p-6 md:pb-0  pb-16 rounded-xl min-h-[200px] bg-white -mt-10 relative z-[10]">
                 <div className="flex items-center">
-                    <img
+                    {userData?.image && <img
                         src={userData?.image ? (userData?.image || "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8fHww") : "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8fHww"}
                         alt="image Profile"
                         width={80}
                         height={80}
                         className="rounded-[10px] w-[80px] h-[80px] object-cover absolute end-[10px] top-[25px] mr-4 hidden md:block"
-                    />
+                    />}
                     <div className='flex flex-col md:flex-row items-start md:items-center gap-0 md:gap-2'>
                         {isCompany ?
                             <h2 className={`text-[25.73px] ${isCompany ? "text-[#001433]" : "text-[#0055D9]"} font-bold`}>{userData?.name || "Loading"}</h2>
