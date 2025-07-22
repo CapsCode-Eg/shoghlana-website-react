@@ -10,12 +10,10 @@ export default function Invitations() {
     const [meta, setMeta] = useState<any>({});
     useEffect(() => {
         axiosInstance.get(`/company/invite-users?page=${page}`).then((res) => {
-            console.log(res)
             setMeta(res?.data?.data?.links['total-page'])
             setData(res.data.data?.data)
         })
     }, [])
-    console.log(meta)
     return (
         <div className='flex flex-col max-w-screen min-h-screen overflow-hidden pb-4'>
             <NavbarTwo />

@@ -84,7 +84,6 @@ export function FileUpload({
             return newFiles;
         });
     };
-    console.log(oldFiles)
     return (
         <div className="w-full space-y-4">
             <span className='mb-[6px] text-[#0E4E5D] font-medium text-base flex flex-row items-center dark:text-shadow_blue'>{label}</span>

@@ -32,7 +32,6 @@ export function useCompanySignUp() {
 
     useEffect(() => {
         if (payLoad?.data) {
-            console.log('hi')
             window.localStorage.setItem('user', JSON.stringify(payLoad?.data?.user))
             if (payLoad.data) {
                 window.localStorage.setItem('token', payLoad?.data?.access_token)

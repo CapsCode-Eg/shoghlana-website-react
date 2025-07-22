@@ -26,7 +26,6 @@ export default function Education() {
 
     useEffect(() => {
         axiosInstance.get('/user-profile').then((res) => {
-            console.log(res?.data?.data)
             setData(res?.data?.data?.education)
         })
     }, [])

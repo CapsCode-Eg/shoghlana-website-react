@@ -5,7 +5,6 @@ import { DocumentUpload } from './uploadCv'
 export default function YourExperience({ handleNext, handleBack, setData, years, job_category, formData, errors }: { errors: any, formData: any, job_category: any, years: any, setData: React.Dispatch<React.SetStateAction<any>>, handleNext: () => void, handleBack: () => void }) {
     const handleFileUpload = (file: File) => {
         setData((prev) => ({ ...prev, cv: file }))
-        console.log('Uploaded file:', file);
     };
     const months = Array.from({ length: 12 }, (_, index) => {
         const month = index + 1;

@@ -56,7 +56,6 @@ export default function UserProfile() {
     const [isOpen, setIsOpen] = useState(false);
     const handleInvite = () => {
         setIsOpen(true)
-        console.log(id)
     }
     return (
         <div className='flex flex-col max-w-screen overflow-hidden'>

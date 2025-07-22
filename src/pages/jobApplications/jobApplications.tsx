@@ -22,7 +22,6 @@ export default function JobApplications() {
             setNationalties(res.data.data)
         })
     }, [])
-    console.log(data);
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />

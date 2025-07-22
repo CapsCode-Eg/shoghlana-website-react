@@ -53,7 +53,6 @@ const UsersTable: React.FC<UsersTableProps> = ({ data, isLoading = false }) => {
             </div>
         );
     }
-    console.log(data)
     return (
         <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm  mt-6 mx-2">
             <table className="min-w-full divide-y divide-gray-200">

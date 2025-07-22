@@ -201,7 +201,6 @@ export function useAddJob() {
                 err.inner.forEach((error: any) => {
                     validationErrors[error.path] = error.message;
                 });
-                console.log(validationErrors)
                 setErrors(validationErrors);
             }
             return null;

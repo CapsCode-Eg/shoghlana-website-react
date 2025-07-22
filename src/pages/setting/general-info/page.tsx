@@ -20,7 +20,6 @@ export default function GeneralInfo() {
         setIsUser(user?.type !== 'company');
     }, []);
 
-    console.log(errors)
     if (isUser === null) return null; // or a loading spinner
 
     return (
