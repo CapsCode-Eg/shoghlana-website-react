@@ -45,7 +45,7 @@ export default function Navbar() {
                         Log in
                     </Link>
                     <Link to='/signup' className="flex flex-row items-center gap-2 py-[9px] px-[18px] border-main border-[2px] bg-main text-white rounded-[5px] ">
-                        Get Started
+                        Start Now
                     </Link>
                 </div>
                 <div className="md:hidden" ref={menuRef}>
