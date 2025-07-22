@@ -47,11 +47,10 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
                 <p className="text-[#001433] flex flex-row items-center mt-1">
                     {
                         userData?.type !== 'company' && <>
-                            <Link to={`company/2`} className='font-semibold text-[12px]'>CapsCode EG</Link>
+                            <Link to={`/company/${job?.company_id}`} className='font-semibold text-[12px]'>{job?.company_name}</Link>
                             <img src='/assets/icons/verified.svg' width={20} height={20} className='mb-1 mx-2' alt='Verified' />
                         </>
                     }
-                    <span className='text-[11px] text-[#4D6182] text-semibold'>Cairo, Egypt</span>
                 </p>
                 <p className="text-[#4D6182] font-[400] text-[12px] mt-2 max-w-[634px]">
                     {LEVELS.find((level) => level.id == job?.level)?.name} · {job?.min_year}-{job?.max_year} Yrs of Exp ·  <br />{job?.description}
