@@ -33,10 +33,10 @@ export default function YourExperience({ handleNext, handleBack, setData, years,
                         <CustomSelectMenu defaultData={formData?.start_year} error={errors?.start_year} shadow={true} label="Start year" options={years.map((year: any) => ({ id: year.value, name: year.value }))} isGray onChange={(e: any) => setData((prev) => ({ ...prev, start_year: e.id }))} />
                         <CustomSelectMenu defaultData={formData?.start_month} error={errors?.start_month} shadow={true} label="Start Month" options={months} isGray onChange={(e: any) => setData((prev) => ({ ...prev, start_month: e.id }))} />
                     </div>
-                    <div className='w-[100%] grid grid-cols-1 gap-4 mt-7'>
+                    {formData?.still_working !== 1 && <div className='w-[100%] grid grid-cols-1 gap-4 mt-7'>
                         <CustomSelectMenu defaultData={formData?.end_year} error={errors?.end_year} shadow={true} label="End year" options={years.map((year: any) => ({ id: year.value, name: year.value }))} isGray onChange={(e: any) => setData((prev) => ({ ...prev, end_year: e.id }))} />
                         <CustomSelectMenu defaultData={formData?.end_month} error={errors?.end_month} shadow={true} label="End Month" options={months} isGray onChange={(e: any) => setData((prev) => ({ ...prev, end_month: e.id }))} />
-                    </div>
+                    </div>}
                 </div>
                 <div className='flex flex-row items-center mt-5 gap-2 mb-10'>
                     <input checked={formData?.still_working === 1 ? true : false} id='checkBox' type="checkbox" title='checkBox' onChange={(e: any) => setData((prev) => ({ ...prev, still_working: e.target.checked ? 1 : 0 }))} />
