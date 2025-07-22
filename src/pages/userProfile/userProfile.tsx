@@ -8,6 +8,7 @@ import Footer from "../../components/footer/footer";
 import { SkillsAndExperience } from "../../components/profile/skillsOfProfile/skillsOfProfile";
 import { useParams } from "react-router";
 import { toast } from "sonner";
+import ApplyPopup from "../../components/applyPopup";
 
 
 export default function UserProfile() {
@@ -52,12 +53,19 @@ export default function UserProfile() {
             return console.error(err)
         })
     }
+    const [isOpen, setIsOpen] = useState(false);
+    const handleInvite = () => {
+        setIsOpen(true)
+        console.log(id)
+    }
     return (
         <div className='flex flex-col max-w-screen overflow-hidden'>
             <NavbarTwo />
-            <ProfileHeroSection userData={payLoad?.data?.data && payLoad?.data?.data} isCompany={false} />
+            <ProfileHeroSection userData={payLoad?.data?.data && payLoad?.data?.data} isCompany={false} handleInvite={handleInvite} />
             <PersonalInformation handleUnlockCv={handleUnlockCv} jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data && payLoad?.data?.data} />
+
             <SkillsAndExperience userData={payLoad?.data?.data && payLoad?.data?.data} />
+            <ApplyPopup isOpen={isOpen} onClose={() => setIsOpen(false)} />
             <Footer />
         </div>
     )

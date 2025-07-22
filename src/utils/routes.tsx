@@ -30,6 +30,8 @@ import Grantee from "../pages/grantee/grantee";
 import Oldgrantees from "../pages/oldgrantees/oldgrantees";
 import LastSubscription from "../pages/lastSubscription/lastSubscription";
 import UserProfile from "../pages/userProfile/userProfile";
+import InvitePerson from "../pages/invitePerson/invitePerson";
+import Invitations from "../pages/invitePerson/invitations";
 
 export const router = createBrowserRouter([
     {
@@ -147,5 +149,13 @@ export const router = createBrowserRouter([
     {
         path: 'user/:id',
         element: <UserProfile />
+    },
+    {
+        path: 'invite',
+        element: <InvitePerson />
+    },
+    {
+        path: 'invitations',
+        element: <Invitations />
     }
 ]);

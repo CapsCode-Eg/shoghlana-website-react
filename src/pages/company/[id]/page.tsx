@@ -4,6 +4,7 @@ import Footer from "../../../components/footer/footer";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import JobsCard from "../../../components/savedJobs/jobsCard/jobsCard";
+import { company_size } from "../../../utils/constant/profile";
 
 export default function Company() {
     const { id } = useParams();
@@ -15,7 +16,20 @@ export default function Company() {
             console.error("Error fetching company data:", err);
         });
     }, [])
-    console.log(data)
+    const [countries, setCountries] = useState([])
+    const [cities, setCities] = useState([])
+    useEffect(() => {
+        axiosInstance.get('/country').then((res) => {
+            setCountries(res.data.data)
+        })
+    }, [])
+    useEffect(() => {
+        if (data?.company_info) {
+            axiosInstance.get(`/get-cities-by-country-id/${data?.company_info?.country}`).then((res) => {
+                setCities(res.data.data)
+            })
+        }
+    }, [data?.company_info])
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />
@@ -40,13 +54,20 @@ export default function Company() {
                             <img src='/assets/icons/verified.svg' width={27} height={27} className='mt-0.5 mx-2' alt='Verified' />
                         </div>
                     </div>
-                    <p className="text-[#4D6182] max-w-[250px] md:max-w-[511px] text-[13px] font-[400] mt-2">
-                        Computer Software . Information Technology Services . Health, Wellness and Fitness . Cairo, Egypt . 1-10 employees
-                        . Founded 2024
-                    </p>
-                    <p className="text-[#4D6182] max-w-[411px] lg:max-w-[500px] xl:max-w-[680px] text-[12px] font-[400] mt-5">
-                        At CapsCodeEG, we believe that rehabilitation can be smarter, more effective, and accessible to everyone. Our mission is to transform traditional care into an experience that empowers therapists, patients, and healthcare providers alike
-                    </p>
+                    <div className='flex flex-col gap-1 -mt-1'>
+                        <span className='text-[#4D6182] text-[14px] mt-1 font-[500] max-w-[400px] line-clamp-2'>{data?.company_info?.about}</span>
+                        {/* @ts-expect-error Type mismatch */}
+                        {data?.company_info?.country && <p className="text-[#4D6182] text-[13px] font-[400] mt-1">{`${cities?.find((city: any) => city.id === data?.company_info?.city)?.name || ''}` || ''}, {`${countries?.find((country: any) => country.id === data?.company_info?.country)?.name}`}</p>}
+                        <span className='text-[#4D6182] text-[13px] font-[400]'>{company_size[data?.company_info?.company_size] || ''}</span>
+                        <span className='text-[#4D6182] text-[13px] font-[400]'>{data?.company_info?.hiring_title || ''}</span>
+                        <div className='flex flex-row divide-x-2 divide-[#4D6182]/20 space-x-2 -ms-2'>
+                            {
+                                data.industries?.map((industry: any, index: number) => (
+                                    <span key={index} className='text-[#4D6182] text-[13px] ps-2 font-[400]'>{industry.name}</span>
+                                ))
+                            }
+                        </div>
+                    </div>
 
                     <div className="mt-4 flex flex-row items-center absolute bottom-[27.5px] end-[27px]">
                         <Link to={`mailto:${data?.email || ''}`} className="text-blue-600 flex flex-row items-center gap-2 hover:underline">
