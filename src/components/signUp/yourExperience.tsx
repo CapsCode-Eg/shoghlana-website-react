@@ -18,7 +18,7 @@ export default function YourExperience({ handleNext, handleBack, setData, years,
             </div>
             <div className='flex flex-col w-full mt-10'>
                 <span className='font-medium text-[24px] mb-[10px] text-black'>How many years of experience do you have?</span>
-                <CustomSelectMenu defaultData={formData?.years_of_experience} error={errors?.years_of_experience} options={[{ id: 1, name: "1" }, { id: 2, name: '2' }, { id: 3, name: '3' }, { id: 4, name: '4' }, { id: 5, name: '5' }]} onChange={(e: any) => setData((prev) => ({ ...prev, years_of_experience: e.id }))} />
+                <CustomSelectMenu defaultData={formData?.years_of_experience} error={errors?.years_of_experience} options={[{ id: 1, name: "1" }, { id: 2, name: '2' }, { id: 3, name: '3' }, { id: 4, name: '4' }, { id: 5, name: '5' }, { id: 6, name: '6' }, { id: 7, name: '7' }, { id: 8, name: '8' }, { id: 9, name: '9' }, { id: 10, name: '10' }, { id: 11, name: '11' }, { id: 12, name: '12' }, { id: 13, name: '13' }, { id: 14, name: '14' }, { id: 15, name: '15' }, { id: 16, name: '15+' }]} onChange={(e: any) => setData((prev) => ({ ...prev, years_of_experience: e.id }))} />
             </div>
             <span className='font-medium text-[24px] mt-10 mb-[10px] text-black'>What`s your work experience?</span>
 

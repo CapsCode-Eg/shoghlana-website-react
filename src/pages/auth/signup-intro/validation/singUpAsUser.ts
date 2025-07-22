@@ -28,9 +28,27 @@ export const SingUpAsUser = Yup.object().shape({
 
   start_month: Yup.number().min(1).max(12).required('Start month is required'),
   start_year: Yup.number().min(1900).max(3000).required('Start year is required'),
-  end_month: Yup.number().min(1).max(12).required('End month is required'),
-  end_year: Yup.number().min(1900).max(3000).required('End year is required'),
-  still_working: Yup.number().oneOf([0, 1]).required('Still working field is required'),
+  still_working: Yup.number()
+    .oneOf([0, 1])
+    .required('Still working field is required'),
+
+  end_month: Yup.number()
+    .min(Yup.ref('start_month'))
+    .max(12)
+    .when('still_working', {
+      is: 0,
+      then: (schema) => schema.required('End month is required'),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+
+  end_year: Yup.number()
+    .min(Yup.ref('start_year'))
+    .max(3000)
+    .when('still_working', {
+      is: 0,
+      then: (schema) => schema.required('End year is required'),
+      otherwise: (schema) => schema.notRequired(),
+    }),
 
   career_level: Yup.number().oneOf([0, 1, 2]).required('Career level is required'),
   job_type: Yup.number().oneOf([0, 1, 2]).required('Job type is required'),
