@@ -6,7 +6,7 @@ import './style.css'
 
 const SCROLL_AMOUNT = 300;
 
-export function TestimonialsCorouse() {
+export function TestimonialsCorouse({ data }: { data?: any }) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [, setShowLeftButton] = useState(false);
     const [, setShowRightButton] = useState(true);
@@ -41,8 +41,8 @@ export function TestimonialsCorouse() {
                 onScroll={checkScroll}
             >
 
-                {Array.from({ length: 10 }).map((_, index) => (
-                    <HomePageCard key={index} />
+                {data?.map((data, index) => (
+                    <HomePageCard data={data} key={index} />
                 ))}
             </div>
         </div>

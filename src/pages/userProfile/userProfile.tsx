@@ -57,6 +57,7 @@ export default function UserProfile() {
     const handleInvite = () => {
         setIsOpen(true)
     }
+
     return (
         <div className='flex flex-col max-w-screen overflow-hidden'>
             <NavbarTwo />

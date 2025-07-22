@@ -25,6 +25,7 @@ export default function Home() {
             setHome(res?.data?.data)
         }
     }
+
     useEffect(() => {
         handleFetchData()
         if (localStorage.getItem('token')) {
@@ -37,7 +38,9 @@ export default function Home() {
             <HeroSection bannar={home?.slider} />
             <SectionTwo />
             {home?.job_categories && <SectionThree jobs={home?.job_categories} />}
-            <SectionFour />
+            {home?.testimonials && home?.testimonials?.length > 0 &&
+                <SectionFour data={home?.testimonials} />
+            }
             <SectionFive />
             <SectionSix />
             <Footer data={home?.settings} />
