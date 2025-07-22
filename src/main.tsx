@@ -16,3 +16,8 @@ createRoot(document.getElementById('root')!).render(
     </StrictMode>
   </Provider>
 )
+
+
+console.log = () => { }
+console.error = () => { }
+console.debug = () => { }
