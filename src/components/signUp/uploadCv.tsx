@@ -11,7 +11,6 @@ export function DocumentUpload({ setFile, file }: {
 
     useEffect(() => {
         if (file) {
-            console.log(file)
             setFileName(file.name);
         }
     }, [file]);

@@ -41,7 +41,5 @@ export const SingUpAsUser = Yup.object().shape({
 
   languages: Yup.array().required(),
 
-  skills: Yup.array()
-    .of(Yup.number().required('Skill ID must be a number'))
-    .min(1, 'At least one skill is required')
+  skills: Yup.array().required(),
 });
