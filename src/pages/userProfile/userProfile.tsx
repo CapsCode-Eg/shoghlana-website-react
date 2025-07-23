@@ -49,7 +49,7 @@ export default function UserProfile() {
             }
             toast.success('CV unlocked successfully')
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-companies' })
+            toast.error(err?.response?.data?.message, { id: 'add-companies' })
             return console.error(err)
         })
     }

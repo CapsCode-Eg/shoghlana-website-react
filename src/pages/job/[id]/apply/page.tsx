@@ -14,7 +14,7 @@ export default function ApplyForJob() {
         axiosInstance.get(`/jobs/${id}`).then((res) => {
             setData(res.data.data);
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
             console.error(err);
         });
     }, [])
@@ -63,7 +63,7 @@ export default function ApplyForJob() {
             toast.success('Application submitted successfully');
             navigate('/explore');
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
             toast.error('Failed to submit application');
         });
     };
@@ -76,7 +76,7 @@ export default function ApplyForJob() {
                 is_saved: true
             }))
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
             toast.error('Failed to save job')
         })
     }
@@ -156,7 +156,7 @@ export default function ApplyForJob() {
                                             is_saved: false
                                         }))
                                     }).catch((err) => {
-                                        toast.error(err?.response?.data?.msg, { id: 'add-country' })
+                                        toast.error(err?.response?.data?.message, { id: 'add-country' })
                                         toast.error('Failed to unsave job')
                                     })
                                 }

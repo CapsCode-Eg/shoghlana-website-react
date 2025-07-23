@@ -11,7 +11,7 @@ export default function Saved() {
         axiosInstance.get('/saved-jobs').then((res) => {
             setData(res.data.data)
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
         });
     }, [])
     return (

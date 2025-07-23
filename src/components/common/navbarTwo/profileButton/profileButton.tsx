@@ -29,7 +29,7 @@ export default function ProfileButton() {
             window.location.href = '/';
             window.localStorage.clear();
         }).catch((error) => {
-            toast.error(error?.response?.data?.msg, { id: 'add-country' })
+            toast.error(error?.response?.data?.message, { id: 'add-country' })
             toast.error('Logout failed');
         })
     }

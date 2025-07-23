@@ -17,7 +17,7 @@ export default function Grantee() {
                 toast.success('Documents sent successfully')
                 navigate(-1)
             }).catch((error) => {
-                toast.error(error?.response?.data?.msg, { id: 'add-country' })
+                toast.error(error?.response?.data?.message, { id: 'add-country' })
                 toast.error('Something went wrong')
             })
         } else {

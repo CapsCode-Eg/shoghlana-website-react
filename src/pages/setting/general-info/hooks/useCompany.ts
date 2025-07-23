@@ -250,7 +250,7 @@ image: any;
                 window.localStorage.setItem('user',JSON.stringify({type:'company',...res?.data?.data}))
                 toast.success('Edit Successfully',{id:'add-companies'});
             }).catch((error)=> {
-                toast.error(error?.response?.data?.msg,{id:'add-companies'})
+                toast.error(error?.response?.data?.message,{id:'add-companies'})
             })
             }catch (err: any) {
                 if (err.inner) {
@@ -313,7 +313,7 @@ image: any;
                 })
                 return res
             }).catch((error)=> {
-                toast.error(error?.response?.data?.msg,{id:'add-country'})
+                toast.error(error?.response?.data?.message,{id:'add-country'})
                 toast.error('Failed to update profile')
                 return error
             })
@@ -350,7 +350,7 @@ image: any;
                     toast.success('Deleted Successfully')   
                     return res?.data?.data
                 }).catch((error) => {
-                    toast.error(error?.response?.data?.msg,{id:'add-companies'})
+                    toast.error(error?.response?.data?.message,{id:'add-companies'})
                     toast.error('Failed to update profile')
                     return error
                 })

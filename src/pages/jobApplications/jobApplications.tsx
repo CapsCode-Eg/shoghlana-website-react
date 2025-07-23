@@ -14,7 +14,7 @@ export default function JobApplications() {
         axiosInstance.get(`/company/job-application/${id}`).then((res) => {
             setData(res.data.data);
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
         });
     }, [id])
 
@@ -22,7 +22,7 @@ export default function JobApplications() {
         axiosInstance.get('/nationalities').then((res) => {
             setNationalties(res.data.data)
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
         })
     }, [])
     return (

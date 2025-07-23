@@ -7,7 +7,7 @@ const useCopyToClipboard = () => {
             navigator.clipboard.writeText(text).then(() => {
                 toast.success('Copied to clipboard');
             }).catch((err) => {
-                toast.error(err?.response?.data?.msg,{id:'add-companies'})
+                toast.error(err?.response?.data?.message,{id:'add-companies'})
             });
         } else {
             const textarea = document.createElement('textarea');

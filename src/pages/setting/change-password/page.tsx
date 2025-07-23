@@ -35,7 +35,7 @@ export default function ChangePassword() {
                 })
                 toast.success('Password changed successfully')
             }).catch((err) => {
-                toast.error(err?.response?.data?.msg, { id: 'add-country' })
+                toast.error(err?.response?.data?.message, { id: 'add-country' })
             });
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {

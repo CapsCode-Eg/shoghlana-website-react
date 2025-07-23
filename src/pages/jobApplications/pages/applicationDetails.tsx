@@ -14,7 +14,7 @@ export default function ApplicationDetails() {
         axiosInstance.get(`/company/application-details/${id}`).then((res) => {
             setData(res.data.data);
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
         });
     }, [id])
     const [nationalties, setNationalties] = useState<any>([])
@@ -22,7 +22,7 @@ export default function ApplicationDetails() {
         axiosInstance.get('/nationalities').then((res) => {
             setNationalties(res.data.data)
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
         });
     }, [])
 
@@ -46,7 +46,7 @@ export default function ApplicationDetails() {
             toast.success("Application marked as in consideration");
             navigate(-1)
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
         });
     }
     const handleAccept = () => {
@@ -54,7 +54,7 @@ export default function ApplicationDetails() {
             toast.success("Application accepted successfully");
             navigate(-1)
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
         });
     }
 
@@ -63,7 +63,7 @@ export default function ApplicationDetails() {
             toast.success("Application rejected successfully");
             navigate(-1)
         }).catch((err) => {
-            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            toast.error(err?.response?.data?.message, { id: 'add-country' })
         });
     }
     return (

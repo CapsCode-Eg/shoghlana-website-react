@@ -14,7 +14,7 @@ export default function Company() {
         axiosInstance.get(`/companies/${id}`).then((res) => {
             setData(res.data?.data);
         }).catch((error) => {
-            toast.error(error?.response?.data?.msg, { id: 'add-country' })
+            toast.error(error?.response?.data?.message, { id: 'add-country' })
         });
     }, [])
     const [countries, setCountries] = useState([])

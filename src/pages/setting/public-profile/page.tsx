@@ -32,7 +32,7 @@ export default function PublicProfile() {
                     window.location.href = '/';
                 }, 2000);
             }).catch((err) => {
-                toast.error(err?.response?.data?.msg, { id: 'add-companies' })
+                toast.error(err?.response?.data?.message, { id: 'add-companies' })
             })
         } catch (err: any) {
             if (err.inner) {
@@ -50,7 +50,7 @@ export default function PublicProfile() {
                 window.localStorage.clear();
                 window.location.href = '/';
             }).catch((err) => {
-                toast.error(err?.response?.data?.msg, { id: 'add-companies' })
+                toast.error(err?.response?.data?.message, { id: 'add-companies' })
 
             })
         }
