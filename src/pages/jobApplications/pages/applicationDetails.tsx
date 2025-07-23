@@ -14,14 +14,16 @@ export default function ApplicationDetails() {
         axiosInstance.get(`/company/application-details/${id}`).then((res) => {
             setData(res.data.data);
         }).catch((err) => {
-            console.error(err);
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
         });
     }, [id])
     const [nationalties, setNationalties] = useState<any>([])
     useEffect(() => {
         axiosInstance.get('/nationalities').then((res) => {
             setNationalties(res.data.data)
-        })
+        }).catch((err) => {
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+        });
     }, [])
 
     const [countries, setCountries] = useState<any>([])
@@ -44,7 +46,7 @@ export default function ApplicationDetails() {
             toast.success("Application marked as in consideration");
             navigate(-1)
         }).catch((err) => {
-            console.error("Error rejecting application:", err);
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
         });
     }
     const handleAccept = () => {
@@ -52,7 +54,7 @@ export default function ApplicationDetails() {
             toast.success("Application accepted successfully");
             navigate(-1)
         }).catch((err) => {
-            console.error("Error rejecting application:", err);
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
         });
     }
 
@@ -61,7 +63,7 @@ export default function ApplicationDetails() {
             toast.success("Application rejected successfully");
             navigate(-1)
         }).catch((err) => {
-            console.error("Error rejecting application:", err);
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
         });
     }
     return (

@@ -28,7 +28,8 @@ export default function ProfileButton() {
             toast.success('Logout successful');
             window.location.href = '/';
             window.localStorage.clear();
-        }).catch(() => {
+        }).catch((error) => {
+            toast.error(error?.response?.data?.msg, { id: 'add-country' })
             toast.error('Logout failed');
         })
     }

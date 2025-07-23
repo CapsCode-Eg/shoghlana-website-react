@@ -16,7 +16,8 @@ export default function Grantee() {
             axiosInstance.post('/company/send-grantee', form).then(() => {
                 toast.success('Documents sent successfully')
                 navigate(-1)
-            }).catch(() => {
+            }).catch((error) => {
+                toast.error(error?.response?.data?.msg, { id: 'add-country' })
                 toast.error('Something went wrong')
             })
         } else {

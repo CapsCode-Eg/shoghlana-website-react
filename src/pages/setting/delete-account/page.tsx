@@ -15,7 +15,7 @@ export default function DeleteAccount() {
             window.localStorage.clear()
             navigate('/')
         }).catch((err) => {
-            toast.error(err?.response?.data?.message || 'Something went wrong')
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
         }).finally(() => {
             setLoading(false)
         })

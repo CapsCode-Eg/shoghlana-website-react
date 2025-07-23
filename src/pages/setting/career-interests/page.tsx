@@ -37,8 +37,8 @@ export default function CareerInteresting() {
                     min_salary: res.data?.data?.job_preference?.min_salary,
                 })
             })
-        }).catch((error) => {
-            toast.error(error?.response?.data?.message || 'Something went wrong')
+        }).catch((err) => {
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
         }).finally(() => {
             setLoading(false)
         })

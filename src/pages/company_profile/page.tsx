@@ -53,7 +53,7 @@ export default function CompanyProfile() {
                 setJobs(res.data.data)
             })
         }).catch((err) => {
-            toast.error("Something went wrong")
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
             return console.error(err)
         })
     }

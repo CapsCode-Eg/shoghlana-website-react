@@ -42,7 +42,8 @@ export default function LanguageManager({ languages, setLanguages }: any) {
                 setEditingId(null);
                 setOriginalItem(null);
                 setIsFromEdit(false)
-            }).catch(() => {
+            }).catch((error) => {
+                toast.error(error?.response?.data?.msg, { id: 'add-country' })
                 toast.error("Something went wrong")
             })
         } else {
@@ -53,7 +54,8 @@ export default function LanguageManager({ languages, setLanguages }: any) {
                 toast.success("Language added successfully")
                 setEditingId(null);
                 setOriginalItem(null);
-            }).catch(() => {
+            }).catch((error) => {
+                toast.error(error?.response?.data?.msg, { id: 'add-country' })
                 toast.error("Something went wrong")
             })
         }

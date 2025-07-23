@@ -3,6 +3,7 @@ import NavbarTwo from "../../components/common/navbarTwo/navbarTwo";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { gradeLevels } from "../../utils/constant/profile";
+import { toast } from "sonner";
 
 export default function JobApplications() {
     const { id } = useParams<{ id?: string }>();
@@ -13,13 +14,15 @@ export default function JobApplications() {
         axiosInstance.get(`/company/job-application/${id}`).then((res) => {
             setData(res.data.data);
         }).catch((err) => {
-            console.error(err);
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
         });
     }, [id])
 
     useEffect(() => {
         axiosInstance.get('/nationalities').then((res) => {
             setNationalties(res.data.data)
+        }).catch((err) => {
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
         })
     }, [])
     return (

@@ -68,7 +68,8 @@ export default function ExperienceHandler({ experience, setExperience, job_categ
                     setEditingId(null);
                     setOriginalItem(null);
                     setIsFromEdit(false)
-                }).catch(() => {
+                }).catch((error) => {
+                    toast.error(error?.response?.data?.msg, { id: 'add-country' })
                     toast.error("Something went wrong")
                 })
             } else {
@@ -86,7 +87,8 @@ export default function ExperienceHandler({ experience, setExperience, job_categ
                     toast.success("Experience added successfully")
                     setEditingId(null);
                     setOriginalItem(null);
-                }).catch(() => {
+                }).catch((error) => {
+                    toast.error(error?.response?.data?.msg, { id: 'add-country' })
                     toast.error("Something went wrong")
                 })
             }

@@ -43,8 +43,8 @@ export default function Education() {
             axiosInstance.post('/update-education', formData).then(() => {
                 toast.success('Education added successfully');
             }).catch((err) => {
-                toast.error(err?.response?.data?.message || 'Something went wrong');
-            })
+                toast.error(err?.response?.data?.msg, { id: 'add-country' })
+            });
         } catch (err: any) {
             if (err.inner) {
                 const validationErrors: any = {};

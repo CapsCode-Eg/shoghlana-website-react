@@ -3,6 +3,7 @@ import NavbarTwo from "../../components/common/navbarTwo/navbarTwo";
 import Footer from "../../components/footer/footer";
 import JobsCard from "../../components/savedJobs/jobsCard/jobsCard";
 import axiosInstance from "../../utils/axiosInstance";
+import { toast } from "sonner";
 
 export default function Saved() {
     const [data, setData] = useState<any>({})
@@ -10,8 +11,8 @@ export default function Saved() {
         axiosInstance.get('/saved-jobs').then((res) => {
             setData(res.data.data)
         }).catch((err) => {
-            console.error(err);
-        })
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
+        });
     }, [])
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>

@@ -185,14 +185,14 @@ export function useAddJob() {
                     toast.success('Updated Successfully', { id: 'add-industries' });
                     navigate(-1)
                 }).catch((error) => {
-                    toast.error(error?.response?.data?.message, { id: 'add-industries' })
+                    toast.error(error?.response?.data?.msg, { id: 'add-industries' })
                 })
             } else {
                 axiosInstance.post('/company/jobs', data).then(() => {
                     toast.success('Add Successfully', { id: 'add-industries' });
                     navigate(-1)
                 }).catch((error) => {
-                    toast.error(error?.response?.data?.message, { id: 'add-industries' })
+                    toast.error(error?.response?.data?.msg, { id: 'add-industries' })
                 })
             }
         } catch (err: any) {

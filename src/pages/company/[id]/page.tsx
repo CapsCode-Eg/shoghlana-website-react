@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import JobsCard from "../../../components/savedJobs/jobsCard/jobsCard";
 import { company_size } from "../../../utils/constant/profile";
+import { toast } from "sonner";
 
 export default function Company() {
     const { id } = useParams();
@@ -12,8 +13,8 @@ export default function Company() {
     useEffect(() => {
         axiosInstance.get(`/companies/${id}`).then((res) => {
             setData(res.data?.data);
-        }).catch((err) => {
-            console.error("Error fetching company data:", err);
+        }).catch((error) => {
+            toast.error(error?.response?.data?.msg, { id: 'add-country' })
         });
     }, [])
     const [countries, setCountries] = useState([])

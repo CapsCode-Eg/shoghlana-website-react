@@ -32,7 +32,7 @@ export default function PublicProfile() {
                     window.location.href = '/';
                 }, 2000);
             }).catch((err) => {
-                toast.error(err?.response?.data?.message || 'Something went wrong');
+                toast.error(err?.response?.data?.msg, { id: 'add-companies' })
             })
         } catch (err: any) {
             if (err.inner) {
@@ -49,8 +49,9 @@ export default function PublicProfile() {
             axiosInstance.post('/delete-account').then(() => {
                 window.localStorage.clear();
                 window.location.href = '/';
-            }).catch(() => {
-                toast.error('Failed to delete account');
+            }).catch((err) => {
+                toast.error(err?.response?.data?.msg, { id: 'add-companies' })
+
             })
         }
     };

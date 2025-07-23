@@ -28,7 +28,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
                 is_saved: true
             }))
         }).catch((err) => {
-            toast.error('Failed to save job')
+            toast.error(err?.response?.data?.msg, { id: 'add-country' })
             return err;
         })
     }
@@ -96,7 +96,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete }: { ha
                                     is_saved: false
                                 }))
                             }).catch((err) => {
-                                toast.error('Failed to unsave job')
+                                toast.error(err?.response?.data?.msg, { id: 'add-country' })
                                 return err;
                             })
                         }

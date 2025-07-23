@@ -79,7 +79,7 @@ export default function SocialMedia() {
             setLinks(filledSocialMedia)
             toast.success('Updated Successfully')
         }).catch((error) => {
-            toast.error(error?.response?.data?.message || 'Something went wrong')
+            toast.error(error?.response?.data?.msg || 'Something went wrong')
         })
     };
     return (

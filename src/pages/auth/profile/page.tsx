@@ -37,7 +37,8 @@ export default function Profile() {
     const deleteCV = async () => {
         axiosInstance.delete('/delete-cv').then(() => {
             fetchData()
-        }).catch(() => {
+        }).catch((error) => {
+            toast.error(error?.response?.data?.msg, { id: 'add-country' })
             toast.error('Failed to delete CV')
         })
     }
