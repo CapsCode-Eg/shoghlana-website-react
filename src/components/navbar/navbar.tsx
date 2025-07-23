@@ -1,11 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import Logo from "../logo/logo";
 import { Link } from "react-router";
+import { MenuIcon } from "lucide-react";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null)
-
+    const [isCompany, setIsCompany] = useState(false);
+    useEffect(() => {
+        if (window.localStorage.getItem('user')) {
+            const user = JSON.parse(window.localStorage.getItem('user') || '{}');
+            setIsCompany(user?.type === 'company');
+        }
+    }, [])
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             // @ts-expect-error: Type mismatch
@@ -34,8 +41,18 @@ export default function Navbar() {
             <div className="w-[calc(100%-64px)] mx-auto flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center gap-8 text-[15px] font-[600] text-text">
                     <Logo />
+                    {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative hidden lg:block`}>
+                        {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Home</Link>}
+                    {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative hidden lg:block`}>
+                        {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Explore</Link>}
                 </div>
-                <div className="text-[15px]  font-[600] text-text hidden md:flex flex-row">
+                <div className="text-[15px]  font-[600] text-text hidden lg:flex flex-row">
                     <Link to='/login-as-company' className="flex flex-row items-center me-[28px] hover:scale-105 duration-300">
                         <img width={17} height={15} src="/bag.svg" alt="bag" className="me-2" />
                         <span>Post Job</span>
@@ -48,22 +65,36 @@ export default function Navbar() {
                         Start Now
                     </Link>
                 </div>
-                <div className="md:hidden" ref={menuRef}>
+                <div className="flex lg:hidden" ref={menuRef}>
                     <div onClick={() => setIsOpen(!isOpen)}>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 18V16H16V18H3ZM3 13V11H16V13H3ZM3 8V6H16V8H3Z" fill="#888888" />
-                        </svg>
+                        <MenuIcon size={30} />
                     </div>
                     <div
-                        className={`absolute z-[1000] top-0 w-[300px] -end-2 text-start min-w-[129px] p-0 bg-white shadow-xl flex flex-col items-center pt-10 h-screen rounded-[10px] 
+                        className={`fixed z-[1000] top-0 w-[80%] -end-4 text-start p-0 bg-main  flex flex-col items-center pt-10 h-screen
                             transition-all duration-300 ease-in-out ${isOpen ? '-translate-x-0' : 'translate-x-[3000px]'
                             }`}
                     >
-                        <img width={150} height={150} src={'/assets/logoBlue.png'} alt='background' className='object-cover' />
-                        <div className="mt-[30px] border-t-[1px] border-dashed flex flex-col w-full divide-y-[1px] gap-6 text-[20px] font-bold  pt-[30px]">
-                            <Link to="/login-as-company" className="text-[18px] text-text px-[12px]">Post Job</Link>
-                            <Link to="login" className="text-[18px] text-text px-[12px] pt-6">Log In</Link>
-                            <Link to="login" className="text-[18px] text-text px-[12px] pt-6">Sign Up</Link>
+                        <img width={150} height={150} src={'/assets/logo.png'} alt='background' className='object-cover' />
+                        <div className=" px-[10px]  flex flex-col w-full  gap-4 text-[20px] font-bold pt-[30px]">
+                            <Link to="/" className=" px-4 py-2  text-white hover:text-white/80  duration-500 transition-all cursor-pointer rounded ">
+                                Home
+                            </Link>
+                            {!isCompany &&
+                                <Link to="/explore" className=" px-4 py-2  text-white hover:text-white/80 duration-500 transition-all cursor-pointer rounded ">
+                                    Explore
+                                </Link>
+                            }
+                            <Link to='/login-as-company' className=" px-4 py-2 flex flex-row items-center text-white hover:text-white/80  duration-500 transition-all cursor-pointer rounded ">
+                                <span>Post Job</span>
+                            </Link>
+                            <div className="grid grid-cols-2 gap-2 mx-4 justify-center items-center">
+                                <Link to='/login' className="flex flex-row text-main font-bold items-center justify-center bg-white  gap-2 py-[9px] px-[18px] border-main border-[2px] rounded-[10px] ">
+                                    Log in
+                                </Link>
+                                <Link to='/signup' className="flex flex-row text-main font-bold items-center justify-center bg-white gap-2 py-[9px] px-[18px] border-main border-[2px] rounded-[10px] ">
+                                    Start Now
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

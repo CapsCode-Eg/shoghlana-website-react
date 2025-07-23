@@ -44,7 +44,7 @@ export default function YourExperience({ handleNext, handleBack, setData, years,
                 </div>
             </div>
 
-            <DocumentUpload file={formData?.cv} setFile={handleFileUpload} />
+            <DocumentUpload error={errors?.cv} file={formData?.cv} setFile={handleFileUpload} />
             <div className='flex flex-row items-center w-full justify-end sm:justify-center gap-4 mt-12 mb-4'>
                 <button type='button' onClick={handleBack} className='w-[120px] sm:w-[249px] h-[45px] rounded-[8px] flex flex-col items-center justify-center text-[20px] font-medium text-black border-[1px] border-[#D9D9D9]'>Back</button>
                 <button type='button' onClick={handleNext} className='w-[120px] sm:w-[249px] h-[45px] rounded-[8px] flex flex-col items-center justify-center text-[20px] font-medium text-white bg-main'>Continue</button>

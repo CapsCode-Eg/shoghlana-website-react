@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { MenuIcon } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import Logo from "../../logo/logo";
+import ProfileAccordion from "./profileButton/AccordionProfile";
+import { toast } from "sonner";
+import axiosInstance from "../../../utils/axiosInstance";
 
 export default function NavbarTwo() {
     const location = useLocation();
@@ -39,47 +42,50 @@ export default function NavbarTwo() {
 
         return () => document.body.classList.remove("no-scroll");
     }, [isOpen]);
-
+    const handleLogout = async () => {
+        axiosInstance.post('/logout').then(() => {
+            toast.success('Logout successful');
+            window.location.href = '/';
+            window.localStorage.clear();
+        }).catch((error) => {
+            toast.error(error?.response?.data?.message, { id: 'add-country' })
+            toast.error('Logout failed');
+        })
+    }
     return (
         <nav className="bg-white relative max-w-screen px-6 py-3 flex items-center shadow-lg justify-between">
             {/* Left Section (Logo) */}
-            <div className="flex-row items-center lg:block hidden gap-8 text-[15px] font-[600] text-text">
+            <div className="flex-row f items-center lg:flex hidden gap-8 text-[15px] font-[600] text-text">
                 <Logo />
+                <div className="hidden items-center lg:flex space-x-8">
+                    <Link to="/" className={`${location.pathname === "/" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                        {(location.pathname === "/") && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Home</Link>
+                    {isCompany && <Link to="/pricing" className={`${location.pathname === "/pricing" || location.pathname.includes("/pricing/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                        {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Pricing Plan</Link>}
+                    {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                        {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Explore</Link>}
+                    {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/saved" className={`${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                        {location.pathname === "/saved" && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Saved</Link>}
+                    {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/applications" className={`${location.pathname === "/applications" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                        {location.pathname === "/applications" && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Application</Link>}
+                </div>
             </div>
 
-            {/* Center Section (Navigation Links) */}
-            <div className="hidden items-center lg:flex space-x-8">
-                <Link to="/" className={`${location.pathname === "/" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
-                    {(location.pathname === "/") && (
-                        <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                    )}
-                    Home</Link>
-                {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
-                    {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
-                        <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                    )}
-                    Explore</Link>}
-                {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/saved" className={`${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
-                    {location.pathname === "/saved" && (
-                        <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                    )}
-                    Saved</Link>}
-                {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/applications" className={`${location.pathname === "/applications" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
-                    {location.pathname === "/applications" && (
-                        <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                    )}
-                    Application</Link>}
-            </div>
-
-            {/* Search Bar */}
-            {/* {!isCompany && <div className="relative flex-grow max-w-md mx-6 hidden xl:block">
-                <input
-                    type="text"
-                    placeholder="Search for job, companies..."
-                    className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-                <FaSearch className="absolute top-3 right-3 text-gray-500" />
-            </div>} */}
 
             {/* Right Section (Profile) */}
             {window.localStorage.getItem('user') &&
@@ -90,20 +96,23 @@ export default function NavbarTwo() {
                     <MenuIcon size={30} />
                 </div>
                 <div
-                    className={`absolute z-[1000] top-0 w-[300px] -end-2 text-start min-w-[129px] p-0 bg-white shadow-xl flex flex-col items-center pt-10 h-screen rounded-[10px] 
+                    className={`absolute z-[1000] top-0 w-[80%] -end-2 text-start min-w-[129px] p-0 bg-main  flex flex-col items-center pt-10 h-screen
                             transition-all duration-300 ease-in-out ${isOpen ? '-translate-x-0' : 'translate-x-[3000px]'
                         }`}
                 >
-                    <img width={150} height={150} src={'/assets/logoBlue.png'} alt='background' className='object-cover' />
-                    <div className="mt-[30px] border-t-[1px] px-[10px] border-dashed flex flex-col w-full divide-y-[1px] gap-4 text-[20px] font-bold  pt-[30px]">
-                        {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                    <img width={150} height={150} src={'/assets/logo.png'} alt='background' className='object-cover' />
+                    <div className=" px-[10px]  flex flex-col w-full  gap-4 text-[20px] font-bold pt-[30px]">
+                        <ProfileAccordion />
+                        {!isCompany && <Link to="/explore" className=" px-4 py-2 -mt-4 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">
 
                             Explore</Link>}
                         {(!isCompany && window.localStorage.getItem('user')) !== null &&
-                            <Link to="/saved" className={`pt-4 ${location.pathname === "/saved" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                            <Link to="/saved" className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">
                                 Saved</Link>
                         }
-                        {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="#" className="pt-4 text-[#4D6182] font-semibold text-[20px]">Application</Link>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/pricing" className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Application</Link>}
+                        {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/applications" className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Application</Link>}
+                        {(!isCompany && window.localStorage.getItem('user') !== null) && <span onClick={handleLogout} className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Logout</span>}
                     </div>
                 </div>
             </div>

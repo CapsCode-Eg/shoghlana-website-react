@@ -32,8 +32,14 @@ import LastSubscription from "../pages/lastSubscription/lastSubscription";
 import UserProfile from "../pages/userProfile/userProfile";
 import InvitePerson from "../pages/invitePerson/invitePerson";
 import Invitations from "../pages/invitePerson/invitations";
+import PricingPlan from "../pages/setting/pricing/pricingPlan";
+import NotFound from "../pages/notfound/notfound";
 
 export const router = createBrowserRouter([
+    {
+        path: '*',
+        element: <NotFound />
+    },
     {
         path: "/",
         element: <Home />,
@@ -157,5 +163,9 @@ export const router = createBrowserRouter([
     {
         path: 'invitations',
         element: <Invitations />
+    },
+    {
+        path: 'pricing',
+        element: <PricingPlan />
     }
 ]);

@@ -97,7 +97,7 @@ const CustomSelectMenu: FC<CustomSelectMenuProps> = ({
                         ? "#f5f5f5"
                         : "#018AAF",
             borderWidth: noBorder ? "0px" : error ? "1px" : "1px",
-            boxShadow: shadow ? "0px 8px 8px rgba(0, 0, 0, 0.16)" : "",
+            boxShadow: shadow ? "" : "",
             "&:hover": {
                 borderColor: error ? "red" : "blue",
             },
@@ -160,7 +160,7 @@ const CustomSelectMenu: FC<CustomSelectMenuProps> = ({
                 />
             </div>
             {error ? (
-                <div className="ps-2 text-red-500">{error}</div>
+                <div className="ps-2 text-sm text-red-500">{error}</div>
             ) : (
                 <div className="ps-2 opacity-0 disabled">{" "}</div>
             )}

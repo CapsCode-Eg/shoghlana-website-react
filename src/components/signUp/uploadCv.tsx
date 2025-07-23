@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { File as FileIcon } from 'lucide-react';
 
-export function DocumentUpload({ setFile, file }: {
+export function DocumentUpload({ setFile, file, error }: {
     setFile?: (file: File) => void,
     file?: File | null
+    error?: any
 }) {
     const [fileName, setFileName] = useState<string | null>(null);
     const [, setIsDragging] = useState(false);
@@ -66,7 +67,7 @@ export function DocumentUpload({ setFile, file }: {
     };
 
     return (
-        <div className="space-y-4 w-full hover:cursor-pointer">
+        <div className="flex flex-col gap-2 w-full hover:cursor-pointer">
             <div className='flex flex-row items-center gap-2'>
                 <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="17.0721" cy="16.9725" r="16.2124" fill="white" stroke="#CBD0DC" strokeWidth="0.704885" />
@@ -81,7 +82,7 @@ export function DocumentUpload({ setFile, file }: {
                 </div>
             </div>
             <div
-                className="relative border-2 border-dashed bg-white w-full rounded-[8px] p-8 transition-colors border-[#CBD0DC]"
+                className={`relative border-2 border-dashed bg-white w-full rounded-[8px] p-8 transition-colors  ${error ? 'border-red-500' : 'border-[#CBD0DC]'}`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
@@ -111,6 +112,8 @@ export function DocumentUpload({ setFile, file }: {
                     </div>
                 </div>
             </div>
+            {error && <span className='text-red-500 text-sm'>{error}</span>}
+
         </div>
     );
 }

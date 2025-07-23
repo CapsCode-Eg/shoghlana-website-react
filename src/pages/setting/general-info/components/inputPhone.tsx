@@ -34,9 +34,8 @@ export default function InputPhone({
                 <div className='relative'>
                     <PhoneInput
                         className={`
-                        ${error ? 'border-[#E11A0B] bg-[#E11A0B]/[14%]' : inContact ? "border-transparent !bg-[#F5F5F5]" : 'border- !bg-white'}
+                        ${error ? 'border-[#E11A0B] bg-[#E11A0B]/[14%]' : inContact ? "border-transparent !bg-[#F5F5F5]" : 'border-gray-200 !bg-white'}
                         dark:text-white
-
                         ps-1
                         mt-0.5                     
                         rounded-[8px] border-[1px]
@@ -58,7 +57,7 @@ export default function InputPhone({
                             className:
                                 `bg-opacity-50 text-gray-950 block border-transparent border-gray-700 h-[42px] w-[100%] ps-3 shadow-sm focus:border-0 focus:ring focus:ring-gray-200 !bg-transparent`,
                         }}
-                        defaultCountry="tr"
+                        defaultCountry="eg"
                         {...props}
                     />
                     {error && <div className='!text-sm mt-1  text-red-500 w-full'>{error}</div>}

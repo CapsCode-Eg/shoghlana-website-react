@@ -73,7 +73,7 @@ export default function InputAndLabel({
                         bg-white
                         placeholder:text-[12px]
                         text-[#333] py-1  outline-none ${error ? 'border-red-500' : isLogin ? 'border-[#1f1f1f]' : 'border-gray-200'
-                        } w-full h-[40px] px-2 ${isLogin ? "border-b-[1px]" : "shadow-lg border-[1px] rounded-md"}`}
+                        } w-full h-[40px] px-2 ${isLogin ? "border-b-[1px]" : " border-[1px] rounded-md"}`}
                 />
                 {icon && (
                     <div
@@ -99,7 +99,7 @@ export default function InputAndLabel({
                         )}
                     </button>
                 )}
-                {error && <span className='text-red-500 text-sm'>{error}</span>}
+                {error && <span className='text-red-500 text-sm font-normal'>{error}</span>}
             </div>
         </div>
     );

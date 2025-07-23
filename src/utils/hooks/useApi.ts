@@ -62,10 +62,13 @@ export function useApi<T>({ toast_message,withOutToast = false, endPoint, naviga
             if (err.inner) {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const validationErrors: any = {};
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const firstError: any = err.inner[0];
+                const validationErrors2 =  firstError.message;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 err.inner.forEach((error: any) => {
                     validationErrors[error.path] = error.message;
                 });
+                toast.error(validationErrors2)
                 setErrors(validationErrors);
             } else {
                 if (err.response?.status === 403) {
