@@ -14,14 +14,12 @@ import { personal_type } from '../../../utils/constant/profile'
 export default function GeneralInfo() {
     const { data, errors, setData, handleArrayChange, handleSubmit, cities, countries, loading, handleFilesChange, handleChangeNumber, handleDocumentFilesChange, industries, files, nationalties, deleteImage, handleSubmitUserProfile } = useCompany();
     const [isUser, setIsUser] = useState<boolean | null>(null);
-
     useEffect(() => {
         const user = JSON.parse(window.localStorage.getItem('user') || '{}');
         setIsUser(user?.type !== 'company');
     }, []);
 
     if (isUser === null) return null; // or a loading spinner
-
     return (
         <Layout>
             <div className=" shadow-2xl p-6 mb-20 mx-auto rounded-[25px] overflow-hidden w-full">
@@ -92,7 +90,7 @@ export default function GeneralInfo() {
 
                             <section className="mt-8">
                                 <h3 className="text-lg font-semibold mb-4">Contact info</h3>
-                                <InputAndLabel value={data?.mobile} setData={setData} name='mobile' placeholder='e.g. 01012345678' label='Phone' />
+                                <InputPhone error={errors?.mobile} value={data?.mobile} onChange={(e) => setData({ ...data, mobile: e })} name='mobile' placeholder='e.g. 01012345678' label='Phone' />
                             </section>
                             <div className='flex flex-row items-center justify-end w-full mt-10'>
                                 <button type='button' disabled={loading} onClick={handleSubmitUserProfile} className='min-w-[150px] h-[45px] bg-main text-white flex flex-col items-center justify-center rounded-[14px]'>

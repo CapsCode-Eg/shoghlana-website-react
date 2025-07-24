@@ -26,6 +26,5 @@ export const userSchemaForProfile = yup.object().shape({
     .required("City ID is required"),
   mobile: yup
     .string()
-    .matches(/^[0-9]{8,15}$/, "Mobile must be between 8 and 15 digits")
     .required("Mobile is required"),
 });

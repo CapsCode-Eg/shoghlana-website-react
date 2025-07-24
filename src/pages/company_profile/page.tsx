@@ -62,10 +62,8 @@ export default function CompanyProfile() {
             <NavbarTwo />
             <ProfileHeroSection cities={cities} countries={countries} isCompany={true} userData={data} />
             <div className='flex flex-row w-[98%] xl:w-[80%] mx-auto overflow-x-auto mt-[20px] xl:mt-[24px] h-[54px] px-6 shadow-lg rounded-[16px] items-center gap-10 font-semibold text-main'>
-                <Link to='/grantee' className='flex flex-row items-center gap-2 h-[32px] px-[12px] rounded-[8px] shadow-md text-nowrap'>Grantee</Link>
                 <Link to='/old-grantees' className='flex flex-row items-center gap-2 h-[32px] px-[12px] rounded-[8px] shadow-md text-nowrap'>Your Grantees</Link>
-                <Link to='/last-subscription' className='flex flex-row items-center gap-2 h-[32px] px-[12px] rounded-[8px] shadow-md text-nowrap'>Last Subscription</Link>
-                <Link to='/invitations' className='flex flex-row items-center gap-2 h-[32px] px-[12px] rounded-[8px] shadow-md text-nowrap'>Your Invitations</Link>
+                <Link to='/last-subscription' className='flex flex-row items-center gap-2 h-[32px] px-[12px] rounded-[8px] shadow-md text-nowrap'>Current Subscription</Link>
                 {/* <Link to='/invite' className='flex flex-row items-center gap-2 h-[32px] px-[12px] rounded-[8px] shadow-md text-nowrap'>Invite</Link> */}
             </div>
             <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[24px] pb-8 px-6 flex flex-col bg-main rounded-xl shadow-md">

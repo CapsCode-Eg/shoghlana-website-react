@@ -62,7 +62,7 @@ export default function ProfileAccordion() {
                         </div>
                     }
                     <div className="ml-3 flex-1 text-white">
-                        <p className="font-bold">{userData?.name || userData?.first_name || 'Loading...'}</p>
+                        <p className="font-bold text-nowrap">{userData?.name || userData?.first_name || 'Loading...'}</p>
                         <p className="text-sm text-white/80">{userData?.email || 'Loading...'}</p>
                     </div>
                 </div>
@@ -89,12 +89,12 @@ export default function ProfileAccordion() {
                             Setting
                         </Link>
                     </li>
-                    <li className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded">
+                    {/* <li className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded">
                         About Us
                     </li>
                     <li className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded">
                         Contact Us
-                    </li>
+                    </li> */}
                     {/* <li
                         onClick={handleLogout}
                         className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded "

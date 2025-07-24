@@ -51,7 +51,7 @@ type FormData = {
 
 
 export function useSignUpIntro() {
-      const [step, setStep] = useState(0);
+        const [step, setStep] = useState(0);
         const handleNext = () => setStep(step + 1);
         const handleBack = () => setStep(step - 1);
         const [countries, setCountries] = useState([])

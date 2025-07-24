@@ -1,4 +1,5 @@
 import React from 'react';
+import Logo from '../../components/logo/logo';
 
 interface User {
     id: number;
@@ -20,9 +21,10 @@ interface UserData {
 interface UsersTableProps {
     data: UserData[];
     isLoading?: boolean;
+    isUsers?: boolean;
 }
 
-const UsersTable: React.FC<UsersTableProps> = ({ data, isLoading = false }) => {
+const UsersTable: React.FC<UsersTableProps> = ({ data, isLoading = false, isUsers = false }) => {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center p-8">
@@ -57,7 +59,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ data, isLoading = false }) => {
         <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm  mt-6 mx-2">
             <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
-                    <tr>
+                    {!isUsers ? <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
@@ -65,42 +67,78 @@ const UsersTable: React.FC<UsersTableProps> = ({ data, isLoading = false }) => {
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CV</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    </tr>
+                    </tr> : <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    </tr>}
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {data?.length > 0 && data?.map((item) => (
-                        <tr key={item.id}>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.id}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {item.user.first_name} {item.user.last_name}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.user.email}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.user.mobile}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.user.type}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {item.user.cv ? (
-                                    <a
-                                        href={item.user.cv}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-600 hover:text-blue-800 hover:underline"
-                                    >
-                                        View CV
-                                    </a>
-                                ) : (
-                                    'N/A'
-                                )}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <span
-                                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${item.user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                                        }`}
-                                >
-                                    {item.user.status ? 'Active' : 'Inactive'}
-                                </span>
-                            </td>
-                        </tr>
-                    ))}
+                    {data?.length > 0 && data?.map((item: any) => {
+                        if (isUsers) {
+                            return (
+                                <tr key={item.id}>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {item.image ? <img
+                                            src={item.image}
+                                            alt="User"
+                                            className="w-[45px] h-[45px] rounded-full object-cover"
+                                        /> :
+                                            <Logo isDisabled={true} />}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                                        {item.first_name} {item.last_name}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.email}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.mobile || "Null"}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span
+                                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${item.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                                }`}
+                                        >
+                                            {item.status ? 'Active' : 'Inactive'}
+                                        </span>
+                                    </td>
+                                </tr>
+                            )
+                        } else {
+                            return (
+                                <tr key={item.id}>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.id}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {item.user.first_name} {item.user.last_name}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.user.email}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.user.mobile}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.user.type}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {item.user.cv ? (
+                                            <a
+                                                href={item.user.cv}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            >
+                                                View CV
+                                            </a>
+                                        ) : (
+                                            'N/A'
+                                        )}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span
+                                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${item.user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                                }`}
+                                        >
+                                            {item.user.status ? 'Active' : 'Inactive'}
+                                        </span>
+                                    </td>
+                                </tr>
+                            )
+                        }
+                    })}
                 </tbody>
             </table>
         </div>

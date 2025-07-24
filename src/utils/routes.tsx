@@ -34,6 +34,7 @@ import InvitePerson from "../pages/invitePerson/invitePerson";
 import Invitations from "../pages/invitePerson/invitations";
 import PricingPlan from "../pages/setting/pricing/pricingPlan";
 import NotFound from "../pages/notfound/notfound";
+import CompanyUsers from "../pages/companyUser/companyUser";
 
 export const router = createBrowserRouter([
     {
@@ -163,6 +164,10 @@ export const router = createBrowserRouter([
     {
         path: 'invitations',
         element: <Invitations />
+    },
+    {
+        path: 'company-users',
+        element: <CompanyUsers />
     },
     {
         path: 'pricing',

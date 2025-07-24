@@ -252,7 +252,7 @@ export default function PricingPlan() {
 
 
                     {/* Mobile navigation buttons - shown only on small screens */}
-                    <div className="-mt-10 flex justify-center gap-4 md:hidden z-10 relative">
+                    <div className="-mt-7 flex justify-center gap-4 md:hidden z-10 relative">
                         <button
                             // @ts-expect-error type mismatch
                             onClick={() => swiperRef.current?.swiper.slidePrev()}

@@ -68,6 +68,21 @@ export default function NavbarTwo() {
                             <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
                         )}
                         Pricing Plan</Link>}
+                    {isCompany && <Link to="/invitations" className={`${location.pathname === "/invitations" || location.pathname.includes("/invitations/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                        {(location.pathname === "/invitations" || location.pathname.includes("/invitations/")) && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Invitations</Link>}
+                    {isCompany && <Link to="/grantee" className={`${location.pathname === "/grantee" || location.pathname.includes("/grantee/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                        {(location.pathname === "/grantee" || location.pathname.includes("/grantee/")) && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Grantee</Link>}
+                    {isCompany && <Link to="/company-users" className={`${location.pathname === "/company-users" || location.pathname.includes("/company-users/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
+                        {(location.pathname === "/company-users" || location.pathname.includes("/company-users/")) && (
+                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
+                        )}
+                        Company User</Link>}
                     {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
                         {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
                             <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
@@ -103,16 +118,22 @@ export default function NavbarTwo() {
                     <img width={150} height={150} src={'/assets/logo.png'} alt='background' className='object-cover' />
                     <div className=" px-[10px]  flex flex-col w-full  gap-4 text-[20px] font-bold pt-[30px]">
                         <ProfileAccordion />
+                        {<Link to="/" className=" px-4 py-2 -mt-4 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">
+
+                            Home</Link>}
                         {!isCompany && <Link to="/explore" className=" px-4 py-2 -mt-4 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">
 
                             Explore</Link>}
-                        {(!isCompany && window.localStorage.getItem('user')) !== null &&
+                        {(!isCompany && window.localStorage.getItem('user') !== null) &&
                             <Link to="/saved" className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">
                                 Saved</Link>
                         }
-                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/pricing" className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Application</Link>}
-                        {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/applications" className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Application</Link>}
-                        {(!isCompany && window.localStorage.getItem('user') !== null) && <span onClick={handleLogout} className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Logout</span>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/grantee" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Grantee</Link>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/pricing" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Pricing Plan</Link>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/company-users" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Company User</Link>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/invitations" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Invitations</Link>}
+                        {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/applications" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Application</Link>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <span onClick={handleLogout} className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Logout</span>}
                     </div>
                 </div>
             </div>

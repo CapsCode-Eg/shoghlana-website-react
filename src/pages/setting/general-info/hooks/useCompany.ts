@@ -55,8 +55,9 @@ export function useCompany() {
                     image: res?.data?.data?.image,
                     type: res?.data?.data?.type
                 })
+
                 dispatch(setUserData({
-                     first_name: res?.data?.data?.first_name,
+                    first_name: res?.data?.data?.first_name,
                     last_name: res?.data?.data?.last_name,
                     job_title: res?.data?.data?.seeker?.job_title,
                     birth_day: res?.data?.data?.seeker?.birth_day,
@@ -295,9 +296,11 @@ image: any;
                         image: res?.data?.data?.image,
                         type: res?.data?.data?.type
                     })
+                    localStorage.setItem('user',JSON.stringify({type:'seeker',...res?.data?.data}))
                 dispatch(setUserData({
                      first_name: res?.data?.data?.first_name,
                     last_name: res?.data?.data?.last_name,
+                    email: res?.data?.data?.email,
                     job_title: res?.data?.data?.seeker?.job_title,
                     birth_day: res?.data?.data?.seeker?.birth_day,
                     gender: res?.data?.data?.seeker?.gender,
