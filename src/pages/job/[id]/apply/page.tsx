@@ -1,11 +1,10 @@
 import { Link, useNavigate, useParams } from "react-router";
-import NavbarTwo from "../../../../components/common/navbarTwo/navbarTwo";
 import TextArea from "../../../../components/common/textArea/textArea";
-import Footer from "../../../../components/footer/footer";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../../utils/axiosInstance";
 import { PLACES, TYPES } from "../../../../utils/constant/job";
 import { toast } from "sonner";
+import MainLayout from "../../../../layout/mainLayout";
 
 export default function ApplyForJob() {
     const [data, setData] = useState<any>({});
@@ -81,8 +80,7 @@ export default function ApplyForJob() {
         })
     }
     return (
-        <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
-            <NavbarTwo />
+        <MainLayout>
             <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
                 <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">
                     <img
@@ -208,7 +206,6 @@ export default function ApplyForJob() {
                     </button>
                 </div>
             </div>
-            <Footer />
-        </div>
+        </MainLayout>
     )
 }

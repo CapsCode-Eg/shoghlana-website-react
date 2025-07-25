@@ -11,8 +11,6 @@ import { useSignUpIntro } from "./hooks/useSignUpIntro";
 
 export default function SignUpIntro() {
     const { step, handleNext, handleBack, countries, nationalties, skills, cities, job_category, formData, setFormData, years, errors, loading, fetchData } = useSignUpIntro();
-    console.log(errors);
-    console.log(formData);
     return (
         <div className="flex flex-col min-h-screen overflow-x-hidden">
             <div className="flex flex-row justify-center items-center h-[91px] w-screen">
@@ -34,7 +32,7 @@ export default function SignUpIntro() {
                 <YourExperties errors={errors} formData={formData} skills={skills} setData={setFormData} handleNext={handleNext} handleBack={handleBack} />
             </div>
             <div className={`${step === 4 ? 'block' : 'hidden'}`}>
-                <CareerInteresting loading={loading} errors={errors} formData={formData} handleSubmit={fetchData} setData={setFormData} handleBack={handleBack} />
+                <CareerInteresting job_category={job_category} loading={loading} errors={errors} formData={formData} handleSubmit={fetchData} setData={setFormData} handleBack={handleBack} />
             </div>
         </div>
     )

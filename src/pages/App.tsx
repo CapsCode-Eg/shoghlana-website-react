@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-import Footer from "../components/footer/footer";
 import HeroSection from "../components/heroSection/heroSection";
-import Navbar from "../components/navbar/navbar";
 import SectionFive from "../components/sectionFive/sectionFive";
 import SectionFour from "../components/sectionFour/sectionFour";
 import SectionSix from "../components/sectionSix/sectionSix";
 import SectionThree from "../components/sectionThree/sectionThree";
 import SectionTwo from "../components/sectionTwo/SectionTwo";
-import NavbarTwo from "../components/common/navbarTwo/navbarTwo";
 import { HttpMethod, useApi } from "../utils/hooks/useApi";
+import MainLayout from "../layout/mainLayout";
 
 export default function Home() {
-    const [data, setData] = useState<any>('');
     const { fetchData } = useApi({
         endPoint: "home",
         method: HttpMethod.GET,
@@ -28,13 +25,9 @@ export default function Home() {
 
     useEffect(() => {
         handleFetchData()
-        if (localStorage.getItem('token')) {
-            setData(localStorage.getItem('token') || JSON.parse(localStorage.getItem('token') || ''))
-        }
     }, [])
     return (
-        <div className="relative overflow-hidden ">
-            {data ? <NavbarTwo /> : <Navbar />}
+        <MainLayout>
             <HeroSection bannar={home?.slider} />
             <SectionTwo />
             {home?.job_categories && <SectionThree jobs={home?.job_categories} />}
@@ -43,7 +36,6 @@ export default function Home() {
             }
             <SectionFive />
             <SectionSix />
-            <Footer data={home?.settings} />
-        </div>
+        </MainLayout>
     );
 }

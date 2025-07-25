@@ -11,6 +11,8 @@ import { toast } from "sonner";
 export default function CareerInteresting() {
     const [data, setData] = useState<any>({})
     const [loading, setLoading] = useState(false)
+    const [job_category, setJobCategory] = useState([])
+
     useEffect(() => {
         axiosInstance.get('/user-profile').then((res) => {
             setData({
@@ -19,6 +21,7 @@ export default function CareerInteresting() {
                 job_type: res.data?.data?.job_preference?.job_type,
                 workplace: res.data?.data?.job_preference?.workplace,
                 min_salary: res.data?.data?.job_preference?.min_salary,
+                interested_job_category: res.data?.data?.job_preference?.interested_job_category
             })
         })
     }, [])
@@ -35,6 +38,7 @@ export default function CareerInteresting() {
                     job_type: res.data?.data?.job_preference?.job_type,
                     workplace: res.data?.data?.job_preference?.workplace,
                     min_salary: res.data?.data?.job_preference?.min_salary,
+                    interested_job_category: res.data?.data?.job_preference?.interested_job_category
                 })
             })
         }).catch((err) => {
@@ -43,9 +47,17 @@ export default function CareerInteresting() {
             setLoading(false)
         })
     }
+
+    useEffect(() => {
+        axiosInstance.get('/job-category').then((res) => {
+            setJobCategory(res.data.data)
+        })
+    }, [])
     return (
         <Layout>
             <div className='w-full bg-white relative z-[2] shadow-2xl mb-20 mx-auto rounded-[25px] pb-[32px] ps-[25px] pt-[45px] flex flex-col items-start'>
+                <CustomSelectMenu defaultData={data?.interested_job_category} error={data?.interested_job_category} label="Career Interest" options={job_category} onChange={(e: any) => setData((prev: any) => ({ ...prev, interested_job_category: e.id }))} />
+
                 <div className='flex flex-col w-[calc(100%-50px)]'>
                     <span className='font-medium text-[24px] mb-3 text-black'>What`s your current career level ?</span>
                     <CustomSelectMenu options={experienceLevels} defaultData={+(data?.career_level) || 0} onChange={(e: any) => setData((prev: any) => ({ ...prev, career_level: e.id }))} />

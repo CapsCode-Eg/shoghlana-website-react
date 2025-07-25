@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { HttpMethod, useApi } from "../../utils/hooks/useApi";
 import axiosInstance from "../../utils/axiosInstance";
-import NavbarTwo from "../../components/common/navbarTwo/navbarTwo";
 import ProfileHeroSection from "../../components/profile/heroSection/profileHeroSection";
 import PersonalInformation from "../../components/profile/personalInformation/personalInformation";
-import Footer from "../../components/footer/footer";
 import { SkillsAndExperience } from "../../components/profile/skillsOfProfile/skillsOfProfile";
 import { useParams } from "react-router";
 import { toast } from "sonner";
 import ApplyPopup from "../../components/applyPopup";
+import MainLayout from "../../layout/mainLayout";
 
 
 export default function UserProfile() {
@@ -59,14 +58,13 @@ export default function UserProfile() {
     }
 
     return (
-        <div className='flex flex-col max-w-screen overflow-hidden'>
-            <NavbarTwo />
+        <MainLayout>
+            <div className="mt-[54px]"></div>
             <ProfileHeroSection userData={payLoad?.data?.data && payLoad?.data?.data} isCompany={false} handleInvite={handleInvite} />
             <PersonalInformation handleUnlockCv={handleUnlockCv} jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data && payLoad?.data?.data} />
 
             <SkillsAndExperience userData={payLoad?.data?.data && payLoad?.data?.data} />
             <ApplyPopup isOpen={isOpen} onClose={() => setIsOpen(false)} />
-            <Footer />
-        </div>
+        </MainLayout>
     )
 }

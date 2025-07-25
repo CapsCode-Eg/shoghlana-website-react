@@ -1,12 +1,11 @@
 import { Link, useParams } from "react-router";
-import NavbarTwo from "../../../components/common/navbarTwo/navbarTwo";
 import JobDetails from "../../../components/jobs/jobDetails";
 import JobRequirements from "../../../components/jobs/jobRequirements";
-import Footer from "../../../components/footer/footer";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { PLACES, TYPES } from "../../../utils/constant/job";
 import { toast } from "sonner";
+import MainLayout from "../../../layout/mainLayout";
 
 export default function ViewJob() {
     const [data, setData] = useState<any>({});
@@ -62,8 +61,7 @@ export default function ViewJob() {
         }
     }, [])
     return (
-        <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
-            <NavbarTwo />
+        <MainLayout>
             <div className="w-[100%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
                 <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden flex items-center justify-center">
                     <img src={'/assets/linesBlue.png'} alt='background' className={`absolute top-0 left-0 object-cover w-full h-full`} />
@@ -89,7 +87,6 @@ export default function ViewJob() {
                         {/* @ts-expect-error Type mismatch */}
                         <span className='text-[14px] text-[#4D6182] font-[600]'>- {cities.find((city: any) => city.id == data?.city_id)?.name}, {countries.find((country: any) => country.id == data?.country_id)?.name}</span>
                     </p>
-                    {/* <span className='mt-4 text-[13px] font-[400] text-[#4D6182]'>{data?.description || 'Loading'}</span> */}
                     <div className="flex flex-col-reverse md:flex-row gap-4 md:justify-between flex-wrap justify-center items-center mt-[31px]">
                         <div className='flex flex-col-reverse md:flex-row gap-5 justify-start items-start md:items-center'>
                             {userData?.type !== 'company' && window.localStorage.getItem("user") &&
@@ -163,8 +160,6 @@ export default function ViewJob() {
             <div className='w-[98%] xl:w-[80%] mx-auto my-[20px] lg:my-[36px]'>
                 <JobRequirements data={data} />
             </div>
-            <Footer />
-
-        </div>
+        </MainLayout>
     )
 }

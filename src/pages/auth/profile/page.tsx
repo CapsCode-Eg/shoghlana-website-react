@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import NavbarTwo from "../../../components/common/navbarTwo/navbarTwo";
-import Footer from "../../../components/footer/footer";
 import ProfileHeroSection from "../../../components/profile/heroSection/profileHeroSection";
 import PersonalInformation from "../../../components/profile/personalInformation/personalInformation";
 import { HttpMethod, useApi } from "../../../utils/hooks/useApi";
 import axiosInstance from "../../../utils/axiosInstance";
 import { toast } from "sonner";
 import { SkillsAndExperience } from "../../../components/profile/skillsOfProfile/skillsOfProfile";
+import MainLayout from "../../../layout/mainLayout";
 
 
 export default function Profile() {
@@ -75,12 +74,11 @@ export default function Profile() {
         }
     };
     return (
-        <div className='flex flex-col max-w-screen overflow-hidden'>
-            <NavbarTwo />
+        <MainLayout>
+            <div className="mt-4"></div>
             <ProfileHeroSection userData={payLoad?.data?.data ? payLoad?.data?.data : data} isCompany={false} />
             <PersonalInformation handleFileChange={handleFileChange} jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data ? payLoad?.data?.data : data} deleteCV={deleteCV} />
             <SkillsAndExperience userData={payLoad?.data?.data ? payLoad?.data?.data : data} />
-            <Footer />
-        </div>
+        </MainLayout>
     )
 }

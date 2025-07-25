@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import NavbarTwo from "../../components/common/navbarTwo/navbarTwo";
 import JobsFilter from "../../components/explore/filter";
 import JobsFilterMobile from "../../components/explore/filterMobile";
 import TabsForJobs from "../../components/explore/tabsForJobs";
-import Footer from "../../components/footer/footer";
 import { useSearchParams } from "react-router";
 import axiosInstance from "../../utils/axiosInstance";
 import Pagination from "../../components/common/pagination/pagination";
+import MainLayout from "../../layout/mainLayout";
 
 export default function Explore() {
     const [data, setData] = useState<any>({});
@@ -63,8 +62,7 @@ export default function Explore() {
     }, [searchParams]);
 
     return (
-        <div className='flex flex-col max-w-screen min-h-screen overflow-x-hidden'>
-            <NavbarTwo />
+        <MainLayout>
             <div className='w-[98%] xl:w-[80%] min-h-[55vh] h-full flex flex-col md:flex-row gap-4 mx-auto my-[20px] xl:my-[54px]'>
                 <div className='pt-[60px] hidden lg:block'>
                     <JobsFilter />
@@ -81,7 +79,6 @@ export default function Explore() {
                     />
                 </div>
             </div>
-            <Footer />
-        </div>
+        </MainLayout>
     );
 }

@@ -16,9 +16,11 @@ export default function ApplyPopup({ isOpen, onClose }: PopupProps) {
     const [isLoading, setLoading] = useState(false);
     const [company_jobs, setCompanyJobs] = useState([])
     useEffect(() => {
-        axiosInstance.get('/company/get-jobs').then((res) => {
-            setCompanyJobs(res.data.data)
-        })
+        if (localStorage.getItem('user')) {
+            axiosInstance.get('/company/get-jobs').then((res) => {
+                setCompanyJobs(res.data.data)
+            })
+        }
     }, [])
     useEffect(() => {
         setSelectedJob(null);

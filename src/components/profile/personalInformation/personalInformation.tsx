@@ -26,6 +26,13 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
             setNewJobCategory(jobCategories);
         }
     }, [userData])
+    const [data, setData] = useState<any>('');
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            setData(localStorage.getItem('token') || JSON.parse(localStorage.getItem('token') || ''))
+        }
+    }, [])
     return (
         <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px]  flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md relative overflow-hidden py-[33px] px-[28.68px]">
             {/* Contact Info */}
@@ -44,7 +51,6 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
                         +{userData?.email}</span>
                 </div>
             </div>
-            <span className="text-main absolute top-[38px] md:top-[33px] end-[25px] font-[700] text-[10px] md:text-[16px] hidden md:block">ONLY COMPANIES CAN SEE THIS SECTION</span>
             {/* General Info */}
             <div className="border-b pb-4 mb-4">
                 <h2 className="text-[16px] text-[#001433] font-bold mb-5">General Info</h2>
@@ -86,18 +92,18 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
                                 <path d="M9.39862 10.1693C9.27864 10.1693 9.15866 10.1251 9.06394 10.0304L5.48988 6.45635C5.30676 6.27322 5.30676 5.97012 5.48988 5.787C5.673 5.60388 5.9761 5.60388 6.15923 5.787L9.73329 9.36106C9.91641 9.54418 9.91641 9.84729 9.73329 10.0304C9.63857 10.1251 9.51859 10.1693 9.39862 10.1693Z" fill="#292D32" />
                             </svg>
                         </span>}
-                        <div className="flex space-x-4 text-blue-600 text-[10px] md:text-sm">
-                            {handleUnlockCv ?
+                        {data && <div className="flex space-x-4 text-blue-600 text-[10px] md:text-sm">
+                            {data && handleUnlockCv ?
                                 <button onClick={handleUnlockCv} className="hover:underline">Unlock CV</button>
                                 : <Link to={userData?.seeker?.cv} target="_blank" className="hover:underline">Preview CV</Link>}
-                            {handleFileChange &&
+                            {data && handleFileChange &&
                                 <>
                                     <div className="w-[1px] h-4 bg-gray-300" />
                                     <label htmlFor="cv" className="hover:underline">Update CV</label>
                                     <input accept="application/pdf" id="cv" type="file" onChange={handleFileChange} className="hidden" />
                                 </>
                             }
-                        </div>
+                        </div>}
                     </div>
                 </div>
             }

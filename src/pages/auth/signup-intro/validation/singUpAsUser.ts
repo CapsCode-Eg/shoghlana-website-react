@@ -20,6 +20,7 @@ export const SingUpAsUser = Yup.object().shape({
   experience_job_title: Yup.string().required('Experience job title is required'),
   company: Yup.string().required('Company is required'),
   job_category_id: Yup.string().required('Job category is required'),
+  interested_job_category: Yup.string().required('Job category is required'),
 
   start_month: Yup.number().typeError('Start month is required ').min(1).max(12).required('Start month is required'),
   start_year: Yup.number().typeError('Start year is required ').min(1900).max(3000).required('Start year is required'),

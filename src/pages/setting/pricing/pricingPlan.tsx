@@ -6,11 +6,10 @@ import { Navigation, Pagination, A11y } from 'swiper/modules'
 // Import Swiper styles
 import "swiper/swiper-bundle.css";
 
-import NavbarTwo from "../../../components/common/navbarTwo/navbarTwo"
-import Footer from "../../../components/footer/footer"
 import { HttpMethod, useApi } from "../../../utils/hooks/useApi";
 import axiosInstance from "../../../utils/axiosInstance";
 import { toast } from "sonner";
+import MainLayout from "../../../layout/mainLayout";
 
 
 
@@ -56,8 +55,7 @@ export default function PricingPlan() {
     }, [])
 
     return (
-        <div className='flex flex-col max-w-screen overflow-hidden h-full'>
-            {localStorage.getItem('token') && <NavbarTwo />}
+        <MainLayout>
             <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 mt-10">
                 <div aria-hidden="true" className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl">
                     <div
@@ -273,7 +271,6 @@ export default function PricingPlan() {
                     </div>
                 </div>
             </div>
-            <Footer data={home?.settings} />
-        </div>
+        </MainLayout>
     )
 }

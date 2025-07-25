@@ -33,10 +33,9 @@ export default function Company() {
         }
     }, [data?.company_info])
 
-    console.log(data)
     return (
         <MainLayout>
-            <div className="w-[98%] xl:w-[80%] mx-auto mt-[24px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
+            <div className="w-[98%] xl:w-[80%] mx-auto mt-[54px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
                 <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">
                     <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden flex items-center justify-center">
                         <img src={'/assets/linesBlue.png'} alt='background' className={`absolute top-0 left-0 object-cover w-full h-full`} />

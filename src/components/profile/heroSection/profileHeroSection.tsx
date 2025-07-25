@@ -2,6 +2,7 @@
 import { Link } from "react-router";
 import { company_size, educationLevels } from "../../../utils/constant/profile";
 import { Mail } from "lucide-react";
+import { checkLinkIcon } from "../../../pages/company_profile/page";
 
 export default function ProfileHeroSection({ userData, isCompany, cities, countries, handleInvite }: { cities?: any, countries?: any, isCompany?: boolean, userData?: any, handleInvite?: any }) {
     return (
@@ -64,19 +65,43 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
                         <Mail />
                         <span>{userData?.email}</span>
                     </Link>
-                    {/* Linked in */}
-                    {!isCompany && <Link to='#' className='me-4'>
-                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.0607 20.4965H16.7741V14.8988C16.7741 13.3645 16.1913 12.5078 14.9769 12.5078C13.6554 12.5078 12.9657 13.3995 12.9657 14.8998V20.4965H9.79801V9.83395H12.9657V11.2704C12.9657 11.2704 13.9173 9.50809 16.1804 9.50809C18.4414 9.50809 20.0607 10.8895 20.0607 13.7463V20.4965ZM6.02059 8.43853C5.76309 8.43762 5.50829 8.38597 5.27075 8.28655C5.03322 8.18713 4.8176 8.04189 4.63622 7.85911C4.45483 7.67634 4.31124 7.45961 4.21364 7.22132C4.11604 6.98304 4.06635 6.72785 4.0674 6.47035C4.0674 5.38381 4.94103 4.50317 6.02059 4.50317C6.27795 4.50409 6.53262 4.55571 6.77003 4.65508C7.00745 4.75445 7.22295 4.89962 7.40425 5.0823C7.58554 5.26499 7.72906 5.4816 7.82661 5.71977C7.92416 5.95793 7.97382 6.21299 7.97277 6.47035C7.97396 6.72781 7.92439 6.98297 7.82689 7.22125C7.7294 7.45953 7.5859 7.67626 7.4046 7.85905C7.2233 8.04184 7.00774 8.1871 6.77027 8.28653C6.53279 8.38597 6.27804 8.43762 6.02059 8.43853ZM4.38527 20.4965H7.68589V9.83395H4.38527V20.4965Z" fill="#4D6182" />
-                        </svg>
-                    </Link>}
-                    {JSON.parse(localStorage.getItem('user') || '')?.type === 'company' && handleInvite && <div className="flex flex-row space-x-1 md:space-x-4">
-                        <button onClick={() => handleInvite()} type='button' title='Invite' className='bg-white border-[1px] border-[#4D6182] rounded-[5px] flex flex-col items-center w-[38px] h-[40px] justify-center'>
-                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13.8 14.652V18.343L21 12.036L13.8 5.75V9.336C6.802 10.243 4.012 14.736 3 19.25C5.497 16.086 8.805 14.652 13.8 14.652Z" fill="#4D6182" />
-                            </svg>
-                        </button>
-                    </div>}
+                    <div className='flex flex-row flex-wrap items-center justify-center gap-3 mt-2'>
+                        {userData?.social_media?.length > 0 ?
+                            userData?.data?.social_media?.map((item: any, index: number) => {
+                                return (
+                                    <Link key={index} to={item?.url} target="_blank" className='flex flex-row items-center justify-center gap-3'>
+                                        {
+                                            checkLinkIcon(item?.platform)
+                                        }
+                                    </Link>
+                                )
+                            }) :
+                            null
+                        }
+                    </div>
+                    {
+                        (() => {
+                            try {
+                                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                                return user?.type === 'company' && handleInvite && (
+                                    <div className="flex flex-row space-x-1 md:space-x-4">
+                                        <button
+                                            onClick={() => handleInvite()}
+                                            type='button'
+                                            title='Invite'
+                                            className='bg-white border-[1px] border-[#4D6182] rounded-[5px] flex flex-col items-center w-[38px] h-[40px] justify-center'
+                                        >
+                                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.8 14.652V18.343L21 12.036L13.8 5.75V9.336C6.802 10.243 4.012 14.736 3 19.25C5.497 16.086 8.805 14.652 13.8 14.652Z" fill="#4D6182" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                );
+                            } catch {
+                                return null;
+                            }
+                        })()
+                    }
                 </div>
             </div>
         </div>

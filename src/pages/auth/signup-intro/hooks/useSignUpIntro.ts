@@ -29,7 +29,7 @@ type FormData = {
     experience_job_title: string;
     company: string;
     job_category_id: string | null;
-
+    interested_job_category: string | null;
     start_month: string;
     start_year: string;
     end_month: string;
@@ -80,7 +80,7 @@ export function useSignUpIntro() {
             experience_job_title: '',
             company: '',
             job_category_id: '',
-    
+            interested_job_category: '',
             start_month: '',
             start_year: '',
             end_month: '',
@@ -90,10 +90,10 @@ export function useSignUpIntro() {
             career_level: null,
             job_type: null,
             workplace: null,
-    
+            
             min_salary: null,
             hide_salary: 0,
-    
+            
             languages: [],
             skills: [],
         });
