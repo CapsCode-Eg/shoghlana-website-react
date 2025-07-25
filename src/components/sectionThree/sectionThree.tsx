@@ -18,7 +18,7 @@ export default function SectionThree({ jobs }: { jobs: any }) {
                     ))}
                 </ul>
             </div>
-            <div className="text-center h-[270px] flex flex-col pt-[100px] mb-[100px] items-center justify-center bg-gradient-to-t from-white bg-white/80 -mt-[70px] relative z-10">
+            <div className="text-center h-[270px] flex flex-col pt-[100px] mb-[100px] items-center justify-center bg-gradient-to-b from-transparent via-white to-white -mt-[100px] relative z-10">
                 <Link to='/explore' className="text-[48px] relative z-[10000]  font-bold text-main">View More</Link>
                 <Background blueOnly linesOnly />
             </div>

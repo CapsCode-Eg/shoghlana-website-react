@@ -32,7 +32,7 @@ export default function JobApplications() {
                 <img src="/assets/appFrame.png" alt="Frame Image" />
                 <div className="flex flex-col bg-white w-[98%] xl:w-[80%] mx-auto -top-30 relative z-[2] rounded-2xl p-5 shadow-xl">
                     <span className="text-[#0055D9] text-[32px] font-bold">{data?.title}</span>
-                    <span className="text-[#C2c2c2] text-[20px] font-bold">{data?.description}</span>
+                    <div dangerouslySetInnerHTML={{ __html: data?.description }} />
                     <span className="mt-4 p-2 shadow-2xl w-fit rounded-[8px] text-[16px] font-meduim text-[#0055D9] border border-[#c2c2c2]">Applier : {data?.applications?.length || 0}</span>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                         {

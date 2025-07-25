@@ -2,16 +2,17 @@ import { useParams } from "react-router";
 import NavbarTwo from "../../../components/common/navbarTwo/navbarTwo";
 import CustomSelectMenu from "../../../components/customeSelectMenu/customSelectMenu";
 import InputAndLabel from "../../../components/input/inputAndLabel";
-import TextEditor from "../../setting/general-info/components/textEditor";
 import ButtonGroup from "../../../components/common/buttonGroup/buttonGroup";
 import { useAddJob } from "./hooks/useAddJob";
 import { LEVELS, PLACES, TYPES } from "../../../utils/constant/job";
 import CustomSelectMultipleMenu from "../../setting/general-info/components/customeMultiSelectMenu";
 import QuestionList from "../../../components/questionList/QuestionList";
+import JoditEditor from 'jodit-react';
 
 export default function PostJob() {
     const { func } = useParams();
     const { data, errors, cities, countries, skills, setData, handleSubmit, loading, job_category, jobQuestion } = useAddJob();
+    console.log(data)
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />
@@ -26,15 +27,64 @@ export default function PostJob() {
                         <InputAndLabel disabled={func === 'view'} label="Minimum Years" name="min_year" type='number' value={data?.min_year || ""} setData={setData} error={errors?.min_year} />
                         <InputAndLabel disabled={func === 'view'} label="Maximum Years" name="max_year" type='number' value={data?.max_year || ""} setData={setData} error={errors?.max_year} />
                     </div>
-                    <div className="h-[20vh] mb-4">
-                        <TextEditor
-                            label='Description'
-                            value={data?.description}
-                            error={errors?.description}
-                            onChange={(e) => {
-                                setData({ ...data, description: e.target.value });
-                            }}
-                        />
+                    <div className=" mb-4 flex flex-col">
+                        <span className={`text-[13.45px] font-bold  ${errors?.requirements ? 'text-red-500' : 'text-[#84818A]'}`}>Job Description</span>
+                        <div className={`h-[300px] pb-0.5  ${errors?.description ? 'border border-red-500' : ''}`}>
+                            <JoditEditor
+                                value={data?.description}
+                                config={{
+                                    height: 300,
+                                    readonly: func === 'view',
+                                    placeholder: 'Write your description here...',
+                                    enableDragAndDropFileToEditor: true,
+                                    uploader: {
+                                        insertImageAsBase64URI: true
+                                    },
+                                    allowTabNavigation: true,
+                                    buttons: [
+                                        'source', '|',
+                                        'bold', 'italic', 'underline', '|',
+                                        'ul', 'ol', '|',
+                                        'font', 'fontsize', 'brush', 'paragraph', '|',
+                                        'table', 'link', '|',
+                                        'align', 'undo', 'redo', '|',
+                                        'hr', 'eraser', 'copyformat', '|',
+                                        'fullsize', 'print', 'about'
+                                    ]
+                                }}
+                                className={` ${errors?.description ? 'border border-red-500' : ''}`}
+                                onBlur={(newContent: string) => setData({ ...data, description: newContent })}
+                            />
+                        </div>
+                    </div>
+                    <div className=" mb-4 flex flex-col">
+                        <span className={`text-[13.45px] font-bold  ${errors?.requirements ? 'text-red-500' : 'text-[#84818A]'}`}>Job Requirements</span>
+                        <div className={`h-[300px] pb-0.5 border ${errors?.requirements ? 'border-red-500' : ''}`}>
+                            <JoditEditor
+                                value={data?.requirements}
+                                config={{
+                                    height: 300,
+                                    readonly: func === 'view',
+                                    placeholder: 'Write your requirements here...',
+                                    enableDragAndDropFileToEditor: true,
+                                    uploader: {
+                                        insertImageAsBase64URI: true
+                                    },
+                                    allowTabNavigation: true,
+                                    buttons: [
+                                        'source', '|',
+                                        'bold', 'italic', 'underline', '|',
+                                        'ul', 'ol', '|',
+                                        'font', 'fontsize', 'brush', 'paragraph', '|',
+                                        'table', 'link', '|',
+                                        'align', 'undo', 'redo', '|',
+                                        'hr', 'eraser', 'copyformat', '|',
+                                        'fullsize', 'print', 'about'
+                                    ]
+                                }}
+                                onBlur={(newContent: string) => setData({ ...data, requirements: newContent })}
+                            />
+                        </div>
                     </div>
                     <CustomSelectMenu isDisabled={func === 'view'} defaultData={data?.job_category_id && +(data?.job_category_id) || null} label="Job Category" placeholder="Select Job Category" options={job_category} onChange={(value: any) => setData({ ...data, job_category_id: value?.id })} error={errors?.job_category_id} />
                     <div className="grid grid-cols-2 gap-4">

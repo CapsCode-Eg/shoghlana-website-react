@@ -20,6 +20,7 @@ interface Job {
     level: string;
     work_place: string;
     post_type: string;
+    requirements: string;
 }
 
 type Errors = {
@@ -38,6 +39,7 @@ type Errors = {
     level: string;
     work_place: string;
     post_type: string;
+    requirements: string;
 };
 
 export function useAddJob() {
@@ -57,6 +59,7 @@ export function useAddJob() {
         level: "",
         work_place: "",
         post_type: "",
+        requirements: "",
     })
     const { id } = useParams()
     const navigate = useNavigate()
@@ -77,6 +80,7 @@ export function useAddJob() {
         level: "",
         work_place: "",
         post_type: "",
+        requirements: "",
     });
     const [loading, setLoading] = useState(false);
     const [jobQuestion, setJobQuestion] = useState<any>(null);
@@ -143,7 +147,8 @@ export function useAddJob() {
             level: "",
             work_place: "",
             post_type: "",
-            skills: []
+            skills: [],
+            requirements: "",
         })
     }, [navigate])
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,6 +181,7 @@ export function useAddJob() {
             level: "",
             work_place: "",
             post_type: "",
+            requirements: "",
         })
         try {
             setLoading(true);

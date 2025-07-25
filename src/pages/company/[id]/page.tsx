@@ -1,11 +1,12 @@
 import { Link, useParams } from "react-router";
-import NavbarTwo from "../../../components/common/navbarTwo/navbarTwo";
-import Footer from "../../../components/footer/footer";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import JobsCard from "../../../components/savedJobs/jobsCard/jobsCard";
 import { company_size } from "../../../utils/constant/profile";
 import { toast } from "sonner";
+import MainLayout from "../../../layout/mainLayout";
+import { checkLinkIcon } from "../../company_profile/page";
+import Logo from "../../../components/logo/logo";
 
 export default function Company() {
     const { id } = useParams();
@@ -31,10 +32,11 @@ export default function Company() {
             })
         }
     }, [data?.company_info])
+
+    console.log(data)
     return (
-        <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
-            <NavbarTwo />
-            <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
+        <MainLayout>
+            <div className="w-[98%] xl:w-[80%] mx-auto mt-[24px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
                 <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">
                     <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden flex items-center justify-center">
                         <img src={'/assets/linesBlue.png'} alt='background' className={`absolute top-0 left-0 object-cover w-full h-full`} />
@@ -43,20 +45,22 @@ export default function Company() {
                 </div>
                 <div className="p-6 rounded-xl bg-white -mt-10 relative z-[10] pb-20 lg:pb-6">
                     <div className="flex items-center">
-                        <img
-                            src="https://images.unsplash.com/photo-1496200186974-4293800e2c20?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Profile"
-                            width={80}
-                            height={80}
-                            className="rounded-[10px] w-[80px] h-[80px] object-cover absolute end-[10px] top-[25px] mr-4"
-                        />
+                        {data?.image &&
+                            < img
+                                src={data?.image ? data?.image : ''}
+                                alt="Profile"
+                                width={80}
+                                height={80}
+                                className="rounded-[10px] w-[80px] h-[80px] object-cover absolute end-[10px] top-[25px] mr-4"
+                            />
+                        }
                         <div className='flex flex-row items-center gap-1'>
                             <h2 className="text-[25.73px] text-[#0055D9] font-bold">{data?.name}</h2>
                             <img src='/assets/icons/verified.svg' width={27} height={27} className='mt-0.5 mx-2' alt='Verified' />
                         </div>
                     </div>
                     <div className='flex flex-col gap-1 -mt-1'>
-                        <span className='text-[#4D6182] text-[14px] mt-1 font-[500] max-w-[400px] line-clamp-2'>{data?.company_info?.about}</span>
+                        {/* <span className='text-[#4D6182] text-[14px] mt-1 font-[500] max-w-[400px] line-clamp-2'>{data?.company_info?.about}</span> */}
                         {/* @ts-expect-error Type mismatch */}
                         {data?.company_info?.country && <p className="text-[#4D6182] text-[13px] font-[400] mt-1">{`${cities?.find((city: any) => city.id === data?.company_info?.city)?.name || ''}` || ''}, {`${countries?.find((country: any) => country.id === data?.company_info?.country)?.name}`}</p>}
                         <span className='text-[#4D6182] text-[13px] font-[400]'>{company_size[data?.company_info?.company_size] || ''}</span>
@@ -80,20 +84,47 @@ export default function Company() {
                     </div>
                 </div>
             </div>
-            {data?.jobs?.length > 0 && <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] lg:mt-[54px] flex flex-col bg-white rounded-[10px] rounded-b-xl shadow-md overflow-hidden border-[1px] py-[26.22px] px-[33.11px]">
-                <span className='text-[#001433] text-[20px] font-semibold'>Jobs Shared</span>
-                <div className="mt-2 flex flex-col items-center" >
-                    {
-                        data?.jobs?.map((job: any, index: number) => {
-                            return (
-                                <JobsCard key={index} job={job} />
-                            )
-                        })
-                    }
+            <div className='flex flex-col-reverse lg:flex-row w-[98%] xl:w-[80%] gap-[1%] mx-auto mt-[24px]'>
+                <div className='flex flex-col w-[100%] lg:w-[79%]  bg-white rounded-[10px] rounded-b-xl shadow-md overflow-hidden border-[1px] border-black/20 py-[26.22px] px-[33.11px]'>
+                    <span className='text-[#001433] text-[20px] font-semibold'>ِAbout Company</span>
+                    <span className='text-[#4D6182] text-[14px] mt-1 font-[500] max-w-[400px] line-clamp-2 mb-6'>{data?.company_info?.about}</span>
+                    {data?.jobs?.length > 0 && <div className=" flex flex-col ">
+                        <span className='text-[#001433] text-[20px] font-semibold'>Jobs Shared</span>
+                        <div className="mt-2 flex flex-col items-center" >
+                            {
+                                data?.jobs?.map((job: any, index: number) => {
+                                    return (
+                                        <JobsCard noActrions key={index} job={job} />
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>}
                 </div>
-            </div>}
-            <Footer />
-
-        </div>
+                <div className='flex flex-col w-[100%] lg:w-[20%]'>
+                    <div className='border border-black/20 rounded-[16px] flex flex-col items-center justify-center h-[350px] px-[28px]'>
+                        {data?.image ?
+                            <img src={data?.image} alt="Profile Image" className='w-[100px] h-[100px] rounded-full object-cover' /> :
+                            <Logo isDisabled />
+                        }
+                        <span className='font-semibold text-[20px] xl:text-[26px] text-main text-center mb-2'>{data?.name}</span>
+                        <div className='flex flex-row flex-wrap items-center justify-center gap-3 mt-2'>
+                            {data?.social_media?.length > 0 ?
+                                data?.social_media?.map((item: any, index: number) => {
+                                    return (
+                                        <Link key={index} to={item?.url} target="_blank" className='flex flex-row items-center justify-center gap-3'>
+                                            {
+                                                checkLinkIcon(item?.platform)
+                                            }
+                                        </Link>
+                                    )
+                                }) :
+                                <span className='text-[#001433] text-[20px] font-semibold'>No Social Media</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MainLayout>
     )
 }

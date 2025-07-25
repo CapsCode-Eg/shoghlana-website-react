@@ -42,12 +42,12 @@ export default function Grantee() {
 
 
                     <div className="mt-4 flex flex-col gap-4">
-                        <span className="text-[#131313] text-[22px] font-bold">Upload From 6</span>
-                        <DocumentUpload onFilesChange={(files: any) => handleFileUpload(files, 'form6')} />
+                        <span className="text-[#131313] text-[22px] font-bold">Upload From 1</span>
+                        <DocumentUpload onFilesChange={(files: any) => handleFileUpload(files, 'form2')} />
                     </div>
                     <div className="mt-4 flex flex-col gap-4">
-                        <span className="text-[#131313] text-[22px] font-bold">Upload From 2</span>
-                        <DocumentUpload onFilesChange={(files: any) => handleFileUpload(files, 'form2')} />
+                        <span className="text-[#131313] text-[22px] font-bold">Upload From 6</span>
+                        <DocumentUpload onFilesChange={(files: any) => handleFileUpload(files, 'form6')} />
                     </div>
                     <div className='flex flex-row items-center w-full justify-end sm:justify-center gap-4 mt-12 mb-4'>
                         <button type='button' onClick={() => navigate(-1)} className='w-[120px] sm:w-[249px] h-[45px] rounded-[8px] flex flex-col items-center justify-center text-[20px] font-medium text-black border-[1px] border-[#D9D9D9]'>Back</button>

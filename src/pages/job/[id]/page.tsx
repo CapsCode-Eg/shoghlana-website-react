@@ -54,26 +54,23 @@ export default function ViewJob() {
             return err;
         })
     }
+    const [isCompany, setIsCompany] = useState(false);
+    useEffect(() => {
+        if (window.localStorage.getItem('user')) {
+            const user = JSON.parse(window.localStorage.getItem('user') || '{}');
+            setIsCompany(user?.type === 'company');
+        }
+    }, [])
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />
             <div className="w-[100%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
-                <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden">
-                    <img
-                        src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Icon"
-                        className='object-cover'
-                    />
+                <div className="p-6 relative w-full h-[257px] z-[2] rounded-t-[25px] overflow-hidden flex items-center justify-center">
+                    <img src={'/assets/linesBlue.png'} alt='background' className={`absolute top-0 left-0 object-cover w-full h-full`} />
+                    <span className="text-main text-[35px] md:text-[50px] font-bold">Shoghlana</span>
                 </div>
                 <div className="p-6 rounded-xl bg-white -mt-10 relative z-[10]">
                     <div className="flex items-center">
-                        <img
-                            src="https://images.unsplash.com/photo-1496200186974-4293800e2c20?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Profile"
-                            width={80}
-                            height={80}
-                            className="rounded-[10px] w-[80px] h-[80px] object-cover absolute end-[10px] top-[25px] mr-4"
-                        />
                         <div className='flex flex-row items-center gap-1'>
                             <h2 className="text-[25.73px] text-[#001433] font-bold">{data?.title || 'Loading'}</h2>
                         </div>
@@ -130,7 +127,7 @@ export default function ViewJob() {
                                 <span className="font-[600] text-[28px] text-[#4D6182]">20</span>
                                 <span className="font-[600] text-[13px] ms-2 text-[#4D6182]">Applicants for</span>
                             </div>
-                            {window.localStorage.getItem("user") && <button onClick={() => {
+                            {window.localStorage.getItem("user") && !isCompany && <button onClick={() => {
                                 if (!data?.is_saved) {
                                     handleSaveJob()
                                 } else {

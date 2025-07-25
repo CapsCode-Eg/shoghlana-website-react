@@ -55,6 +55,9 @@ export default function NavbarTwo() {
     return (
         <nav className="bg-white relative max-w-screen px-6 py-3 flex items-center shadow-lg justify-between">
             {/* Left Section (Logo) */}
+            <div className="lg:hidden">
+                <Logo isDisabled={true} />
+            </div>
             <div className="flex-row f items-center lg:flex hidden gap-8 text-[15px] font-[600] text-text">
                 <Logo />
                 <div className="hidden items-center lg:flex space-x-8">
@@ -103,9 +106,11 @@ export default function NavbarTwo() {
 
 
             {/* Right Section (Profile) */}
-            {window.localStorage.getItem('user') &&
-                <ProfileButton />
-            }
+            <div className="lg:block hidden">
+                {window.localStorage.getItem('user') &&
+                    <ProfileButton />
+                }
+            </div>
             <div className="lg:hidden" ref={menuRef}>
                 <div onClick={() => setIsOpen(!isOpen)}>
                     <MenuIcon size={30} />
@@ -128,7 +133,9 @@ export default function NavbarTwo() {
                             <Link to="/saved" className="block px-4 py-2 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">
                                 Saved</Link>
                         }
-                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/grantee" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Grantee</Link>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/old-grantees" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Grantees</Link>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/grantee" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">New Grantee</Link>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/last-subscription" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Subscription</Link>}
                         {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/pricing" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Pricing Plan</Link>}
                         {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/company-users" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Company User</Link>}
                         {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/invitations" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Invitations</Link>}

@@ -7,6 +7,7 @@ export const jobDataSchema = yup.object().shape({
     max_year: yup.number().min(1, 'Max year must be greater than 0').required('Max year is required'),
     min_year: yup.number().min(0, 'Min year must be greater than 0').required('Min year is required'),
     description: yup.string().required('Description is required'),
+    requirements: yup.string().required('Requirements is required'),
     title: yup.string().required('Job title is required'),
     country_id: yup.number().required('Country is required'),
     city_id: yup.number().required('City is required'),

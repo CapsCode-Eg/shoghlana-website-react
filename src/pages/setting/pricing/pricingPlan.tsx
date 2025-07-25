@@ -69,7 +69,7 @@ export default function PricingPlan() {
                     />
                 </div>
                 <div className="mx-auto max-w-4xl text-center">
-                    <h2 className="text-base/7 font-semibold text-indigo-600">Pricing</h2>
+                    <h2 className="text-base/7 font-semibold text-main">Pricing</h2>
                     <p className="mt-2 text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">
                         Choose the right plan for you
                     </p>
@@ -82,7 +82,7 @@ export default function PricingPlan() {
                     <div className="relative flex w-full p-1 bg-white dark:bg-slate-900 rounded-full">
                         <span className="absolute inset-0 m-1 pointer-events-none" aria-hidden="true">
                             <span
-                                className={`absolute inset-0 w-1/2 bg-indigo-500 rounded-full shadow-sm shadow-indigo-950/10 transform transition-transform duration-150 ease-in-out ${isAnnual ? 'translate-x-0' : 'translate-x-full'
+                                className={`absolute inset-0 w-1/2 bg-main rounded-full shadow-sm shadow-indigo-950/10 transform transition-transform duration-150 ease-in-out ${isAnnual ? 'translate-x-0' : 'translate-x-full'
                                     }`}
                             ></span>
                         </span>
