@@ -5,7 +5,7 @@ export const educationValidation = yup.object().shape({
     .number()
     .required()
     .integer()
-    .min(1, 'Education level must be at least 1')
+    .min(0, 'Education level must be at least 1')
     .max(10, 'Education level must be at most 10'),
   field_of_study: yup
     .string()

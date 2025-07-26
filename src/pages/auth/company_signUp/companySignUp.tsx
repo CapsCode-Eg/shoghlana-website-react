@@ -3,6 +3,7 @@ import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import InputAndLabel from "../../../components/input/inputAndLabel";
 import { Link } from "react-router";
 import { useCompanySignUp } from "./hooks/useCompanySignUp";
+import InputPhone from "../../setting/general-info/components/inputPhone";
 
 export default function CompanySignUp() {
     const { handleLogin, errors, data, setData, loading } = useCompanySignUp();
@@ -23,9 +24,10 @@ export default function CompanySignUp() {
                             <InputAndLabel name='first_name' setData={setData} error={errors?.first_name} type="email" value={data.first_name || ""} isLogin label="First Name" placeholder="Shoghlana" />
                             <InputAndLabel name='last_name' setData={setData} error={errors?.last_name} type="email" value={data.last_name || ""} isLogin label="Last name" placeholder="Academy" />
                         </div>
-                        <InputAndLabel name='mobile' setData={setData} error={errors?.mobile} type="number" value={data.mobile || ""} isLogin label="Company Mobile" placeholder="201******" />
+
                         <InputAndLabel see name='password' setData={setData} error={errors?.password} type="password" value={data.password || ""} isLogin label="Password" placeholder="Password" />
                         <InputAndLabel name='hiring_title' setData={setData} error={errors?.hiring_title} type="text" value={data.hiring_title || ""} isLogin label="Hiring title" placeholder="Softoware Engineer" />
+                        <InputPhone value={data?.mobile || ""} name='mobile' placeholder='95474115874' label='Mobile Number' onChange={(e) => setData({ ...data, mobile: e })} error={errors?.mobile} />
 
                         <div className="flex flex-col  w-[349px] items-start gap-1">
                             <div className="flex items-start gap-5">

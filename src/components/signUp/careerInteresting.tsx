@@ -27,7 +27,10 @@ export default function CareerInteresting({ handleBack, setData, handleSubmit, f
                 <span className='font-bold text-[29px] text-black'>Tell Us About Your</span>
                 <span className='font-extrabold text-[39px] mb-1 text-main'>Career Interesting</span>
             </div>
-            <CustomSelectMenu defaultData={formData?.interested_job_category} error={errors?.interested_job_category} label="Career Interest" options={job_category} onChange={(e: any) => setData((prev: any) => ({ ...prev, interested_job_category: e.id }))} />
+            <div className=' w-[calc(100%-50px)]'>
+                <CustomSelectMenu defaultData={formData?.interested_job_category} error={errors?.interested_job_category} label="Career Interest" options={job_category} onChange={(e: any) => setData((prev: any) => ({ ...prev, interested_job_category: e.id }))} />
+
+            </div>
             <div className='flex flex-col pt-[26px] mt-[26px] border-t-[1px] border-gray-200 border-dashed w-[calc(100%-50px)]'>
                 <span className='font-medium text-[24px] mb-3 text-black'>What`s your current career level ?</span>
                 <CustomSelectMenu error={errors?.career_level} defaultData={formData?.career_level} name='career_level' shadow={true} options={experienceLevels} isGray onChange={(e: any) => setData((prev) => ({ ...prev, career_level: e.id }))} />

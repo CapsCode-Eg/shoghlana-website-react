@@ -56,11 +56,13 @@ export default function CareerInteresting() {
     return (
         <Layout>
             <div className='w-full bg-white relative z-[2] shadow-2xl mb-20 mx-auto rounded-[25px] pb-[32px] ps-[25px] pt-[45px] flex flex-col items-start'>
-                <CustomSelectMenu defaultData={data?.interested_job_category} error={data?.interested_job_category} label="Career Interest" options={job_category} onChange={(e: any) => setData((prev: any) => ({ ...prev, interested_job_category: e.id }))} />
 
                 <div className='flex flex-col w-[calc(100%-50px)]'>
                     <span className='font-medium text-[24px] mb-3 text-black'>What`s your current career level ?</span>
                     <CustomSelectMenu options={experienceLevels} defaultData={+(data?.career_level) || 0} onChange={(e: any) => setData((prev: any) => ({ ...prev, career_level: e.id }))} />
+                </div>
+                <div className="w-[calc(100%-50px)] mt-4">
+                    <CustomSelectMenu defaultData={data?.interested_job_category} label="Career Interest" options={job_category} onChange={(e: any) => setData((prev: any) => ({ ...prev, interested_job_category: e.id }))} />
                 </div>
                 <div className='flex flex-col pt-[26px] mt-[26px] border-t-[1px] border-gray-200 border-dashed w-[calc(100%-50px)]'>
                     <span className='font-medium text-[24px] mb-3 text-black'>What type(s) of job are you open to? <span className='text-[12px]'>(you can choose more than one more job type)</span></span>

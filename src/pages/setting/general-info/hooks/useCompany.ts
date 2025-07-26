@@ -177,6 +177,7 @@ image: any;
             const { value } = event.target;
             const updatedSocialMedia = [...data.social_media];
             updatedSocialMedia[index] = { ...updatedSocialMedia[index], url: value };
+            console.log(updatedSocialMedia)
             setData((prevData: any) => ({
                 ...prevData,
                 social_media: updatedSocialMedia,

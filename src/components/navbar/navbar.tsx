@@ -41,7 +41,7 @@ export default function Navbar() {
             <div className="w-[calc(100%-64px)] mx-auto flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center gap-8 text-[15px] font-[600] text-text">
                     <Logo />
-                    {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative hidden lg:block`}>
+                    {!isCompany && <Link to="/" className={`${location.pathname === "/explore" || location.pathname.includes("/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative hidden lg:block`}>
                         {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
                             <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
                         )}

@@ -28,7 +28,7 @@ export default function SelfInformation({ handleNext, setData, nationalties, cou
                     <CustomSelectMenu error={errors?.city_id} defaultData={formData?.city_id} shadow={true} label="City" options={cities?.length > 0 ? cities : []} isGray onChange={(e: any) => setData((prev) => ({ ...prev, city_id: e.id }))} />
                 </div>
             </div>
-            <div className='flex flex-col pt-[22px] mt-[26px] border-t-[1px] mt-2 border-gray-200 border-dashed w-[calc(100%-50px)] ps-[15px]'>
+            <div className='flex flex-col pt-[22px]  border-t-[1px] mt-2 border-gray-200 border-dashed w-[calc(100%-50px)] ps-[15px]'>
                 <span className='font-medium text-[24px] text-black'>Contact info</span>
                 <div className='w-full grid grid-cols-1 sm:grid-cols-2 mt-1'>
                     <InputPhone error={errors?.mobile} value={formData?.mobile} onChange={(e: any) => setData((prev) => ({ ...prev, mobile: e }))} name='phone' label="Phone Number" placeholder="e.g,+20" />

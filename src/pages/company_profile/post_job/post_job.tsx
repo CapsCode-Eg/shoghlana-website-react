@@ -12,7 +12,6 @@ import JoditEditor from 'jodit-react';
 export default function PostJob() {
     const { func } = useParams();
     const { data, errors, cities, countries, skills, setData, handleSubmit, loading, job_category, jobQuestion } = useAddJob();
-    console.log(data)
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />

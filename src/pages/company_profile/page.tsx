@@ -61,7 +61,6 @@ export default function CompanyProfile() {
 
 
 
-    console.log(payLoad?.data?.data);
     return (
         <MainLayout>
             <ProfileHeroSection cities={cities} countries={countries} isCompany={true} userData={data} />
@@ -78,17 +77,20 @@ export default function CompanyProfile() {
                     </div>
                     <div className='flex flex-col mt-[24px] bg-white rounded-[10px] rounded-b-xl shadow-md overflow-hidden border-[1px] border-black/20 py-[26.22px] px-[33.11px]'>
                         <span className='text-[#001433] text-[20px] font-semibold'>ِAbout Company</span>
-                        <span className='text-[#4D6182] text-[14px] mt-1 font-[500] max-w-[400px] line-clamp-2 mb-6'>{data?.company_info?.about}</span>
+                        <div dangerouslySetInnerHTML={{ __html: data?.company_info?.about }} />
                     </div>
-                    <div className='gap-4 mt-[20px] xl:mt-[24px] flex flex-col'>
-                        {
+                    <div className='flex flex-col mt-[24px] bg-white rounded-[10px] rounded-b-xl shadow-md overflow-hidden border-[1px] border-black/20 py-[26.22px] px-[33.11px]'>
+                        <span className='text-[#001433] text-[20px] font-semibold'>Jobs</span>
+                        <div className='gap-4 mt-[20px] xl:mt-[24px] flex flex-col'>
+                            {
 
-                            jobs?.data?.length > 0 && jobs?.data?.map((job, index) => {
-                                return (
-                                    <JobsCard key={index} job={job} handleDelete={handleDelete} />
-                                )
-                            })
-                        }
+                                jobs?.data?.length > 0 && jobs?.data?.slice(0, 3)?.map((job, index) => {
+                                    return (
+                                        <JobsCard key={index} job={job} handleDelete={handleDelete} />
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className='flex flex-col w-[100%] lg:w-[20%] mt-[20px] xl:mt-[24px]'>
@@ -110,7 +112,6 @@ export default function CompanyProfile() {
                                     )
                                 }) :
                                 <span className='text-[#001433] text-[20px] font-semibold'>No Social Media</span>
-
                             }
                         </div>
                     </div>

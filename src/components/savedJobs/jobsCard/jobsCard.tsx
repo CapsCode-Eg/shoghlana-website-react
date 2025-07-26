@@ -34,7 +34,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete, noActr
     }
 
     return (
-        <div className="w-full relative bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow px-6 pt-5 pb-6 flex flex-col min-h-[200px]">
+        <div className="w-full relative bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow px-6 pt-5 pb-6 flex flex-col min-h-[150px]">
             {/* Header section */}
             <div className="flex justify-between items-start">
                 <div>
@@ -50,16 +50,38 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete, noActr
                         </span>
                     </div>
                 </div>
-
-                {userData?.type !== 'company' && window.localStorage.getItem("user") && (
-                    <button
-                        onClick={handleSaveJob}
-                        className={`p-2 rounded-lg ${data?.is_saved ? 'text-blue-600 bg-blue-50' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'}`}
-                        aria-label={data?.is_saved ? "Unsave job" : "Save job"}
-                    >
-                        {data?.is_saved ? <BookmarkCheck size={20} /> : <Bookmark size={20} />}
-                    </button>
-                )}
+                <div className="flex flex-row items-center gap-3">
+                    {job?.applications !== null && userData?.type !== 'company' && (
+                        <button className="flex items-center  text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">
+                            <Star className="w-4 h-4 mr-1.5 fill-current" />
+                            You applied
+                        </button>
+                    )}
+                    {userData?.type !== 'company' && window.localStorage.getItem("user") && (
+                        <button
+                            onClick={() => {
+                                if (job.is_saved) {
+                                    axiosInstance.delete(`/saved-jobs/${job?.id}`).then(() => {
+                                        toast.success('Job unsaved successfully')
+                                        setData((prevData: any) => ({
+                                            ...prevData,
+                                            is_saved: false
+                                        }))
+                                    }).catch((err) => {
+                                        toast.error(err?.response?.data?.message, { id: 'add-country' })
+                                        return err;
+                                    })
+                                } else {
+                                    handleSaveJob()
+                                }
+                            }}
+                            className={`p-2 rounded-lg ${data?.is_saved ? 'text-blue-600 bg-blue-50' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'}`}
+                            aria-label={data?.is_saved ? "Unsave job" : "Save job"}
+                        >
+                            {data?.is_saved ? <BookmarkCheck size={20} /> : <Bookmark size={20} />}
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* Company info */}
@@ -97,17 +119,18 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete, noActr
                     <span className="font-medium">Skills: </span>
                     <span>{job?.skills?.map((skill: any) => skill?.name).join(', ')}</span>
                 </div>
+                <div className="text-sm text-gray-600">
+                    <span className="font-medium">Salary: </span>
+                    <span>{job?.max_salary}-{job?.min_salary}</span>
+                </div>
+
+
             </div>
 
             {/* Footer section */}
             <div className="mt-6 flex items-center justify-between">
                 <div>
-                    {!isDone && userData?.type !== 'company' && (
-                        <button className="flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">
-                            <Star className="w-4 h-4 mr-1.5 fill-current" />
-                            You match this role
-                        </button>
-                    )}
+
 
                     {isDone && (
                         <Link

@@ -86,8 +86,8 @@ export default function Company() {
             <div className='flex flex-col-reverse lg:flex-row w-[98%] xl:w-[80%] gap-[1%] mx-auto mt-[24px]'>
                 <div className='flex flex-col w-[100%] lg:w-[79%]  bg-white rounded-[10px] rounded-b-xl shadow-md overflow-hidden border-[1px] border-black/20 py-[26.22px] px-[33.11px]'>
                     <span className='text-[#001433] text-[20px] font-semibold'>ِAbout Company</span>
-                    <span className='text-[#4D6182] text-[14px] mt-1 font-[500] max-w-[400px] line-clamp-2 mb-6'>{data?.company_info?.about}</span>
-                    {data?.jobs?.length > 0 && <div className=" flex flex-col ">
+                    <div className="ms-2" dangerouslySetInnerHTML={{ __html: data?.company_info?.about }} />
+                    {data?.jobs?.length > 0 && <div className=" flex flex-col mt-4">
                         <span className='text-[#001433] text-[20px] font-semibold'>Jobs Shared</span>
                         <div className="mt-2 flex flex-col items-center" >
                             {

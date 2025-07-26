@@ -35,6 +35,7 @@ import Invitations from "../pages/invitePerson/invitations";
 import PricingPlan from "../pages/setting/pricing/pricingPlan";
 import NotFound from "../pages/notfound/notfound";
 import CompanyUsers from "../pages/companyUser/companyUser";
+import CompanyJobs from "../pages/company_jobs/company_jobs";
 
 export const router = createBrowserRouter([
     {
@@ -172,5 +173,9 @@ export const router = createBrowserRouter([
     {
         path: 'pricing',
         element: <PricingPlan />
+    },
+    {
+        path: 'company_jobs',
+        element: <CompanyJobs />
     }
 ]);

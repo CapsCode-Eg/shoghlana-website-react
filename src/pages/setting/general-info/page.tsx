@@ -3,13 +3,13 @@ import { useCompany } from './hooks/useCompany'
 import { DocumentUpload } from './components/documentUpload'
 import { FileUpload } from './components/fileUpload'
 import CustomSelectMultipleMenu from './components/customeMultiSelectMenu'
-import TextEditor from './components/textEditor'
 import InputPhone from './components/inputPhone'
 import { useEffect, useState } from 'react'
 import Layout from '../../../components/setting/layout'
 import InputAndLabel from '../../../components/input/inputAndLabel'
 import CustomSelectMenu from '../../../components/customeSelectMenu/customSelectMenu'
 import { personal_type } from '../../../utils/constant/profile'
+import JoditEditor from 'jodit-react'
 
 export default function GeneralInfo() {
     const { data, errors, setData, handleArrayChange, handleSubmit, cities, countries, loading, handleFilesChange, handleChangeNumber, handleDocumentFilesChange, industries, files, nationalties, deleteImage, handleSubmitUserProfile } = useCompany();
@@ -20,6 +20,7 @@ export default function GeneralInfo() {
     }, []);
 
     if (isUser === null) return null; // or a loading spinner
+
     return (
         <Layout>
             <div className=" shadow-2xl p-6 mb-20 mx-auto rounded-[25px] overflow-hidden w-full">
@@ -119,14 +120,30 @@ export default function GeneralInfo() {
                                 <CustomSelectMenu defaultData={data?.company_size && +(data?.company_size) || null} label="Company Size" placeholder="Select Size" options={[{ id: 1, name: "2-10" }, { id: 2, name: "10-50" }, { id: 3, name: "50-100" }, { id: 4, name: "100-200" }, { id: 5, name: "200+" }]} onChange={(value: any) => setData({ ...data, company_size: value?.id })} error={errors?.company_size} />
                             </div>
                             <InputAndLabel label="Founded Year" type="number" name="founded_year" min="1900" max="2099" step="1" placeholder="YYYY" value={data?.founded_year || ""} setData={setData} error={errors?.founded_year} />
-                            <div className="h-[20vh]">
-                                <TextEditor
-                                    label='About'
+                            <div className="h-[300px]">
+                                <JoditEditor
                                     value={data?.about}
-                                    error={errors?.about}
-                                    onChange={(e) => {
-                                        setData({ ...data, about: e.target.value });
+                                    config={{
+                                        height: 300,
+                                        placeholder: 'Write your description here...',
+                                        enableDragAndDropFileToEditor: true,
+                                        uploader: {
+                                            insertImageAsBase64URI: true
+                                        },
+                                        allowTabNavigation: true,
+                                        buttons: [
+                                            'source', '|',
+                                            'bold', 'italic', 'underline', '|',
+                                            'ul', 'ol', '|',
+                                            'font', 'fontsize', 'brush', 'paragraph', '|',
+                                            'table', 'link', '|',
+                                            'align', 'undo', 'redo', '|',
+                                            'hr', 'eraser', 'copyformat', '|',
+                                            'fullsize', 'print', 'about'
+                                        ]
                                     }}
+                                    className={` ${errors?.about ? 'border border-red-500' : ''}`}
+                                    onBlur={(newContent: string) => setData({ ...data, about: newContent })}
                                 />
                             </div>
                             <CustomSelectMultipleMenu
@@ -164,7 +181,7 @@ export default function GeneralInfo() {
                                         {
                                             data?.social_media?.map((item: any, index: number) => {
                                                 return (
-                                                    <InputAndLabel key={index} label={`${item?.platform || item?.name} Link`} name={`social_media[${index}].url`} type='text' value={item?.url || ""}
+                                                    <InputAndLabel normalChange key={index} label={`${item?.platform || item?.name} Link`} name={`social_media[${index}].url`} type='text' value={item?.url || ""}
                                                         onChange={(e) => handleArrayChange(index, e)}
                                                     />
                                                 )

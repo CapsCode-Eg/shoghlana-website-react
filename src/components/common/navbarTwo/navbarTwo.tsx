@@ -134,6 +134,7 @@ export default function NavbarTwo() {
                                 Saved</Link>
                         }
                         {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/old-grantees" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Grantees</Link>}
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/company_jobs" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Jobs</Link>}
                         {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/grantee" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">New Grantee</Link>}
                         {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/last-subscription" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Subscription</Link>}
                         {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/pricing" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Pricing Plan</Link>}

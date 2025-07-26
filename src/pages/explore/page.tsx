@@ -46,7 +46,7 @@ export default function Explore() {
                 const paramsString = toSearchParamsString(selectedFilters);
                 const res = await axiosInstance.get(`/jobs?${paramsString}&page=${page}`);
                 setData(res.data.data);
-                setMeta(res?.data?.data?.meta);
+                setMeta(res?.data?.data?.links['total-page']);
             } catch (err) {
                 console.error(err);
             }
@@ -75,7 +75,7 @@ export default function Explore() {
                         </div>
                     </span>
                     <TabsForJobs data={data} />
-                    <Pagination currentPage={meta?.current_page} totalPages={meta?.to || 1} onPageChange={(page: number) => { setPage(page) }}
+                    <Pagination currentPage={meta?.current_page} totalPages={meta || 1} onPageChange={(page: number) => { setPage(page) }}
                     />
                 </div>
             </div>

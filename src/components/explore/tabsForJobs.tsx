@@ -1,9 +1,9 @@
 import JobsCard from '../savedJobs/jobsCard/jobsCard';
 
-export default function TabsForJobs({ data }: any) {
+export default function TabsForJobs({ data, withoutShadow }: any) {
 
     return (
-        <div className="w-full bg-white flex-1 rounded-lg shadow-md p-4">
+        <div className={`w-full bg-white flex-1 rounded-lg  ${withoutShadow ? '' : 'shadow-md'} x p-4`}>
             <div className=' mx-auto gap-4 mt-[20px] xl:mt-[54px] flex flex-col'>
                 {
                     data?.data?.length > 0 ? data?.data?.map((job, index) => {

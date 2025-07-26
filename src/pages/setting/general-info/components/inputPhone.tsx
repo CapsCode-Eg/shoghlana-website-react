@@ -22,7 +22,7 @@ export default function InputPhone({
 } & React.ComponentProps<any>) {
     return (
         <>
-            <div className={`flex ${width} flex-col relative font-medium`}>
+            <div className={`flex ${width} flex-col relative font-medium w-full`}>
                 <div className='flex flex-row w-fit'>
                     <label
                         htmlFor='phone'

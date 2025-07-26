@@ -95,6 +95,8 @@ export default function ProfileButton() {
                                 Setting
                             </Link>
                         </li>
+                        {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/company_jobs" className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">Jobs</Link>}
+
                         {isCompany && <li>
                             <Link to="/old-grantees" onClick={() => setIsOpen(false)} className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
                                 Grantees

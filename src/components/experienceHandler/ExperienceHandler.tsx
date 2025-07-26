@@ -169,17 +169,19 @@ export default function ExperienceHandler({ experience, setExperience, job_categ
                                         <div className='grid grid-cols-2 w-full gap-5 mt-4'>
                                             <InputAndLabel value={item?.job_title} error={errors?.experience_job_title} label="Job title" placeholder="Job title" normalChange onChange={(e) => handleChange(item.id, "job_title", e.target.value)} name='job_title' />
                                             <InputAndLabel value={item?.company} error={errors?.company} label="Company" placeholder="Company" name='company' normalChange onChange={(e) => handleChange(item.id, "company", e.target.value)} />
-                                            <CustomSelectMenu defaultData={item?.job_category_id} error={errors?.job_category_id} shadow={true} label="Job category" options={job_category} isGray onChange={(e: any) => handleChange(item.id, "job_category_id", e.id)} />
+                                            <CustomSelectMenu defaultData={item?.job_category} error={errors?.job_category} shadow={true} label="Job category" options={job_category} isGray onChange={(e: any) => handleChange(item.id, "job_category_id", e.id)} />
                                         </div>
                                         <div className='grid grid-cols-2 gap-5 mt-5 w-full'>
                                             <div className='w-[100%] grid grid-cols-1 gap-4 mt-7'>
                                                 <CustomSelectMenu defaultData={item?.start_year} error={errors?.start_year} shadow={true} label="Start year" options={years.map((year: any) => ({ id: year.value, name: year.value }))} isGray onChange={(e: any) => handleChange(item.id, "start_year", e.id)} />
                                                 <CustomSelectMenu defaultData={item?.start_month} error={errors?.start_month} shadow={true} label="Start Month" options={months} isGray onChange={(e: any) => handleChange(item.id, "start_month", e.id)} />
                                             </div>
-                                            <div className='w-[100%] grid grid-cols-1 gap-4 mt-7'>
-                                                <CustomSelectMenu defaultData={item?.end_year} error={errors?.end_year} shadow={true} label="End year" options={years.map((year: any) => ({ id: year.value, name: year.value }))} isGray onChange={(e: any) => handleChange(item.id, "end_year", e.id)} />
-                                                <CustomSelectMenu defaultData={item?.end_month} error={errors?.end_month} shadow={true} label="End Month" options={months} isGray onChange={(e: any) => handleChange(item.id, "end_month", e.id)} />
-                                            </div>
+                                            {item?.still_working !== 1 &&
+                                                <div className='w-[100%] grid grid-cols-1 gap-4 mt-7'>
+                                                    <CustomSelectMenu defaultData={item?.end_year} error={errors?.end_year} shadow={true} label="End year" options={years.map((year: any) => ({ id: year.value, name: year.value }))} isGray onChange={(e: any) => handleChange(item.id, "end_year", e.id)} />
+                                                    <CustomSelectMenu defaultData={item?.end_month} error={errors?.end_month} shadow={true} label="End Month" options={months} isGray onChange={(e: any) => handleChange(item.id, "end_month", e.id)} />
+                                                </div>
+                                            }
                                         </div>
                                         <div className='flex flex-row items-center mt-5 gap-2 mb-10'>
                                             {/* @ts-expect-error: Type mismatch */}
@@ -203,10 +205,12 @@ export default function ExperienceHandler({ experience, setExperience, job_categ
                                                 <CustomSelectMenu isDisabled defaultData={item?.start_year} error={errors?.start_year} shadow={true} label="Start year" options={years.map((year: any) => ({ id: year.value, name: year.value }))} isGray onChange={(e: any) => handleChange(item.id, "start_year", e.id)} />
                                                 <CustomSelectMenu isDisabled defaultData={item?.start_month} error={errors?.start_month} shadow={true} label="Start Month" options={months} isGray onChange={(e: any) => handleChange(item.id, "start_month", e.id)} />
                                             </div>
-                                            <div className='w-[100%] grid grid-cols-1 gap-4 mt-7'>
-                                                <CustomSelectMenu isDisabled defaultData={item?.end_year} error={errors?.end_year} shadow={true} label="End year" options={years.map((year: any) => ({ id: year.value, name: year.value }))} isGray onChange={(e: any) => handleChange(item.id, "end_year", e.id)} />
-                                                <CustomSelectMenu isDisabled defaultData={item?.end_month} error={errors?.end_month} shadow={true} label="End Month" options={months} isGray onChange={(e: any) => handleChange(item.id, "end_month", e.id)} />
-                                            </div>
+                                            {item?.still_working !== 1 &&
+                                                <div className='w-[100%] grid grid-cols-1 gap-4 mt-7'>
+                                                    <CustomSelectMenu isDisabled defaultData={item?.end_year} error={errors?.end_year} shadow={true} label="End year" options={years.map((year: any) => ({ id: year.value, name: year.value }))} isGray onChange={(e: any) => handleChange(item.id, "end_year", e.id)} />
+                                                    <CustomSelectMenu isDisabled defaultData={item?.end_month} error={errors?.end_month} shadow={true} label="End Month" options={months} isGray onChange={(e: any) => handleChange(item.id, "end_month", e.id)} />
+                                                </div>
+                                            }
                                         </div>
                                         <div className='flex flex-row items-center mt-5 gap-2 mb-10'>
                                             {/* @ts-expect-error: Type mismatch */}
