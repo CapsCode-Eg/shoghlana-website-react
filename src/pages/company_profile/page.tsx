@@ -7,6 +7,8 @@ import JobsCard from '../../components/savedJobs/jobsCard/jobsCard'
 import { toast } from 'sonner'
 import MainLayout from '../../layout/mainLayout'
 import Logo from '../../components/logo/logo'
+import { Search } from 'lucide-react'
+import Pagination from '../../components/common/pagination/pagination'
 
 export default function CompanyProfile() {
     const [data, setData] = useState<any>({})
@@ -59,8 +61,22 @@ export default function CompanyProfile() {
         })
     }
 
-
-
+    const [search, setSearch] = useState('')
+    const [searchResult, setSearchResult] = useState<any>([])
+    const [page, setPage] = useState(1)
+    const [meta, setMeta] = useState<any>({})
+    const handleSearch = () => {
+        if (search !== '') {
+            axiosInstance.get(`/users-search/10?search=${search}&page=${page}`).then((res) => {
+                setSearchResult(res.data.data?.data)
+                setMeta(res?.data?.data?.links['total-page']);
+            })
+        } else {
+            setSearchResult([])
+            setSearch('')
+        }
+    }
+    console.log(searchResult)
     return (
         <MainLayout>
             <ProfileHeroSection cities={cities} countries={countries} isCompany={true} userData={data} />
@@ -92,8 +108,45 @@ export default function CompanyProfile() {
                             }
                         </div>
                     </div>
+                    <div className='border border-black/20 rounded-[16px] flex flex-col py-[24px] h-[350px] px-[28px] my-5'>
+                        <span>Invite Users Now</span>
+                        <div className='relative mt-3'>
+                            <input type="text" className='w-full bg-transparent text-[#001433] text-[16px] font-semibold border-b-[1px] border-black/20 outline-none' placeholder='Search For Users by Job Category' value={search} onChange={(e) => setSearch(e.target.value)} />
+                            <Search onClick={() => handleSearch()} className='absolute top-[3px] hover:cursor-pointer right-0 w-[15px] h-[15px] bg-white' />
+                        </div>
+                        {searchResult?.length > 0 ? <div className='flex flex-col gap-2 max-h-full h-full overflow-y-auto'>
+                            {
+                                searchResult?.map((user: any, index: number) => {
+                                    return (
+                                        <div key={index} className='flex flex-row items-center justify-between border-b-[1px] border-black/10'>
+                                            <div className='flex flex-row items-center gap-2 py-2'>
+                                                {
+                                                    user?.image ?
+                                                        <img src={user?.image} alt="Profile Image" className='w-[50px] md:w-[70px] h-[50px] md:h-[70px] rounded-full object-cover' />
+                                                        : <Logo isDisabled />
+                                                }
+                                                <div className='flex flex-col gap-2 ms-2'>
+                                                    <span className='text-[#001433] text-[16px] font-semibold'>{user?.first_name} {user?.last_name}</span>
+                                                    <span className='text-[#001433]/50 -mt-2 text-[12px] font-semibold'>{user?.email}</span>
+                                                </div>
+                                            </div>
+                                            <Link to={`/user/${user?.id}`} target='_blank' className='me-2 text-main font-bold text-[16px] underline hover:cursor-pointer'>
+                                                View Profile
+                                            </Link>
+                                        </div>
+                                    )
+                                })
+                            }
+                            <Pagination currentPage={page} totalPages={meta} onPageChange={(page: number) => setPage(page)} />
+
+                        </div> :
+                            <div className='flex items-center justify-center mt-3 h-full'>
+                                No Users Yet
+                            </div>
+                        }
+                    </div>
                 </div>
-                <div className='flex flex-col w-[100%] lg:w-[20%] mt-[20px] xl:mt-[24px]'>
+                <div className='flex flex-col w-[100%] lg:w-[20%] mt-[20px] xl:mt-[24px] gap-4'>
                     <div className='border border-black/20 rounded-[16px] flex flex-col items-center justify-center h-[350px] px-[28px]'>
                         {data?.image ?
                             <img src={payLoad?.data?.data?.image} alt="Profile Image" className='w-[100px] h-[100px] rounded-full object-cover' />

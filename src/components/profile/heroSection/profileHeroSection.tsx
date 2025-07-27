@@ -61,11 +61,11 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
                         </>
                 }
                 <div className="mt-4 flex flex-row items-center absolute bottom-0 md:bottom-[-0px] xl:bottom-[-0px] end-1/2 translate-x-1/2 md:translate-x-0 md:end-[27px]">
-                    <Link to={`mailto:${userData?.email}`} className="text-blue-600 flex flex-row items-center gap-2 hover:underline">
+                    <Link to={`mailto:${userData?.email}`} className="text-blue-600 flex flex-row items-center gap-2 hover:underline me-2">
                         <Mail />
                         <span>{userData?.email}</span>
                     </Link>
-                    <div className='flex flex-row flex-wrap items-center justify-center gap-3 mt-2'>
+                    <div className='flex flex-row flex-wrap items-center justify-center gap-3 mt-2 me-2'>
                         {userData?.social_media?.length > 0 ?
                             userData?.data?.social_media?.map((item: any, index: number) => {
                                 return (
