@@ -5,6 +5,7 @@ import axiosInstance from "../../../utils/axiosInstance";
 import { gradeLevels } from "../../../utils/constant/profile";
 import TextArea from "../../../components/common/textArea/textArea";
 import { toast } from "sonner";
+import { Check, X } from "lucide-react";
 
 export default function ApplicationDetails() {
     const { id } = useParams<{ id?: string }>();
@@ -70,12 +71,12 @@ export default function ApplicationDetails() {
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />
             <div className="flex flex-col relative">
-                <img src="/assets/appFrame.png" alt="Frame Image" />
+                <img src="/assets/appFrame.png" alt="Frame Image" className="min-h-[200px]" />
                 <div className="flex flex-col bg-white w-[98%] xl:w-[80%] mx-auto -top-30 relative z-[2] rounded-2xl p-5 shadow-xl">
                     <div className="flex flex-row items-center gap-4">
                         {
                             data?.user_id?.image ?
-                                <img src={data?.user_id?.avatar} alt="Avatar" className="w-12 h-12 rounded-full" />
+                                <img src={data?.user_id?.image} alt="Avatar" className="w-12 h-12 rounded-full" />
                                 :
                                 <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">{data?.user_id?.first_name.charAt(0).toUpperCase() + data?.user_id?.last_name.charAt(0).toUpperCase()}</div>
                         }
@@ -91,17 +92,20 @@ export default function ApplicationDetails() {
                         <span className="text-sm text-gray-500">Mobile : {data?.user_id?.mobile || 0}</span>
                     </div>
 
-                    <span className="text-sm text-gray-500 mt-1 ms-1">Nationality : {nationalties?.find((nationality: any) => nationality.id === data?.user_id?.seeker?.nationality_id)?.name}</span>
-                    <span className="text-sm text-gray-500 mt-1 ms-1">{cities?.find((city: any) => city.id === data?.user_id?.seeker?.city_id)?.name || "Cairo" + ", " + countries?.find((country: any) => country.id === data?.user_id?.seeker?.country_id)?.name}</span>
+                    <span className="text-sm text-gray-500 mt-1 ms-1">Nationality : {nationalties?.find((nationality: any) => nationality.id === data?.user_id?.seeker?.nationality_id)?.name}
+                        <span className="text-sm text-gray-500 mt-1 ms-1">{cities?.find((city: any) => city.id === data?.user_id?.seeker?.city_id)?.name || "Cairo" + ", " + countries?.find((country: any) => country.id === data?.user_id?.seeker?.country_id)?.name}</span>
+                    </span>
                     <div className="flex flex-row flex-wrap items-center mt-1 ms-1">
                         <div className="flex flex-row items-center mt-1 ms-1">
-                            <span className="text-sm text-gray-500">{data?.user_id?.education?.university.charAt(0).toUpperCase() + data?.user_id?.education?.university.slice(1)}</span>
-                            <span className="mx-1">-</span>
-                            <span className="text-sm text-gray-500">{data?.user_id?.education?.field_of_study.charAt(0).toUpperCase() + data?.user_id?.education?.field_of_study.slice(1)}</span>
-                            <span className="mx-1">-</span>
-                            <span className="text-sm text-gray-500" >{data?.user_id?.education?.enroll_year + " / " + data?.user_id?.education?.graduation_year}</span>
-                            <span className="mx-1">-</span>
-                            <span className="text-sm text-gray-500">{gradeLevels[data?.user_id?.education?.grade]?.name || ""}</span>
+                            <span className="text-sm text-gray-500">{data?.user_id?.education?.university.charAt(0).toUpperCase() + data?.user_id?.education?.university.slice(1)}
+                                <span className="mx-1">-</span>
+                                <span className="text-sm text-gray-500">{data?.user_id?.education?.field_of_study.charAt(0).toUpperCase() + data?.user_id?.education?.field_of_study.slice(1)}</span>
+                                <span className="mx-1">-</span>
+                                <span className="text-sm text-gray-500" >{data?.user_id?.education?.enroll_year + " / " + data?.user_id?.education?.graduation_year}</span>
+                                <span className="mx-1">-</span>
+                                <span className="text-sm text-gray-500">{gradeLevels[data?.user_id?.education?.grade]?.name || ""}</span>
+                            </span>
+
                         </div>
                         <div className="flex flex-row items-center mt-1 ms-1">
                             <span className="text-sm text-gray-500">{data?.user_id?.years_of_experience || 0}</span>
@@ -124,21 +128,21 @@ export default function ApplicationDetails() {
                         )
                     })}
                 </div>
-                <div className="flex flex-row justify-between items-center bg-white w-[98%] xl:w-[80%] mx-auto -top-10 relative z-[2] rounded-2xl p-5 shadow-xl">
-                    <button onClick={() => navigate(-1)} type="button" className="h-[40px] px-[8px] flex items-center justify-center bg-[#EBEDF0] text-[#4D6182] rounded-[8px] hover:bg-[#EBEDF0]/80 transition-colors duration-300">
+                <div className="flex flex-col-reverse gap-4 md:flex-row justify-between items-center bg-white w-[98%] xl:w-[80%] mx-auto -top-10 relative z-[2] rounded-2xl p-5 shadow-xl">
+                    <button onClick={() => navigate(-1)} type="button" className="h-[40px] px-[8px] flex items-center justify-center w-full md:w-fit bg-[#EBEDF0] text-[#4D6182] rounded-[8px] hover:bg-[#EBEDF0]/80 transition-colors duration-300">
                         <svg width="25" height="17" viewBox="0 0 25 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.96226 12.7355L11.1035 11.6395L7.39727 8.07184L11.1035 4.50416L9.96226 3.4082L5.10742 8.07184L9.96226 12.7355Z" fill="#4D6182" />
                         </svg>
                         Cancel
                     </button>
                     <div className="flex flex-row gap-2">
-                        <button onClick={handleRejected} type="button" className="h-[40px] px-[8px] flex items-center justify-center bg-[#FF3B30] text-white rounded-[8px] hover:bg-[#FF3B30]/80 transition-colors duration-300">
-                            Reject
+                        <button title="Reject" onClick={handleRejected} type="button" className="h-[40px] px-[8px] text-[13px] text-nowrap md:text-[16px] w-full md:w-fit flex items-center justify-center bg-[#FF3B30] text-white rounded-[8px] hover:bg-[#FF3B30]/80 transition-colors duration-300">
+                            <X />
                         </button>
-                        <button onClick={handleAccept} type="button" className="h-[40px] px-[8px] flex items-center justify-center bg-[#0055D9] text-white rounded-[8px] hover:bg-[#0055D9]/80 transition-colors duration-300">
-                            Accept Application
+                        <button title="Accept" onClick={handleAccept} type="button" className="h-[40px] text-[13px] text-nowrap md:text-[16px] px-[8px] w-full md:w-fit flex items-center justify-center bg-green-500 text-white rounded-[8px] hover:bg-[#0055D9]/80 transition-colors duration-300">
+                            <Check />
                         </button>
-                        <button onClick={handleConsider} type="button" className="h-[40px] px-[8px] flex items-center justify-center bg-[#597965] text-[white] rounded-[8px] hover:bg-[#597965]/80 transition-colors duration-300">
+                        <button onClick={handleConsider} type="button" className="h-[40px] px-[8px] text-[13px] text-nowrap md:text-[16px] w-full md:w-fit flex items-center justify-center bg-yellow-500 text-[white] rounded-[8px] hover:bg-[#597965]/80 transition-colors duration-300">
                             In Consideration
                         </button>
                     </div>

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import Logo from "../logo/logo";
 import { Link } from "react-router";
 import { MenuIcon } from "lucide-react";
 
@@ -40,7 +39,11 @@ export default function Navbar() {
         <div className="fixed top-[0px] shadow-2xl md:top-[30px] w-[calc(100%-16px)] md:w-[calc(100%-64px)] mx-[8px] md:mx-[32px] rounded-[20px] bg-white border-[1px] border-gray-200 h-[86.41px] z-[1000] flex items-center ">
             <div className="w-[calc(100%-64px)] mx-auto flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center gap-8 text-[15px] font-[600] text-text">
-                    <Logo />
+                    <img
+                        src="/assets/logos/logoBlue.png"
+                        title="Audit Station Logo"
+                        className="h-[45px] w-[115px]"
+                    />
                     {!isCompany && <Link to="/" className={`${location.pathname === "/explore" || location.pathname.includes("/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative hidden lg:block`}>
                         {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
                             <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />

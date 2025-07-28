@@ -54,7 +54,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete, noActr
                     {job?.applications !== null && userData?.type !== 'company' && (
                         <button className="flex items-center  text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">
                             <Star className="w-4 h-4 mr-1.5 fill-current" />
-                            You applied
+                            {job?.applications?.status?.charAt(0)?.toUpperCase() + job?.applications?.status.slice(1) || 'Loading'}
                         </button>
                     )}
                     {userData?.type !== 'company' && window.localStorage.getItem("user") && (

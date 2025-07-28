@@ -3,7 +3,6 @@ import ProfileButton from "./profileButton/profileButton";
 import { useEffect, useRef, useState } from "react";
 import { MenuIcon } from "lucide-react";
 import { Link, useLocation } from "react-router";
-import Logo from "../../logo/logo";
 import ProfileAccordion from "./profileButton/AccordionProfile";
 import { toast } from "sonner";
 import axiosInstance from "../../../utils/axiosInstance";
@@ -56,10 +55,18 @@ export default function NavbarTwo() {
         <nav className="bg-white relative max-w-screen px-6 py-3 flex items-center shadow-lg justify-between">
             {/* Left Section (Logo) */}
             <div className="lg:hidden">
-                <Logo isDisabled={true} />
+                <img
+                    src="/assets/logos/logoBlue.png"
+                    title="Audit Station Logo"
+                    className="h-[45px] w-[115px]"
+                />
             </div>
             <div className="flex-row f items-center lg:flex hidden gap-8 text-[15px] font-[600] text-text">
-                <Logo />
+                <img
+                    src="/assets/logos/logoBlue.png"
+                    title="Audit Station Logo"
+                    className="h-[45px] w-[115px]"
+                />
                 <div className="hidden items-center lg:flex space-x-8">
                     <Link to="/" className={`${location.pathname === "/" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
                         {(location.pathname === "/") && (
@@ -141,7 +148,7 @@ export default function NavbarTwo() {
                         {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/company-users" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Company User</Link>}
                         {(isCompany && window.localStorage.getItem('user') !== null) && <Link to="/invitations" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Invitations</Link>}
                         {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/applications" className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Application</Link>}
-                        {(isCompany && window.localStorage.getItem('user') !== null) && <span onClick={handleLogout} className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Logout</span>}
+                        {(window.localStorage.getItem('user') !== null) && <span onClick={handleLogout} className="block px-4 py-1 text-white hover:text-white/80 hover:scale-105 duration-500 transition-all cursor-pointer rounded ">Logout</span>}
                     </div>
                 </div>
             </div>

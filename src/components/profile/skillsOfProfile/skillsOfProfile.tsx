@@ -26,7 +26,7 @@ export function SkillsAndExperience({ userData }: { userData: any }) {
                                     <div className="flex items-center space-x-4">
                                         <div className="w-5 h-5 bg-gray-300 rounded-full text-white font-bold flex items-center justify-center text-[13px]">{index + 1}</div>
                                         <div>
-                                            <p className="font-medium">{exp.job_title}<span className="text-sm bg-gray-200 px-2 py-1 rounded-lg ml-2">Full Time</span></p>
+                                            <p className="font-medium">{exp.job_title} at {exp.company} <span className="text-sm bg-gray-200 px-2 py-1 rounded-lg ml-2">Full Time</span></p>
                                             <p className="text-sm text-gray-600">{exp?.start_year} - {exp?.still_working === 1 ? 'Present' : exp?.end_year} · {exp?.end_year - exp?.start_year}y · Remote</p>
                                         </div>
                                     </div>

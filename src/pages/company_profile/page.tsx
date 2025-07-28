@@ -76,7 +76,6 @@ export default function CompanyProfile() {
             setSearch('')
         }
     }
-    console.log(searchResult)
     return (
         <MainLayout>
             <ProfileHeroSection cities={cities} countries={countries} isCompany={true} userData={data} />
