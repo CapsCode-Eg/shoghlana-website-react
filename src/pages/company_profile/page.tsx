@@ -79,8 +79,8 @@ export default function CompanyProfile() {
     return (
         <MainLayout>
             <ProfileHeroSection cities={cities} countries={countries} isCompany={true} userData={data} />
-            <div className='flex flex-col-reverse lg:flex-row w-[98%] xl:w-[80%] gap-[1%] mx-auto'>
-                <div className='flex flex-col w-[100%] lg:w-[79%]'>
+            <div className='flex flex-col-reverse xl:flex-row w-[98%] xl:w-[80%] gap-[1%] mx-auto'>
+                <div className='flex flex-col w-[100%] xl:w-[79%]'>
                     <div className='w-full mt-[24px] rounded-[10px] border border-black/20 h-[72px] flex items-center justify-between px-10'>
                         <span className='font-bold text-black text-[20px]'><span className='text-[24px] text-main'>Hey, </span>{payLoad?.data?.data?.name}</span>
                         <Link to='/post_job' className='px-3 py-1.5 bg-main rounded-[5px] flex items-center justify-center h-[40px] text-white '>
@@ -145,7 +145,7 @@ export default function CompanyProfile() {
                         }
                     </div>
                 </div>
-                <div className='flex flex-col w-[100%] lg:w-[20%] mt-[20px] xl:mt-[24px] gap-4'>
+                <div className='flex flex-col w-[100%] xl:w-[20%] mt-[20px] xl:mt-[24px] gap-4'>
                     <div className='border border-black/20 rounded-[16px] flex flex-col items-center justify-center h-[350px] px-[28px]'>
                         {data?.image ?
                             <img src={payLoad?.data?.data?.image} alt="Profile Image" className='w-[100px] h-[100px] rounded-full object-cover' />
@@ -163,7 +163,7 @@ export default function CompanyProfile() {
                                         </Link>
                                     )
                                 }) :
-                                <span className='text-[#001433] text-[20px] font-semibold'>No Social Media</span>
+                                <span className='text-[#001433] text-[20px] text-center font-semibold'>No Social Media</span>
                             }
                         </div>
                     </div>
