@@ -8,12 +8,12 @@ export default function LoginAsCompany() {
 
     return (
         <div
-            className="w-full min-h-screen flex overflow-hidden px-1.5 md:px-10 2xl:px-30 py-10 bg-cover bg-center"
+            className="w-full min-h-screen flex items-center justify-center flex-wrap overflow-hidden px-1.5  py-10 bg-cover bg-center"
             style={{ backgroundImage: "url('/assets/front-view-office-desk-with-laptop-chair 1.png')" }}
         >
-            <div className="w-full flex flex-col xl:flex-row items-center justify-center xl:justify-between gap-10">
-                <div className="w-full md:w-[657px] bg-white ms-0 md:ms-10 3xl:ms-40 px-8 md:px-16 pt-16 rounded-[32px] shadow-xl border">
-                    <h1 className=" text-[#202020] w-[340px] text-[40.36px] p-0 ms-2 md:ms-0 md:p-8 font-bold">Log in, buddy!</h1>
+            <div className="w-full flex flex-col-reverse xl:flex-row items-center justify-center xl:justify-between gap-10">
+                <div className="w-full md:w-[657px] bg-white ms-0 md:ms-10 3xl:ms-40 px-5 md:px-16 pt-16 rounded-[32px] shadow-xl border">
+                    <h1 className=" text-[#202020] w-[340px] text-[30px] md:text-[40.36px] p-0 md:p-8 font-bold text-center mb-10 md:mb-0 md:text-start">Log in, buddy!</h1>
 
                     <form className="space-y-4 px-0 md:px-10">
                         <InputAndLabel name='email' setData={setData} error={errors?.email} type="email" value={data.email || ""} isLogin label="Email" placeholder="Shoghlana@email.com" />
@@ -27,19 +27,18 @@ export default function LoginAsCompany() {
                         </button>
                     </form>
 
-                    <div className="text-center my-4">
+                    {/* <div className="text-center my-4">
                         <a href="#" className="text-[#0055D9] text-[15.7px]">Forgot Password?</a>
-                    </div>
+                    </div> */}
 
-                    <div className="border border-[#DCDBDD] w-[385px] mx-14"></div>
 
                     <div className="text-center mt-3 text-[#202020] text-[15.7px] mb-16 max-w-[75%] mx-auto">
                         New Company to Shoghlana? <Link to="/signup-as-company" className="text-[#0055D9] text-[15.7px]">Start your account as company</Link>
                     </div>
 
-                    <p className="text-xs text-[#84818A] text-13.45px mt-6 text-center mb-10">
+                    {/* <p className="text-xs text-[#84818A] text-13.45px mt-6 text-center mb-10">
                         Protected by reCAPTCHA and subject to the <a href="#" className="text-[#0055D9]">Privacy <br /> Policy</a> and <a href="#" className="text-[#0055D9]">Terms of Service</a>.
-                    </p>
+                    </p> */}
                 </div>
 
                 <div className="w-fit 2xl:w-1/2 text-white text-center hidden md:block xl:text-start p-8">

@@ -67,16 +67,18 @@ export default function Explore() {
                 <div className='pt-[60px] hidden lg:block'>
                     <JobsFilter />
                 </div>
-                <div className='flex flex-col gap-[0px] md:gap-[22.5px] flex-1 h-fit w-full'>
+                <div className='flex flex-col mt-20 md:mt-0 gap-[0px] md:gap-[22.5px] flex-1 h-fit w-full'>
                     <span className='text-[16px] flex flex-row justify-between pe-[20px] md:text-[21px] text-[#1C3042] font-[700] ms-5 lg:ms-0'>
                         Explore New Career Opportunities
-                        <div className='lg:hidden block'>
+                        <div className='lg:hidden block '>
                             <JobsFilterMobile />
                         </div>
                     </span>
                     <TabsForJobs data={data} />
-                    <Pagination currentPage={meta?.current_page} totalPages={meta || 1} onPageChange={(page: number) => { setPage(page) }}
-                    />
+                    {data?.data?.length > 0 &&
+                        <Pagination currentPage={meta?.current_page} totalPages={meta || 1} onPageChange={(page: number) => { setPage(page) }}
+                        />
+                    }
                 </div>
             </div>
         </MainLayout>

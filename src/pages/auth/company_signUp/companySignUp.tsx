@@ -60,11 +60,11 @@ export default function CompanySignUp() {
 
                     <div className="border border-[#DCDBDD] mb-2"></div>
 
-                    <p className="text-[12px] text-[#84818A] mt-3 text-center mb-4">
+                    {/* <p className="text-[12px] text-[#84818A] mt-3 text-center mb-4">
                         Protected by reCAPTCHA and subject to the{" "}
                         <a href="#" className="text-[#0055D9] text-[12px]">Shoghlana Privacy <br /> Policy</a> and{" "}
                         <a href="#" className="text-[#0055D9] text-[12px]">Terms of Service</a>.
-                    </p>
+                    </p> */}
                 </div>
 
                 <div className="w-1/2 hidden xl:block text-white ps-10 xl:p-[126.5px]">

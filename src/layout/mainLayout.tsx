@@ -3,6 +3,7 @@ import { HttpMethod, useApi } from "../utils/hooks/useApi";
 import NavbarTwo from "../components/common/navbarTwo/navbarTwo";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
+import { useLocation } from "react-router";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
     const [data, setData] = useState<any>('');
@@ -19,7 +20,16 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             setHome(res?.data?.data)
         }
     }
+    const { pathname } = useLocation();
 
+    useEffect(() => {
+        // "document.documentElement.scrollTo" is the magic for React Router Dom v6
+        document.documentElement.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "instant", // Optional if you want to skip the scrolling animation
+        });
+    }, [pathname]);
     useEffect(() => {
         handleFetchData()
         if (localStorage.getItem('token')) {

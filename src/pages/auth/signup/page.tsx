@@ -35,21 +35,21 @@ export default function SignUp() {
             className="w-full min-h-screen flex sm:px-30 items-center justify-center bg-cover bg-center"
             style={{ backgroundImage: "url('/assets/front-view-office-desk-with-laptop-chair 1.png')" }}
         >
-            <div className="w-full flex flex-col xl:flex-row items-center justify-center">
-                <div className="w-full md:w-[657px] bg-white p-30 rounded-[32px] flex flex-col items-center  shadow-lg border">
-                    <h1 className="w-[409.67px] text-center md:text-start mt-16 mb-4 text-[32px] font-medium text-black">
+            <div className="w-full flex flex-col xl:flex-row items-center justify-center px-4">
+                <div className="w-full md:w-[657px] bg-white p-3 md:p-30 rounded-[32px] flex flex-col  items-center  shadow-lg border">
+                    <h1 className="w-full md:w-[409.67px] text-center md:text-start mt-4 md:mt-16 mb-4 text-[32px]  font-medium text-black">
                         Join us to check out job opportunities!
                     </h1>
 
-                    <form className="space-y-4 flex flex-col items-center max-w-[385px]">
+                    <form className="space-y-4 flex flex-col items-center max-w-full md:max-w-[385px]">
                         <InputAndLabel name='email' setData={setData} error={errors?.email} type="email" value={data.email || ""} isLogin label="Email" placeholder="Shoghlana@email.com" />
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                             <InputAndLabel name='first_name' setData={setData} error={errors?.first_name} type="text" value={data.first_name || ""} isLogin label="First Name" placeholder="Ahmed" />
                             <InputAndLabel name='last_name' setData={setData} error={errors?.last_name} type="text" value={data.last_name || ""} isLogin label="Last Name" placeholder="Mohamed" />
                         </div>
                         <InputAndLabel see name='password' setData={setData} error={errors?.password} type="password" value={data.password || ""} isLogin label="Password" placeholder="Password" />
 
-                        <div className="flex flex-col  w-[349px] items-start gap-1">
+                        <div className="flex flex-col  w-full md:w-[349px] items-start gap-1">
                             <div className="flex items-start gap-5">
                                 <input onChange={(e) => setData({ ...data, terms_and_conditions: e.target.checked })} title="agree" type="checkbox" className="mt-1" required />
                                 <p className="text-[12px] text-[#84818A]">
@@ -64,7 +64,7 @@ export default function SignUp() {
                             type="button"
                             onClick={fetchData}
                             disabled={loading}
-                            className="w-[393px] bg-[#0055D9] text-white py-2 rounded-lg text-md font-medium hover:bg-blue-700 transition">
+                            className="w-full md:w-[393px] bg-[#0055D9] text-white py-2 rounded-lg text-md font-medium hover:bg-blue-700 transition">
                             {loading &&
                                 <span className="flex w-full items-center justify-center h-full">
                                     <div className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
@@ -82,11 +82,11 @@ export default function SignUp() {
 
                     <div className="border border-[#DCDBDD] mb-2"></div>
 
-                    <p className="text-[12px] text-[#84818A] mt-3 text-center mb-4">
+                    {/* <p className="text-[12px] text-[#84818A] mt-3 text-center mb-4">
                         Protected by reCAPTCHA and subject to the{" "}
                         <a href="#" className="text-[#0055D9] text-[12px]">Shoghlana Privacy <br /> Policy</a> and{" "}
                         <a href="#" className="text-[#0055D9] text-[12px]">Terms of Service</a>.
-                    </p>
+                    </p> */}
                 </div>
 
                 <div className="w-1/2 hidden xl:block text-white ps-10 xl:p-[126.5px]">

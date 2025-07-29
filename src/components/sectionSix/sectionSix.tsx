@@ -11,7 +11,7 @@ export default function SectionSix() {
                 </span>
                 <span className='text-[#333333] font-extrabold text-[45px] sm:text-[70px] mb-[30px] sm:mb-[60px] w-full text-center xl:text-start xl:max-w-[540px] leading-[70px]'>24/7 real-time support.</span>
                 <span className='font-medium text-[17.2px] max-w-[98%] sm:max-w-[70%] xl:max-w-[510px] mb-[50px] text-center xl:text-start text-[#292D34]'>Need assistance? Reach out to our dedicated support team anytime! We are available 24/7, even on holidays, to help you with any questions or issues you may have.</span>
-                <div className='flex flex-row xl:flex-col gap-[30px] items-center xl:items-start justify-center'>
+                <div className='flex flex-row flex-wrap xl:flex-col gap-[30px] items-center xl:items-start justify-center'>
                     <div className='flex flex-row gap-2 items-center justify-start'>
                         <img width={23} height={23} src={'/assets/icons/contact-right.svg'} alt='Contact Support' className='me-1' />
                         <span className='text-[17.3px] text-[#292D34] font-medium'>Email Support</span>

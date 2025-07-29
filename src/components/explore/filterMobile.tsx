@@ -161,7 +161,12 @@ export default function JobsFilterMobile() {
     // Close menu when clicking outside (existing logic)
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+            const target = event.target as HTMLElement;
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(target) &&
+                target.id !== 'icon'
+            ) {
                 setIsOpen(false);
             }
         };
@@ -175,12 +180,19 @@ export default function JobsFilterMobile() {
     };
 
     return (
-        <div className="relative">
-            <button onClick={() => setIsOpen(!isOpen)} title="Filter">
+        <div ref={menuRef} className="relative h-fit">
+            <button
+                onClick={(e) => {
+                    e.stopPropagation(); // prevent triggering document click
+                    setIsOpen((prev) => !prev);
+                }}
+                title="Filter"
+                id="icon"
+            >
                 <FilterIcon />
             </button>
             {isOpen && (
-                <div ref={menuRef} className="absolute top-12 right-[-100%] md:right-[-110%] w-[100vw] md:w-[50vw] max-h-screen overflow-y-scroll min-h-fit bg-white rounded-lg  z-10">
+                <div className="absolute top-12 right-[-100%] md:right-[-110%] w-[100vw] md:w-[50vw] max-h-screen overflow-y-scroll min-h-fit bg-white rounded-lg  z-10">
                     <h2 className="text-lg font-bold text-blue-600 p-4">Jobs Filter</h2>
                     <ul className="space-y-2">
                         {filteredFilters.map((filter, index) => (
