@@ -8,7 +8,7 @@ export default function LoginAsCompany() {
 
     return (
         <div
-            className="w-full min-h-screen flex overflow-hidden px-30 bg-cover bg-center"
+            className="w-full min-h-screen flex overflow-hidden px-10 2xl:px-30 py-10 bg-cover bg-center"
             style={{ backgroundImage: "url('/assets/front-view-office-desk-with-laptop-chair 1.png')" }}
         >
             <div className="w-full flex flex-col xl:flex-row items-center justify-center xl:justify-between gap-10">
@@ -42,9 +42,9 @@ export default function LoginAsCompany() {
                     </p>
                 </div>
 
-                <div className="w-fit xl:w-1/2 text-white text-center hidden md:block xl:text-start p-8">
+                <div className="w-fit 2xl:w-1/2 text-white text-center hidden md:block xl:text-start p-8">
                     <img width={200} height={200} src="/assets/logo.png" alt="Logo" className="w-[156.47px] mb-4 mx-auto xl:mx-0" />
-                    <h2 className="text-[48px] w-[667.11px] font-semibold">Check out the coolest job opportunities in Egypt and<br /> the MENA area!</h2>
+                    <h2 className="text-[32px] 3xl:text-[48px] max-w-[667.11px] font-semibold">Check out the coolest job opportunities in Egypt and<br /> the MENA area!</h2>
                     <p className="mt-4 text-[14px] w-[430.4px] mx-auto xl:mx-0 text-sm text-white">Looking for job openings and career options? Shoghlana’s <br /> got your back in your job hunt in Egypt!</p>
                     <div className="mt-4 flex items-center justify-center xl:justify-start">
                         <div className="flex -space-x-2">
