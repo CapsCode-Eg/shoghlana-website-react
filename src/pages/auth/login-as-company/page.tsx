@@ -8,11 +8,11 @@ export default function LoginAsCompany() {
 
     return (
         <div
-            className="w-full min-h-screen flex overflow-hidden px-10 2xl:px-30 py-10 bg-cover bg-center"
+            className="w-full min-h-screen flex overflow-hidden px-1.5 md:px-10 2xl:px-30 py-10 bg-cover bg-center"
             style={{ backgroundImage: "url('/assets/front-view-office-desk-with-laptop-chair 1.png')" }}
         >
             <div className="w-full flex flex-col xl:flex-row items-center justify-center xl:justify-between gap-10">
-                <div className="w-full md:w-[657px] bg-white ms-0 md:ms-10 3xl:ms-40 px-16 pt-16 rounded-[32px] shadow-xl border">
+                <div className="w-full md:w-[657px] bg-white ms-0 md:ms-10 3xl:ms-40 px-8 md:px-16 pt-16 rounded-[32px] shadow-xl border">
                     <h1 className=" text-[#202020] w-[340px] text-[40.36px] p-0 ms-2 md:ms-0 md:p-8 font-bold">Log in, buddy!</h1>
 
                     <form className="space-y-4 px-0 md:px-10">
