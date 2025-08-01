@@ -44,15 +44,9 @@ export default function Navbar() {
                         title="Audit Station Logo"
                         className="h-[45px] w-[115px]"
                     />
-                    {!isCompany && <Link to="/" className={`${location.pathname === "/explore" || location.pathname.includes("/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative hidden lg:block`}>
-                        {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
+                    {!isCompany && <Link to="/" className={`${location.pathname === "/" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative hidden lg:block`}>
                         Home</Link>}
                     {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative hidden lg:block`}>
-                        {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
                         Explore</Link>}
                 </div>
                 <div className="text-[15px]  font-[600] text-text hidden lg:flex flex-row">

@@ -9,11 +9,11 @@ export default function CompanySignUp() {
     const { handleLogin, errors, data, setData, loading } = useCompanySignUp();
     return (
         <div
-            className="w-full min-h-screen flex px-30 items-center justify-center bg-cover bg-center"
+            className="w-full min-h-screen flex md:px-30 items-center justify-center bg-cover bg-center"
             style={{ backgroundImage: "url('/assets/front-view-office-desk-with-laptop-chair 1.png')" }}
         >
             <div className="w-full flex flex-col xl:flex-row items-center justify-center">
-                <div className="w-full md:w-[657px] bg-white p-30 rounded-[32px] flex flex-col items-center  shadow-lg border">
+                <div className="w-full md:w-[657px] bg-white p-4 md:p-30 md:rounded-[32px] flex flex-col items-center  shadow-lg border">
                     <h1 className="w-[409.67px] text-center md:text-start mt-16 mb-4 text-[32px] font-medium text-black">
                         Join us to check out job opportunities!
                     </h1>

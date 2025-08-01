@@ -69,44 +69,20 @@ export default function NavbarTwo() {
                 />
                 <div className="hidden items-center lg:flex space-x-8">
                     <Link to="/" className={`${location.pathname === "/" ? "text-[#0055D9] text-[24px] font-bold" : "text-[#4D6182]  text-[20px] font-semibold"}  relative`}>
-                        {(location.pathname === "/") && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
                         Home</Link>
                     {isCompany && <Link to="/pricing" className={`${location.pathname === "/pricing" || location.pathname.includes("/pricing/") ? "text-[#0055D9] text-[18px] xl:text-[24px] font-bold" : "text-[#4D6182]  text-[16px] xl:text-[20px] font-semibold"}  relative`}>
-                        {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
                         Pricing Plan</Link>}
                     {isCompany && <Link to="/invitations" className={`${location.pathname === "/invitations" || location.pathname.includes("/invitations/") ? "text-[#0055D9]  text-[18px] xl:text-[24px] font-bold" : "text-[#4D6182]  text-[16px] xl:text-[20px] font-semibold"}  relative`}>
-                        {(location.pathname === "/invitations" || location.pathname.includes("/invitations/")) && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
                         Invitations</Link>}
                     {isCompany && <Link to="/grantee" className={`${location.pathname === "/grantee" || location.pathname.includes("/grantee/") ? "text-[#0055D9] text-[18px] xl:text-[24px] font-bold" : "text-[#4D6182]  text-[16px] xl:text-[20px] font-semibold"}  relative`}>
-                        {(location.pathname === "/grantee" || location.pathname.includes("/grantee/")) && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
                         Grantee</Link>}
                     {isCompany && <Link to="/company-users" className={`${location.pathname === "/company-users" || location.pathname.includes("/company-users/") ? "text-[#0055D9] text-[18px] xl:text-[24px] font-bold" : "text-[#4D6182]  text-[16px] xl:text-[20px] font-semibold"}  relative`}>
-                        {(location.pathname === "/company-users" || location.pathname.includes("/company-users/")) && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
                         Company User</Link>}
                     {!isCompany && <Link to="/explore" className={`${location.pathname === "/explore" || location.pathname.includes("/job/") ? "text-[#0055D9] text-[18px] xl:text-[24px] font-bold" : "text-[#4D6182]  text-[16px] xl:text-[20px] font-semibold"}  relative`}>
-                        {(location.pathname === "/explore" || location.pathname.includes("/job/")) && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
                         Explore</Link>}
                     {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/saved" className={`${location.pathname === "/saved" ? "text-[#0055D9] text-[18px] xl:text-[24px] font-bold" : "text-[#4D6182]  text-[16px] xl:text-[20px] font-semibold"}  relative`}>
-                        {location.pathname === "/saved" && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
                         Saved</Link>}
                     {(!isCompany && window.localStorage.getItem('user') !== null) && <Link to="/applications" className={`${location.pathname === "/applications" ? "text-[#0055D9] text-[18px] xl:text-[24px] font-bold" : "text-[#4D6182]  text-[16px] xl:text-[20px] font-semibold"}  relative`}>
-                        {location.pathname === "/applications" && (
-                            <div className="w-full absolute -bottom-[30px] rounded-full h-0.5 bg-[#0055D9]" />
-                        )}
                         Application</Link>}
                 </div>
             </div>
