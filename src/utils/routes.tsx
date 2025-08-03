@@ -36,6 +36,7 @@ import PricingPlan from "../pages/setting/pricing/pricingPlan";
 import NotFound from "../pages/notfound/notfound";
 import CompanyUsers from "../pages/companyUser/companyUser";
 import CompanyJobs from "../pages/company_jobs/company_jobs";
+import ContactSection from "../pages/contactus/contactUs";
 
 export const router = createBrowserRouter([
     {
@@ -177,5 +178,9 @@ export const router = createBrowserRouter([
     {
         path: 'company_jobs',
         element: <CompanyJobs />
+    },
+    {
+        path: 'contact-us',
+        element: <ContactSection />
     }
 ]);

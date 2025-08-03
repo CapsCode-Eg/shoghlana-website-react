@@ -27,10 +27,9 @@ export default function LoginAsCompany() {
                         </button>
                     </form>
 
-                    {/* <div className="text-center my-4">
-                        <a href="#" className="text-[#0055D9] text-[15.7px]">Forgot Password?</a>
-                    </div> */}
-
+                    <div className="text-center my-4">
+                        <Link to="/contact-us" className="text-[#0055D9] text-[15.7px]">Forgot Password?</Link>
+                    </div>
 
                     <div className="text-center mt-3 text-[#202020] text-[15.7px] mb-16 max-w-[75%] mx-auto">
                         New Company to Shoghlana? <Link to="/signup-as-company" className="text-[#0055D9] text-[15.7px]">Start your account as company</Link>
