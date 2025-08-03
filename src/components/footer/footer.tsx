@@ -30,7 +30,6 @@ export default function Footer({ data }: { data?: any }) {
                             <h3 className="font-medium text-[20px] text-white mb-5">Company</h3>
                             <ul className="flex flex-col items-start gap-[14px]">
                                 <li><Link to="/explore" className="hover:underline font-[400] text-[20px] text-white">Explore</Link></li>
-                                {/* <li><a href="#" className="hover:underline font-[400] text-[20px] text-white">Download</a></li> */}
                                 {/* <li><a href="#" className="hover:underline font-[400] text-[20px] text-white">Blog</a></li> */}
                             </ul>
                         </div>
@@ -39,6 +38,7 @@ export default function Footer({ data }: { data?: any }) {
                             <ul className="flex flex-col items-start gap-[14px]">
                                 <li><a href={`tel:${data?.phone}`} target="_blank" className="hover:underline font-[400] text-[20px] text-white relative z-[6]">Phone</a></li>
                                 <li><a href={`https://wa.me/${data?.whatsapp}`} target="_blank" className="hover:underline font-[400] text-[20px] text-white relative z-[6]">Whatsapp</a></li>
+                                <li><Link to="/contact-us" className="hover:underline font-[400] text-[20px] text-white">Contact Us</Link></li>
                             </ul>
                         </div>
                         <div className="col-span-2">
@@ -62,7 +62,6 @@ export default function Footer({ data }: { data?: any }) {
                                         <path d="M12 5.83594C8.59688 5.83594 5.83594 8.59688 5.83594 12C5.83594 15.4031 8.59688 18.1641 12 18.1641C15.4031 18.1641 18.1641 15.4031 18.1641 12C18.1641 8.59688 15.4031 5.83594 12 5.83594ZM12 15.9984C9.79219 15.9984 8.00156 14.2078 8.00156 12C8.00156 9.79219 9.79219 8.00156 12 8.00156C14.2078 8.00156 15.9984 9.79219 15.9984 12C15.9984 14.2078 14.2078 15.9984 12 15.9984Z" fill="white" />
                                         <path d="M19.8469 5.59238C19.8469 6.38926 19.2 7.03145 18.4078 7.03145C17.6109 7.03145 16.9688 6.38457 16.9688 5.59238C16.9688 4.79551 17.6156 4.15332 18.4078 4.15332C19.2 4.15332 19.8469 4.8002 19.8469 5.59238Z" fill="white" />
                                     </svg>
-
                                 </Link>
                                 <Link to={data?.twitter} className="hover:opacity-75">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
