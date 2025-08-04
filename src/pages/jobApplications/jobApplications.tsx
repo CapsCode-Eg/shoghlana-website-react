@@ -43,27 +43,27 @@ export default function JobApplications() {
                                             application?.user_id?.image ?
                                                 <img src={application?.user_id?.image} alt="Avatar" className="w-12 h-12 rounded-full" />
                                                 :
-                                                <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">{application?.user_id?.first_name.charAt(0).toUpperCase() + application?.user_id?.last_name.charAt(0).toUpperCase()}</div>
+                                                <div className="w-12 shrink-0 h-12 rounded-full bg-gray-200 flex items-center justify-center leading-[20px]">{(application?.user_id?.first_name?.charAt(0)?.toUpperCase() || '') + (application?.user_id?.last_name?.charAt(0)?.toUpperCase() || '')}</div>
                                         }
                                         <div className="flex flex-col ">
                                             <div className="flex flex-row items-center gap-0.5">
-                                                <span className="font-medium text-[18px] text-black">{application?.user_id?.first_name.charAt(0).toUpperCase() + application?.user_id?.first_name.slice(1)} {application?.user_id?.last_name.charAt(0).toUpperCase() + application?.user_id?.last_name.slice(1)}  <span className="text-[14px] text-gray-500 ms-1">({application?.user_id?.seeker?.job_title.charAt(0).toUpperCase() + application?.user_id?.seeker?.job_title.slice(1)})</span></span>
+                                                <span className="font-medium text-[18px] text-black leading-[13px] mb-1">{(application?.user_id?.first_name?.charAt(0)?.toUpperCase() || '') + (application?.user_id?.first_name?.slice(1) || '')} {(application?.user_id?.last_name?.charAt(0)?.toUpperCase() || '') + (application?.user_id?.last_name?.slice(1) || '')}  {application?.user_id?.seeker?.job_title && <span className="text-[14px] text-gray-500 ms-1 leading-[20px]">({(application?.user_id?.seeker?.job_title?.charAt(0)?.toUpperCase() || '') + (application?.user_id?.seeker?.job_title?.slice(1) || '')})</span>}</span>
 
                                             </div>
                                             <span className="text-gray-500 text-sm -mt-1">{application?.user_id?.email}</span>
                                         </div>
                                     </div>
-                                    <div className="flex flex-row items-center mt-1 ms-1">
+                                    {application?.user_id?.mobile && <div className="flex flex-row items-center mt-1 ms-1">
                                         <span className="text-sm text-gray-500">Mobile : {application?.user_id?.mobile || 0}</span>
-                                    </div>
+                                    </div>}
 
-                                    <span className="text-sm text-gray-500 mt-1 ms-1">Nationality : {nationalties?.find((nationality: any) => nationality.id === application?.user_id?.seeker?.nationality_id)?.name}</span>
+                                    {application?.user_id?.seeker?.nationality_id && <span className="text-sm text-gray-500 mt-1 ms-1">Nationality : {nationalties?.find((nationality: any) => nationality.id === application?.user_id?.seeker?.nationality_id)?.name}</span>}
                                     <div className="flex flex-row flex-wrap items-center mt-1 ms-1">
                                         <div className="flex flex-row items-center ">
                                             <span className="text-sm text-gray-500">
-                                                {application?.user_id?.education?.university.charAt(0).toUpperCase() + application?.user_id?.education?.university.slice(1)}
+                                                {application?.user_id?.education?.university && application?.user_id?.education?.university.charAt(0).toUpperCase() + application?.user_id?.education?.university.slice(1)}
                                                 <span className="mx-1">-</span>
-                                                <span className="text-sm text-gray-500">{application?.user_id?.education?.field_of_study.charAt(0).toUpperCase() + application?.user_id?.education?.field_of_study.slice(1)}</span>
+                                                {application?.user_id?.education?.field_of_study && <span className="text-sm text-gray-500">{application?.user_id?.education?.field_of_study.charAt(0).toUpperCase() + application?.user_id?.education?.field_of_study.slice(1)}</span>}
                                                 <span className="mx-1">-</span>
                                                 <span className="text-sm text-gray-500" >{application?.user_id?.education?.enroll_year + " / " + application?.user_id?.education?.graduation_year}</span>
                                                 <span className="mx-1">-</span>
@@ -75,8 +75,8 @@ export default function JobApplications() {
                                             <span className="mx-1">-</span>
                                             <span className="text-sm text-gray-500">Years Of Experience</span>
                                         </div>
-                                        <span className="text-sm text-gray-500">Skills : {application?.user_id?.skills?.map((skill: any) => skill.name).join(", ")}</span>
                                     </div>
+                                    {application?.user_id?.skills?.length > 0 && <span className="text-sm text-gray-500 block">Skills : {application?.user_id?.skills?.map((skill: any) => skill.name).join(", ")}</span>}
                                     <Link
                                         to={`/job_applications/details/${application.id}`}
                                         className="flex flex-row items-center justify-center gap-1 px-[6px] border border-[#0055D9] w-full h-[28px] rounded-[5px]  mt-4 hover:cursor-pointer"
