@@ -81,9 +81,9 @@ export default function JobsFilterMobile() {
             title: 'Work Place',
             name: 'work_places',
             options: [
-                { id: 1, name: 'On-site' },
-                { id: 2, name: 'Remote' },
-                { id: 3, name: 'Hybrid' }
+                { id: 0, name: 'On-site' },
+                { id: 1, name: 'Remote' },
+                { id: 2, name: 'Hybrid' }
             ]
         },
         {

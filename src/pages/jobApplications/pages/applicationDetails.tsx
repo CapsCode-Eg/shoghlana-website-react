@@ -237,7 +237,7 @@ export default function ApplicationDetails() {
                             </span>
                         </div>
                         <div className="flex flex-row items-center mt-1 ms-1">
-                            <span className="text-sm text-gray-500">{user?.years_of_experience || 0}</span>
+                            <span className="text-sm text-gray-500">{user?.experience[0]?.years_of_experience || 0}</span>
                             <span className="mx-1">-</span>
                             <span className="text-sm text-gray-500">Years Of Experience</span>
                         </div>

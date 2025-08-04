@@ -35,6 +35,7 @@ export default function UserProfile() {
         })
     }, [])
 
+
     const handleUnlockCv = () => {
         axiosInstance.post('/company/cv-unlock', {
             user_id: id
@@ -52,15 +53,23 @@ export default function UserProfile() {
             return console.error(err)
         })
     }
+
     const [isOpen, setIsOpen] = useState(false);
     const handleInvite = () => {
         setIsOpen(true)
     }
-
+    const [cities, setCities] = useState([])
+    useEffect(() => {
+        if (payLoad?.data?.data?.seeker?.country_id) {
+            axiosInstance.get(`/get-cities-by-country-id/${payLoad?.data?.data?.seeker?.country_id}`).then((res) => {
+                setCities(res.data.data)
+            })
+        }
+    }, [payLoad?.data?.data?.seeker?.country_id])
     return (
         <MainLayout>
             <div className="mt-[54px]"></div>
-            <ProfileHeroSection userData={payLoad?.data?.data && payLoad?.data?.data} isCompany={false} handleInvite={handleInvite} />
+            <ProfileHeroSection userData={payLoad?.data?.data && payLoad?.data?.data} isCompany={false} handleInvite={handleInvite} cities={cities} countries={countries} />
             <PersonalInformation handleUnlockCv={handleUnlockCv} jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data && payLoad?.data?.data} />
 
             <SkillsAndExperience userData={payLoad?.data?.data && payLoad?.data?.data} />

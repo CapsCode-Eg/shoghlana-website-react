@@ -48,6 +48,7 @@ export default function ProfileHeroSection({ userData, isCompany, cities, countr
                             <span className='text-[#4D6182] text-[13px] font-[400]'>{userData?.industries?.map((industry: any) => industry.name).join(', ')}</span>
                         </div> :
                         <>
+                            {userData?.seeker?.country_id && <p className="text-[#4D6182] text-[13px] font-[400] mt-1">{`${cities?.find((city: any) => city.id === userData?.seeker?.city_id)?.name || ''}` || ''}, {`${countries?.find((country: any) => country.id === userData?.seeker?.country_id)?.name}`}</p>}
                             <p className="mt-3 text-[#7A7A7A] text-[10px]">
                                 <strong className='text-[#676565]'>{educationLevels.find((level: any) => level.id == userData?.education?.education_level)?.name}</strong> in {userData?.education?.field_of_study}
                                 <br />

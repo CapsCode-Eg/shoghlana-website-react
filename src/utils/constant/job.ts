@@ -6,9 +6,9 @@ export const TYPES = [
   ];
   
   export const PLACES = [
-    { id: 1, name: 'On-site' },
-    { id: 2, name: 'Remotely' },
-    { id: 3, name: 'Hybrid' },
+    { id: 0, name: 'On-site' },
+    { id: 1, name: 'Remotely' },
+    { id: 2, name: 'Hybrid' },
   ];
   
   export const LEVELS = [

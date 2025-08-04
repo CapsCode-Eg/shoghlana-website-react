@@ -48,7 +48,7 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
                             <path d="M17.4736 20.6101H7.47363C4.47363 20.6101 2.47363 19.1101 2.47363 15.6101V8.61011C2.47363 5.11011 4.47363 3.61011 7.47363 3.61011H17.4736C20.4736 3.61011 22.4736 5.11011 22.4736 8.61011V15.6101C22.4736 19.1101 20.4736 20.6101 17.4736 20.6101Z" stroke="#171717" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M17.4736 9.11011L14.3436 11.6101C13.3136 12.4301 11.6236 12.4301 10.5936 11.6101L7.47363 9.11011" stroke="#171717" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        +{userData?.email}</span>
+                        {userData?.email}</span>
                 </div>
             </div>
             {/* General Info */}

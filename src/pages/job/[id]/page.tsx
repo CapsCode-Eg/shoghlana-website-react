@@ -89,13 +89,13 @@ export default function ViewJob() {
                     </p>
                     <div className="flex flex-col-reverse md:flex-row gap-4 md:justify-between flex-wrap justify-center items-center mt-[31px]">
                         <div className='flex flex-col-reverse md:flex-row gap-5 justify-start items-start md:items-center'>
-                            {userData?.type !== 'company' && window.localStorage.getItem("user") &&
+                            {userData?.type !== 'company' &&
                                 <>
                                     {data?.is_applied ?
                                         <span>
                                             You Have Already Applied For This Job
                                         </span>
-                                        : <Link to={`/job/${id}/apply`} className="bg-main rounded-[5px] h-[40px] w-full md:w-[160px] lg:w-[200px] text-[15px] font-[400] text-white flex flex-col items-center justify-center">
+                                        : <Link to={window.localStorage.getItem("user") ? `/job/${id}/apply` : '/login'} className="bg-main rounded-[5px] h-[40px] w-full md:w-[160px] lg:w-[200px] text-[15px] font-[400] text-white flex flex-col items-center justify-center">
                                             Apply For Job
                                         </Link>}
                                 </>

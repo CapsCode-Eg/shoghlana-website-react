@@ -79,9 +79,9 @@ export default function JobsFilter() {
             name: 'work_places',
             title: 'Work Place',
             options: [
-                { id: 1, name: 'On-site' },
-                { id: 2, name: 'Remote' },
-                { id: 3, name: 'Hybrid' }
+                { id: 0, name: 'On-site' },
+                { id: 1, name: 'Remote' },
+                { id: 2, name: 'Hybrid' }
             ]
         },
         {
