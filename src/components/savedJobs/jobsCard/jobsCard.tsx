@@ -87,6 +87,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete, noActr
             {/* Company info */}
             {userData?.type !== 'company' && (
                 <div className="flex items-center mt-3">
+                    {job?.company_image && <img src={job?.company_image} alt="Company Image" className="w-[35px] h-[35px] rounded-full border border-black/20 me-2" />}
                     <Link
                         to={`/company/${job?.company_id}`}
                         className="font-medium text-sm text-gray-700 hover:text-blue-600 transition-colors"

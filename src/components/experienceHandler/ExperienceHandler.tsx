@@ -152,7 +152,7 @@ export default function ExperienceHandler({ experience, setExperience, job_categ
                     onClick={handleAdd}
                     className="px-4 py-2 bg-blue-600 jus text-white rounded hover:bg-blue-700"
                 >
-                    Add New
+                    Add New Experience
                 </button>
             </div>
 

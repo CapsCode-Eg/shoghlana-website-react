@@ -20,6 +20,7 @@ const ContactSection = () => {
         handleFetchData()
 
     }, [])
+    console.log(home?.settings?.whatsapp)
     return (
         <MainLayout>
             <section className="w-full text-white">
@@ -65,8 +66,7 @@ const ContactSection = () => {
                             <div className="border rounded-lg p-6 text-center bg-blue-600 text-white shadow-sm">
                                 <div className="text-3xl mb-4">✉️</div>
                                 <h4 className="font-bold">EMAIL</h4>
-                                <p className="mt-2">shoghlana@org.com</p>
-                                <p>shoghlana@org.com</p>
+                                <p className="mt-2">{home?.settings?.email}</p>
                             </div>
                         </div>
                     </div>

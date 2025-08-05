@@ -4,19 +4,47 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { gradeLevels } from "../../utils/constant/profile";
 import { toast } from "sonner";
+import Pagination from "../../components/common/pagination/pagination";
+import ResponsiveTabs from "./responsiveTabs";
 
 export default function JobApplications() {
     const { id } = useParams<{ id?: string }>();
-
+    const [page, setPage] = useState(1);
+    const [meta, setMeta] = useState<any>({});
     const [data, setData] = useState<any>({});
     const [nationalties, setNationalties] = useState<any>([])
+    const [selected, setSelected] = useState('');
     useEffect(() => {
-        axiosInstance.get(`/company/job-application/${id}`).then((res) => {
-            setData(res.data.data);
-        }).catch((err) => {
-            toast.error(err?.response?.data?.message, { id: 'add-country' })
-        });
-    }, [id])
+        if (selected === 'all') {
+            axiosInstance.get(`/company/job-application/${id}?page=${page}`).then((res) => {
+                setData(res.data.data);
+                setMeta(res?.data?.data?.applications?.links['total-page'])
+            }).catch((err) => {
+                toast.error(err?.response?.data?.message, { id: 'add-country' })
+            });
+        } else if (selected === 'inConsider') {
+            axiosInstance.get(`/company/job-application/${id}/consider?page=${page}`).then((res) => {
+                setData(res.data.data);
+                setMeta(res?.data?.data?.applications?.links['total-page'])
+            }).catch((err) => {
+                toast.error(err?.response?.data?.message, { id: 'add-country' })
+            });
+        } else if (selected === 'rejected') {
+            axiosInstance.get(`/company/job-application/${id}/not_selected?page=${page}`).then((res) => {
+                setData(res.data.data);
+                setMeta(res?.data?.data?.applications?.links['total-page'])
+            }).catch((err) => {
+                toast.error(err?.response?.data?.message, { id: 'add-country' })
+            });
+        } else {
+            axiosInstance.get(`/company/job-application/${id}/${selected}?page=${page}`).then((res) => {
+                setData(res.data.data);
+                setMeta(res?.data?.data?.applications?.links['total-page'])
+            }).catch((err) => {
+                toast.error(err?.response?.data?.message, { id: 'add-country' })
+            });
+        }
+    }, [id, page, selected])
 
     useEffect(() => {
         axiosInstance.get('/nationalities').then((res) => {
@@ -31,14 +59,15 @@ export default function JobApplications() {
             <div className="flex flex-col relative mt-0">
                 <img src="/assets/appFrame.png" alt="Frame Image" className="min-h-[200px]" />
                 <div className="flex flex-col bg-white w-[98%] xl:w-[80%] mx-auto -top-30 relative z-[2] rounded-2xl p-5 shadow-xl">
-                    <span className="text-[#0055D9] text-[32px] font-bold">{data?.title}</span>
-                    <div dangerouslySetInnerHTML={{ __html: data?.description }} />
+                    <span className="text-[#0055D9] text-[32px] font-bold">{data?.job?.title}</span>
+                    <div dangerouslySetInnerHTML={{ __html: data?.job?.description }} />
                     <span className="mt-4 p-2 shadow-2xl w-fit rounded-[8px] text-[16px] font-meduim text-[#0055D9] border border-[#c2c2c2]">Applier : {data?.applications?.length || 0}</span>
+                    <ResponsiveTabs setSelected={setSelected} />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
-                        {
-                            data?.applications?.map((application: any) => {
+                        {data?.applications?.data?.length > 0 ?
+                            data?.applications?.data?.map((application: any) => {
                                 return (
-                                    <div key={application.id} className="p-4 bg-white shadow-lg rounded-lg relative flex flex-col justify-between">
+                                    <div key={application.id} className="p-4 bg-white shadow-lg rounded-lg relative flex flex-col justify-between overflow-hidden">
                                         <div className="flex flex-row items-center gap-4">
                                             {
                                                 application?.user_id?.image ?
@@ -51,12 +80,14 @@ export default function JobApplications() {
                                                     <span className="font-medium text-[18px] text-black leading-[13px] mb-1">{(application?.user_id?.first_name?.charAt(0)?.toUpperCase() || '') + (application?.user_id?.first_name?.slice(1) || '')} {(application?.user_id?.last_name?.charAt(0)?.toUpperCase() || '') + (application?.user_id?.last_name?.slice(1) || '')}  {application?.user_id?.seeker?.job_title && <span className="text-[14px] text-gray-500 ms-1 leading-[20px]">({(application?.user_id?.seeker?.job_title?.charAt(0)?.toUpperCase() || '') + (application?.user_id?.seeker?.job_title?.slice(1) || '')})</span>}</span>
 
                                                 </div>
-                                                <span className="text-gray-500 text-sm -mt-1">{application?.user_id?.email}</span>
+                                                <span style={{ wordWrap: 'break-word' }} className="text-gray-500 text-[11px] md:text-sm -mt-1 text-balance">{application?.user_id?.email}</span>
                                             </div>
                                         </div>
-                                        {application?.user_id?.mobile && <div className="flex flex-row items-center mt-1 ms-1">
-                                            <span className="text-sm text-gray-500">Mobile : {application?.user_id?.mobile || 0}</span>
-                                        </div>}
+                                        {
+                                            application?.user_id?.mobile && <div className="flex flex-row items-center mt-1 ms-1">
+                                                <span className="text-sm text-gray-500">Mobile : {application?.user_id?.mobile || 0}</span>
+                                            </div>
+                                        }
 
                                         {application?.user_id?.seeker?.nationality_id && <span className="text-sm text-gray-500 mt-1 ms-1">Nationality : {nationalties?.find((nationality: any) => nationality.id === application?.user_id?.seeker?.nationality_id)?.name}</span>}
                                         <div className="flex flex-row flex-wrap items-center mt-1 ms-1">
@@ -68,15 +99,16 @@ export default function JobApplications() {
                                                     <span className="mx-1">-</span>
                                                     <span className="text-sm text-gray-500" >{application?.user_id?.education?.enroll_year + " / " + application?.user_id?.education?.graduation_year}</span>
                                                     <span className="mx-1">-</span>
-                                                    <span className="text-sm text-gray-500">{gradeLevels[application?.user_id?.education?.grade]?.name || ""}</span>
+                                                    <span className="text-sm text-gray-500 me-1">{gradeLevels[application?.user_id?.education?.grade]?.name || ""}</span>
                                                 </span>
                                             </div>
-                                            <div className="flex flex-row items-center  ">
+                                            <div className="flex flex-row items-center ">
                                                 <span className="text-sm text-gray-500">{application?.user_id?.experience[0]?.years_of_experience && application?.user_id?.experience[0]?.years_of_experience == 16 ? "15+" : application?.user_id?.experience[0]?.years_of_experience || 0}</span>
                                                 <span className="text-sm text-gray-500 ms-1">Years Of Experience</span>
                                             </div>
                                         </div>
                                         {application?.user_id?.skills?.length > 0 && <span className="text-sm text-gray-500 block">Skills : {application?.user_id?.skills?.map((skill: any) => skill.name).join(", ")}</span>}
+                                        {application?.created_at && <span className="text-sm text-gray-500 block">Submitted on : {application?.created_at}</span>}
                                         <Link
                                             to={`/job_applications/details/${application.id}`}
                                             className="flex flex-row items-center justify-center gap-1 px-[6px] border border-[#0055D9] w-full h-[28px] rounded-[5px]  mt-4 hover:cursor-pointer"
@@ -89,16 +121,23 @@ export default function JobApplications() {
                                             </svg>
                                             <span className="text-[#0055D9] text-[10px] md:text-[13px] font-semibold">View Application</span>
                                         </Link>
-                                        <span className={`mt-2 flex items-center justify-center h-[28px] ${application?.status === 'consider' ? 'bg-[#FFD600] text-[#000000]' : application?.status === 'not_selected' ? 'bg-[#FF0000] text-[#fff]' : 'bg-green-500 text-[#fff]'} rounded-[6px]  text-[10px] md:text-[13px] font-semibold px-4}`}>
-                                            {application?.status === 'consider' ? 'In Consideration' : application?.status === 'not_selected' ? 'Not Selected' : 'Accepted'}
+                                        <span className={`mt-2 flex items-center justify-center h-[28px] ${application?.status === 'consider' ? 'bg-[#FFD600] text-[#000000]' : application?.status === 'not_selected' ? 'bg-[#FF0000] text-[#fff]' : application?.status === 'pending' ? 'bg-gray-500 text-white' : 'bg-green-500 text-[#fff]'} rounded-[6px]  text-[10px] md:text-[13px] font-semibold px-4}`}>
+                                            {application?.status === 'consider' ? 'In Consideration' : application?.status === 'not_selected' ? 'Not Selected' : application?.status === 'pending' ? 'Pending' : 'Accepted'}
                                         </span>
                                     </div>
                                 )
-                            })
+                            }) :
+                            <div className="flex flex-col items-center justify-center h-[20vh] col-span-2 w-full">
+                                <span className="text-[#0055D9] text-[18px] md:text-[13px] font-semibold">No applications found</span>
+                            </div>
                         }
                     </div>
+                    {data?.applications?.data?.length > 0 &&
+                        <Pagination currentPage={meta?.current_page} totalPages={meta || 1} onPageChange={(page: number) => { setPage(page) }}
+                        />
+                    }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
