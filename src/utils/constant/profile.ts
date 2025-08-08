@@ -33,9 +33,9 @@ export const jobTypes = [
         { id: 2, name: "Freelance" }
     ];
 export const workModes = [
-        { id: 0, name: "On-site" },
-        { id: 1, name: "Remote" },
-        { id: 2, name: "Hybrid" }
+        { id: 1, name: 'On-site' },
+        { id: 2, name: 'Remote' },
+        { id: 3, name: 'Hybrid' }
     ];
 
 export const company_size = {

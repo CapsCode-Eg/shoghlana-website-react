@@ -79,9 +79,9 @@ export default function JobsFilter() {
             name: 'work_places',
             title: 'Work Place',
             options: [
-                { id: 0, name: 'On-site' },
-                { id: 1, name: 'Remote' },
-                { id: 2, name: 'Hybrid' }
+                { id: 1, name: 'On-site' },
+                { id: 2, name: 'Remote' },
+                { id: 3, name: 'Hybrid' }
             ]
         },
         {
@@ -120,29 +120,34 @@ export default function JobsFilter() {
             types: []
         };
 
-        filters.forEach(filter => {
-            const paramValue = searchParams.get(filter.name) ||
-                searchParams.get(encodeURIComponent(filter.name));
+        // Process all current search parameters
+        searchParams.forEach((value, key) => {
+            // Skip if not one of our filter keys
+            if (!['country_ids', 'city', 'work_places', 'levels', 'types'].includes(key)) {
+                return;
+            }
 
-            if (paramValue) {
-                // Remove any encoding and parse
-                const rawValue = paramValue
-                    .replace(/%5B/g, '[')
-                    .replace(/%5D/g, ']')
-                    .replace(/^\[|\]$/g, '');
-                const values = rawValue.split(',')
-                    .filter(Boolean)
-                    .map(value => typeof filter.options[0]?.id === 'number' ?
-                        Number(value) :
-                        +(value)
-                    );
-
-                params[filter.name] = values;
+            try {
+                // Handle array parameters
+                if (value.startsWith('[') && value.endsWith(']')) {
+                    const arrayContent = value.slice(1, -1);
+                    params[key] = arrayContent ? arrayContent.split(',').map(v => {
+                        // Convert to number if possible
+                        const num = Number(v);
+                        return isNaN(num) ? v : num;
+                    }) : [];
+                } else {
+                    // Handle single value parameters
+                    const num = Number(value);
+                    params[key] = isNaN(num) ? [value] : [num];
+                }
+            } catch (err) {
+                console.warn(`Error parsing parameter ${key}=${value}`, err);
             }
         });
 
         setSelectedFilters(params);
-    }, []);
+    }, [searchParams]);
 
     const handleFilterChange = (filterName: string, optionId: number | string) => {
         setSelectedFilters(prev => {
@@ -151,21 +156,24 @@ export default function JobsFilter() {
                 ? currentSelection.filter(id => id !== optionId)
                 : [...currentSelection, optionId];
 
-            const allFilters = {
+            // Create new URLSearchParams from current URL
+            const newSearchParams = new URLSearchParams(window.location.search);
+
+            // Update the specific filter parameter
+            if (newSelection.length > 0) {
+                newSearchParams.set(filterName, `[${newSelection.join(',')}]`);
+            } else {
+                newSearchParams.delete(filterName);
+            }
+
+            // Update URL and state
+            setSearchParams(newSearchParams);
+            window.history.replaceState(null, '', `?${newSearchParams.toString()}`);
+
+            return {
                 ...prev,
                 [filterName]: newSelection
             };
-            const params: any = [];
-            for (const [key, values] of Object.entries(allFilters)) {
-                if (values.length > 0) {
-                    params.push(`${key}=[${values.join(',')}]`);
-                }
-            }
-            const queryString = params.join('&');
-            setSearchParams(new URLSearchParams(queryString));
-            window.history.replaceState(null, '', `?${queryString}`);
-
-            return allFilters;
         });
     };
     return (

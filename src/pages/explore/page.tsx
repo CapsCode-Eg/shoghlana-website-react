@@ -13,38 +13,79 @@ export default function Explore() {
     const [meta, setMeta] = useState<any>({});
     const [searchParams] = useSearchParams();
     const [selectedFilters, setSelectedFilters] = useState<any>({});
+    console.log(window.location.search);
+    function toSearchParamsString(
+        newFilters: Record<string, (string | number)[]>,
+        existingParams: URLSearchParams
+    ) {
+        // Create a new URLSearchParams from existing params
+        const params = new URLSearchParams(existingParams);
 
-    function toSearchParamsString(obj: Record<string, (string | number)[]>) {
-        const paramsArray = Object.entries(obj).map(
-            ([key, value]) => `${key}=[${value.join(',')}]`
-        );
+        // Update with new filter values
+        Object.entries(newFilters).forEach(([key, value]) => {
+            if (Array.isArray(value) && value.length > 0) {
+                params.set(key, `[${value.join(',')}]`);
+            } else {
+                params.delete(key); // Remove if empty
+            }
+        });
 
-        const paramsString = paramsArray.join('&');
-        return paramsString;
+        return params.toString();
     }
-    // Fetch data when selectedFilters change
     const searchStringToFilters = (params: URLSearchParams) => {
         const parsedFilters: any = {};
         params.forEach((value, key) => {
+            // Skip pagination parameter
+            if (key === 'page') return;
+
             try {
-                const parsedValue = JSON.parse(value);
-                if (Array.isArray(parsedValue)) {
-                    parsedFilters[key] = parsedValue;
+                // Check if the value is in array format [value1,value2]
+                if (value.startsWith('[') && value.endsWith(']')) {
+                    const arrayContent = value.slice(1, -1);
+                    parsedFilters[key] = arrayContent ? arrayContent.split(',') : [];
+                } else {
+                    // For regular parameters, keep them as is
+                    parsedFilters[key] = value;
                 }
             } catch (err) {
                 console.warn(`Could not parse value for ${key}: ${value}`);
-                console.error(err);
+                // Keep the original value if parsing fails
+                parsedFilters[key] = value;
+                return err
             }
         });
         return parsedFilters;
     };
 
-    // Fetch data whenever filters change
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const paramsString = toSearchParamsString(selectedFilters);
-                const res = await axiosInstance.get(`/jobs?${paramsString}&page=${page}`);
+                const urlParams = new URLSearchParams(window.location.search);
+                const paramsString = toSearchParamsString(selectedFilters, urlParams);
+
+                const searchValue = urlParams.get('search');
+                let decodedSearch = '';
+                let res;
+
+                if (searchValue) {
+                    try {
+                        decodedSearch = decodeURIComponent(searchValue);
+                    } catch (e) {
+                        console.error('Error decoding search term:', e);
+                        decodedSearch = searchValue;
+                    }
+                }
+
+                if (decodedSearch !== '') {
+                    res = await axiosInstance.get(`/jobs?${paramsString}&page=${page}`, {
+                        params: {
+                            search: decodedSearch
+                        }
+                    });
+                } else {
+                    res = await axiosInstance.get(`/jobs?${paramsString}&page=${page}`);
+                }
+
                 setData(res.data.data);
                 setMeta(res?.data?.data?.links['total-page']);
             } catch (err) {

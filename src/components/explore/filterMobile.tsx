@@ -81,9 +81,9 @@ export default function JobsFilterMobile() {
             title: 'Work Place',
             name: 'work_places',
             options: [
-                { id: 0, name: 'On-site' },
-                { id: 1, name: 'Remote' },
-                { id: 2, name: 'Hybrid' }
+                { id: 1, name: 'On-site' },
+                { id: 2, name: 'Remote' },
+                { id: 3, name: 'Hybrid' }
             ]
         },
         {
@@ -109,31 +109,43 @@ export default function JobsFilterMobile() {
         }));
     }, [filters, searchInput]);
 
-    // Sync URL params with state (from first code)
     useEffect(() => {
         const params: SelectedFilters = {
             country_ids: [],
-            city_ids: [],
+            city: [],
             work_places: [],
             levels: [],
             types: []
         };
 
-        filters.forEach(filter => {
-            const paramValue = searchParams.get(filter.name);
-            if (paramValue) {
-                const values = paramValue
-                    .replace(/%5B/g, '[')
-                    .replace(/%5D/g, ']')
-                    .replace(/^\[|\]$/g, '')
-                    .split(',')
-                    .filter(Boolean)
-                    .map(value => isNaN(Number(value)) ? value : Number(value));
-                params[filter.name] = values;
+        // Process all current search parameters
+        searchParams.forEach((value, key) => {
+            // Skip if not one of our filter keys
+            if (!['country_ids', 'city', 'work_places', 'levels', 'types'].includes(key)) {
+                return;
+            }
+
+            try {
+                // Handle array parameters
+                if (value.startsWith('[') && value.endsWith(']')) {
+                    const arrayContent = value.slice(1, -1);
+                    params[key] = arrayContent ? arrayContent.split(',').map(v => {
+                        // Convert to number if possible
+                        const num = Number(v);
+                        return isNaN(num) ? v : num;
+                    }) : [];
+                } else {
+                    // Handle single value parameters
+                    const num = Number(value);
+                    params[key] = isNaN(num) ? [value] : [num];
+                }
+            } catch (err) {
+                console.warn(`Error parsing parameter ${key}=${value}`, err);
             }
         });
+
         setSelectedFilters(params);
-    }, []);
+    }, [searchParams]);
 
     // Handle checkbox changes (from first code)
     const handleFilterChange = (filterName: string, optionId: number | string) => {
@@ -143,18 +155,24 @@ export default function JobsFilterMobile() {
                 ? currentSelection.filter(id => id !== optionId)
                 : [...currentSelection, optionId];
 
-            // Update URL
-            const allFilters = { ...prev, [filterName]: newSelection };
-            const queryParams = new URLSearchParams();
-            Object.entries(allFilters).forEach(([key, values]) => {
-                if (values.length > 0) {
-                    queryParams.set(key, `[${values.join(',')}]`);
-                }
-            });
-            setSearchParams(new URLSearchParams(queryParams));
-            window.history.replaceState(null, '', `?${queryParams.toString()}`);
+            // Create new URLSearchParams from current URL
+            const newSearchParams = new URLSearchParams(window.location.search);
 
-            return allFilters;
+            // Update the specific filter parameter
+            if (newSelection.length > 0) {
+                newSearchParams.set(filterName, `[${newSelection.join(',')}]`);
+            } else {
+                newSearchParams.delete(filterName);
+            }
+
+            // Update URL and state
+            setSearchParams(newSearchParams);
+            window.history.replaceState(null, '', `?${newSearchParams.toString()}`);
+
+            return {
+                ...prev,
+                [filterName]: newSelection
+            };
         });
     };
 

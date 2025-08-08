@@ -18,7 +18,6 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
 
         return age;
     }
-    // console.log()
     const [newJobCategory, setNewJobCategory] = useState<any[]>([]);
     useEffect(() => {
         if (userData) {

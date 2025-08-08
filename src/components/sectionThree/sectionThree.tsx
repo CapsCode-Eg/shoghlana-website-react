@@ -12,7 +12,7 @@ export default function SectionThree({ jobs }: { jobs: any }) {
                 <ul className="mt-3 w-full space-y-4 grid grid-cols-1  md:grid-cols-3 justify-between">
                     {jobs?.map((job, idx) => (
                         <li key={idx} className="flex justify-between max-w-[90%] text-gray-700">
-                            <a href="#" className="text-main hover:underline">{job.name}</a>
+                            <a href={`/explore?search=${job.name}`} className="text-main hover:underline">{job.name}</a>
                             <span className="text-gray-500">{job.jobs_count}</span>
                         </li>
                     ))}

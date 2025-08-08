@@ -32,7 +32,6 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete, noActr
             return err;
         })
     }
-    console.log(job)
     return (
         <div className="w-full relative bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow px-6 pt-5 pb-6 flex flex-col min-h-[150px]">
             {/* Header section */}
