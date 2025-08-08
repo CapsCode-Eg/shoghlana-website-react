@@ -1,4 +1,4 @@
-import { FilterIcon } from 'lucide-react';
+import { FilterIcon, X } from 'lucide-react';
 import { useEffect, useRef, useState, useMemo } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
 import { LEVELS, TYPES } from '../../utils/constant/job';
@@ -37,6 +37,13 @@ export default function JobsFilterMobile() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
+    const [searchQuery, setSearchQuery] = useState<string>('');
+
+    // Initialize search query from URL params
+    useEffect(() => {
+        const query = searchParams.get('search') || '';
+        setSearchQuery(query);
+    }, [searchParams]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,7 +105,6 @@ export default function JobsFilterMobile() {
         }
     ], [countries, cities]);
 
-    // Filter options based on search input
     const filteredFilters = useMemo(() => {
         if (!searchInput) return filters;
         return filters.map(filter => ({
@@ -112,7 +118,7 @@ export default function JobsFilterMobile() {
     useEffect(() => {
         const params: SelectedFilters = {
             country_ids: [],
-            city: [],
+            city_ids: [],
             work_places: [],
             levels: [],
             types: []
@@ -121,11 +127,17 @@ export default function JobsFilterMobile() {
         // Process all current search parameters
         searchParams.forEach((value, key) => {
             // Skip if not one of our filter keys
-            if (!['country_ids', 'city', 'work_places', 'levels', 'types'].includes(key)) {
+            if (!['country_ids', 'city_ids', 'work_places', 'levels', 'types', 'search'].includes(key)) {
                 return;
             }
 
             try {
+                // Handle search query separately
+                if (key === 'search') {
+                    setSearchQuery(value);
+                    return;
+                }
+
                 // Handle array parameters
                 if (value.startsWith('[') && value.endsWith(']')) {
                     const arrayContent = value.slice(1, -1);
@@ -147,7 +159,6 @@ export default function JobsFilterMobile() {
         setSelectedFilters(params);
     }, [searchParams]);
 
-    // Handle checkbox changes (from first code)
     const handleFilterChange = (filterName: string, optionId: number | string) => {
         setSelectedFilters(prev => {
             const currentSelection = prev[filterName] || [];
@@ -176,7 +187,30 @@ export default function JobsFilterMobile() {
         });
     };
 
-    // Close menu when clicking outside (existing logic)
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearchSubmit = () => {
+        const newSearchParams = new URLSearchParams(window.location.search);
+
+        if (searchQuery) {
+            newSearchParams.set('search', searchQuery);
+        } else {
+            newSearchParams.delete('search');
+        }
+
+        setSearchParams(newSearchParams);
+        window.history.replaceState(null, '', `?${newSearchParams.toString()}`);
+    };
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSearchSubmit();
+        }
+    };
+
+    // Close menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             const target = event.target as HTMLElement;
@@ -198,20 +232,48 @@ export default function JobsFilterMobile() {
     };
 
     return (
-        <div ref={menuRef} className="relative h-fit">
+        <div ref={menuRef} className="relative h-fit md:mt-30 md:-mb-10">
             <button
                 onClick={(e) => {
-                    e.stopPropagation(); // prevent triggering document click
+                    e.stopPropagation();
                     setIsOpen((prev) => !prev);
                 }}
                 title="Filter"
                 id="icon"
             >
-                <FilterIcon />
+                {
+                    isOpen ? <X /> : <FilterIcon />
+                }
             </button>
             {isOpen && (
-                <div className="absolute top-12 right-[-100%] md:right-[-110%] w-[100vw] md:w-[50vw] max-h-screen overflow-y-scroll min-h-fit bg-white rounded-lg  z-10">
+                <div className="absolute ps-4 top-12 right-[-100%] md:right-[-110%] w-[100vw] md:w-[50vw] max-h-screen overflow-y-auto overflow-x-hidden min-h-fit bg-white rounded-lg shadow-lg z-1000">
                     <h2 className="text-lg font-bold text-blue-600 p-4">Jobs Filter</h2>
+
+                    {/* Search Input and Button */}
+                    <div className="p-4 border-b">
+                        <div className="flex mb-2">
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                onKeyPress={handleKeyPress}
+                                placeholder="Search jobs..."
+                                className="flex-1 border-[1px] p-2 rounded-l-[5px] border-[#DCDBDD] focus:outline-none focus:border-black"
+                            />
+                            <button
+                                onClick={handleSearchSubmit}
+                                className="bg-blue-600 text-white px-4 rounded-r-[5px] hover:bg-blue-700 transition-colors"
+                            >
+                                Search
+                            </button>
+                        </div>
+                        {searchQuery && (
+                            <div className="text-sm text-gray-600">
+                                Current search: "{searchQuery}"
+                            </div>
+                        )}
+                    </div>
+
                     <ul className="space-y-2">
                         {filteredFilters.map((filter, index) => (
                             <li key={filter.title} className="border-b">

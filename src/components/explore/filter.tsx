@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
 import { LEVELS, TYPES } from '../../utils/constant/job';
 import { useSearchParams } from 'react-router';
+import { Search } from 'lucide-react';
 
 interface Option {
     id: number | string;
@@ -10,7 +11,7 @@ interface Option {
 
 interface Filter {
     title: string;
-    name: string; // Made name required
+    name: string;
     options: Option[];
 }
 
@@ -28,12 +29,19 @@ export default function JobsFilter() {
     const [searchInput, setSearchInput] = useState<string>('');
     const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
         country_ids: [],
-        city: [],
+        city_ids: [],
         work_places: [],
         levels: [],
         types: []
     });
     const [searchParams, setSearchParams] = useSearchParams();
+    const [searchQuery, setSearchQuery] = useState<string>('');
+
+    // Initialize search query from URL params
+    useEffect(() => {
+        const query = searchParams.get('search') || '';
+        setSearchQuery(query);
+    }, [searchParams]);
 
     // Fetch data
     useEffect(() => {
@@ -111,10 +119,11 @@ export default function JobsFilter() {
         setOpenIndex(openIndex === index ? null : index);
         setSearchInput('');
     };
+
     useEffect(() => {
         const params: SelectedFilters = {
             country_ids: [],
-            city: [],
+            city_ids: [],
             work_places: [],
             levels: [],
             types: []
@@ -123,11 +132,17 @@ export default function JobsFilter() {
         // Process all current search parameters
         searchParams.forEach((value, key) => {
             // Skip if not one of our filter keys
-            if (!['country_ids', 'city', 'work_places', 'levels', 'types'].includes(key)) {
+            if (!['country_ids', 'city_ids', 'work_places', 'levels', 'types', 'search'].includes(key)) {
                 return;
             }
 
             try {
+                // Handle search query separately
+                if (key === 'search') {
+                    setSearchQuery(value);
+                    return;
+                }
+
                 // Handle array parameters
                 if (value.startsWith('[') && value.endsWith(']')) {
                     const arrayContent = value.slice(1, -1);
@@ -176,9 +191,61 @@ export default function JobsFilter() {
             };
         });
     };
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearchSubmit = () => {
+        const newSearchParams = new URLSearchParams(window.location.search);
+
+        if (searchQuery) {
+            newSearchParams.set('search', searchQuery);
+        } else {
+            newSearchParams.delete('search');
+        }
+
+        setSearchParams(newSearchParams);
+        window.history.replaceState(null, '', `?${newSearchParams.toString()}`);
+    };
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSearchSubmit();
+        }
+    };
+
     return (
         <div className="w-[260px] bg-white rounded-lg shadow-md">
             <h2 className="text-lg font-bold text-blue-600 p-4">Jobs Filter</h2>
+
+            {/* Search Input and Button */}
+            <div className="p-4 border-b max-w-full overflow-hidden">
+                <div className="flex mb-2">
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Search jobs..."
+                        className="flex-1 border-[1px] max-w-[80%] p-2 rounded-l-[5px] border-[#DCDBDD] focus:outline-none focus:border-black"
+                    />
+                    <button
+                        title='Search'
+                        type="button"
+                        onClick={handleSearchSubmit}
+                        className="bg-blue-600 text-white px-4 rounded-r-[5px] hover:bg-blue-700 transition-colors"
+                    >
+                        <Search className="w-5 h-5" />
+                    </button>
+                </div>
+                {searchQuery && (
+                    <div className="text-sm text-gray-600">
+                        Current search: "{searchQuery}"
+                    </div>
+                )}
+            </div>
+
             <ul className="space-y-2">
                 {filteredFilters.map((filter, index) => (
                     <li key={filter.title} className="border-b">
