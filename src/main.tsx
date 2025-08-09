@@ -18,6 +18,6 @@ createRoot(document.getElementById('root')!).render(
 )
 
 
-// console.log = () => { }
-// console.error = () => { }
-// console.debug = () => { }
+console.log = () => { }
+console.error = () => { }
+console.debug = () => { }
