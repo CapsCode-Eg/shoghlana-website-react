@@ -32,6 +32,7 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete, noActr
             return err;
         })
     }
+    console.log(job)
     return (
         <div className="w-full relative bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow px-6 pt-5 pb-6 flex flex-col min-h-[150px]">
             {/* Header section */}
@@ -115,16 +116,18 @@ export default function JobsCard({ isDone, isAccepted, job, handleDelete, noActr
                     <span> {job?.min_year}-{job?.max_year} years experience</span>
                 </p>
 
-                <div className="text-sm text-gray-600">
+                {job?.skills.length > 0 && <div className="text-sm text-gray-600">
                     <span className="font-medium">Skills: </span>
                     <span>{job?.skills?.map((skill: any) => skill?.name).join(', ')}</span>
-                </div>
+                </div>}
                 <div className="text-sm text-gray-600">
                     <span className="font-medium">Salary: </span>
                     <span>{job?.max_salary}-{job?.min_salary}</span>
                 </div>
-
-
+                {job?.created_at && <div className="text-sm text-gray-600">
+                    <span className="font-medium">Posted : </span>
+                    <span>{job?.created_at}</span>
+                </div>}
             </div>
 
             {/* Footer section */}
