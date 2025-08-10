@@ -99,7 +99,9 @@ export default function Footer({ data }: { data?: any }) {
 
                 {/* Bottom section */}
                 <div className="flex flex-col md:flex-row justify-between items-center mt-8 text-[18px] text-white gap-4 pt-4">
-                    <p>©{year} CapsCode. All rights reserved</p>
+                    <p>©{year}
+                        <Link to="https://capscode.vercel.app/en" target="_blank" className="hover:underline mx-1">CapsCode</Link>
+                        . All rights reserved</p>
                     <a href="#" className="hover:underline font-[400] text-[20px] text-white">Privacy Policy</a>
                 </div>
             </div>
