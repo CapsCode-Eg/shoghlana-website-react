@@ -41,6 +41,8 @@ export default function Profile() {
             toast.error('Failed to delete CV')
         })
     }
+    const [cities, setCities] = useState<any[]>([]);
+
     const [jobCategory, setJobCategory] = useState([])
     const [countries, setCountries] = useState([])
     useEffect(() => {
@@ -51,7 +53,13 @@ export default function Profile() {
             setJobCategory(res.data.data)
         })
     }, [])
-
+    useEffect(() => {
+        if (payLoad?.data?.data?.seeker?.country_id) {
+            axiosInstance.get(`/get-cities-by-country-id/${payLoad?.data?.data?.seeker?.country_id}`).then((res) => {
+                setCities(res.data.data)
+            })
+        }
+    }, [payLoad?.data?.data?.seeker?.country_id])
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (!file) return;
@@ -76,7 +84,7 @@ export default function Profile() {
     return (
         <MainLayout>
             <div className="mt-4"></div>
-            <ProfileHeroSection userData={payLoad?.data?.data ? payLoad?.data?.data : data} isCompany={false} />
+            <ProfileHeroSection userData={payLoad?.data?.data ? payLoad?.data?.data : data} isCompany={false} cities={cities} countries={countries} />
             <PersonalInformation handleFileChange={handleFileChange} jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data ? payLoad?.data?.data : data} deleteCV={deleteCV} />
             <SkillsAndExperience userData={payLoad?.data?.data ? payLoad?.data?.data : data} />
         </MainLayout>

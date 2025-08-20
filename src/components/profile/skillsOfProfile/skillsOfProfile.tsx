@@ -1,6 +1,7 @@
 import { educationLevels, languageLevels } from "../../../utils/constant/profile";
 
 export function SkillsAndExperience({ userData }: { userData: any }) {
+    console.log(userData)
     return (
         <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px]  flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md relative overflow-hidden py-[33px] px-[28.68px]">
             {/* Skills and Tools */}
@@ -26,8 +27,8 @@ export function SkillsAndExperience({ userData }: { userData: any }) {
                                     <div className="flex items-center space-x-4">
                                         <div className="w-5 h-5 bg-gray-300 rounded-full text-white font-bold flex items-center justify-center text-[13px]">{index + 1}</div>
                                         <div>
-                                            <p className="font-medium">{exp.job_title} at {exp.company} <span className="text-sm bg-gray-200 px-2 py-1 rounded-lg ml-2">Full Time</span></p>
-                                            <p className="text-sm text-gray-600">{exp?.start_year} - {exp?.still_working === 1 ? 'Present' : exp?.end_year} · {exp?.end_year - exp?.start_year}y · Remote</p>
+                                            <p className="font-medium">{exp.job_title} at {exp.company}</p>
+                                            <p className="text-sm text-gray-600">{exp?.start_year} - {exp?.still_working === 1 ? 'Present' : exp?.end_year} </p>
                                         </div>
                                     </div>
                                 )
@@ -44,7 +45,7 @@ export function SkillsAndExperience({ userData }: { userData: any }) {
                 <h2 className="text-xl font-bold mb-2">Education</h2>
                 <p>{educationLevels.find((level: any) => level.id == userData?.education?.education_level)?.name} in {userData?.education?.field_of_study}</p>
                 <p className="text-sm text-gray-600">{userData?.education?.university} </p>
-                <p className="text-sm text-gray-600 mt-1">({userData?.education?.graduation_year})</p>
+                <p className="text-sm text-gray-600 mt-1">({userData?.education?.enroll_year}-{userData?.education?.graduation_year})</p>
             </div>
 
             {/* Languages */}

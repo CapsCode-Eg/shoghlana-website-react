@@ -74,7 +74,12 @@ export default function SignUp() {
                         </button>
                     </form>
 
-                    <div className="text-center font-medium text-[14px] mt-3 mb-5">
+                    <div className="text-center font-medium text-[14px] mt-3 ">
+                        <p className="text-black">
+                            Want To be a Recruiter? <Link to="/signup-as-company" className="text-[#0055D9] font-medium">Sign Up</Link> or
+                        </p>
+                    </div>
+                    <div className="text-center font-medium text-[14px] mt-1">
                         <p className="text-black">
                             Already on Shoghlana? <Link to="/login" className="text-[#0055D9] font-medium">Log in</Link>
                         </p>
