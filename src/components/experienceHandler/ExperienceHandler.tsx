@@ -159,7 +159,7 @@ export default function ExperienceHandler({ experience, setExperience, job_categ
             {experience?.map((item) => {
                 const isEditing = item.id === editingId;
                 return (
-                    <div key={item.id} className="p-4 pt-2  rounded-2xl shadow-2xl space-y-2 bg-gray-50">
+                    <div key={item.id} className="p-4 pt-2  rounded-2xl shadow-2xl space-y-2 ">
                         <div className="grid grid-cols-1 gap-2 sm:flex-row sm:items-center sm:gap-4 mb-2">
                             {isEditing ? (
                                 <div className="flex flex-col">

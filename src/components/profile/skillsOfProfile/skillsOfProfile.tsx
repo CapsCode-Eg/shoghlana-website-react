@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { educationLevels, languageLevels } from "../../../utils/constant/profile";
 
 export function SkillsAndExperience({ userData }: { userData: any }) {
@@ -18,13 +19,16 @@ export function SkillsAndExperience({ userData }: { userData: any }) {
 
             {/* Work Experience */}
             <div className="border-b pb-4 mb-4">
-                <h2 className="text-xl font-bold mb-2">Work Experience</h2>
+                <div className="w-full flex flex-row items-center justify-between">
+                    <h2 className="text-xl font-bold mb-2">Work Experience</h2>
+                    <Link to='/setting/experience' className="bg-main text-white w-[30px] h-[30px] font-bold rounded-full flex items-center justify-center">+</Link>
+                </div>
                 {
                     userData?.experience?.length > 0 ? (
                         userData.experience.map((exp: any, index: number) => {
                             return (
                                 (
-                                    <div className="flex items-center space-x-4">
+                                    <div className="flex items-center space-x-4 my-2">
                                         <div className="w-5 h-5 bg-gray-300 rounded-full text-white font-bold flex items-center justify-center text-[13px]">{index + 1}</div>
                                         <div>
                                             <p className="font-medium">{exp.job_title} at {exp.company}</p>
