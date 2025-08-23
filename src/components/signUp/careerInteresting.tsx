@@ -16,9 +16,9 @@ export default function CareerInteresting({ handleBack, setData, handleSubmit, f
         { id: 2, name: "Freelance" }
     ];
     const workModes = [
-        { id: 1, name: 'On-site' },
-        { id: 2, name: 'Remote' },
-        { id: 3, name: 'Hybrid' }
+        { id: 0, name: 'On-site' },
+        { id: 1, name: 'Remote' },
+        { id: 2, name: 'Hybrid' }
     ];
 
     return (
