@@ -20,7 +20,12 @@ export default function ExperiencePage() {
         axiosInstance.get('/user-profile').then((res) => {
             setArrayOfSkills(res?.data?.data?.skills)
             setArrayOfLanguage(res?.data?.data?.languages)
-            setExperience(res?.data?.data?.experience)
+            setExperience(res?.data?.data?.experience.map((item: any) => {
+                return {
+                    ...item,
+                    job_category_id: item.job_category
+                }
+            }))
         })
         axiosInstance.get('/job-category').then((res) => {
             setJobCategory(res.data.data)

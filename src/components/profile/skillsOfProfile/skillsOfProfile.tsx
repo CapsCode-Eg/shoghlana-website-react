@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import { educationLevels, languageLevels } from "../../../utils/constant/profile";
 
 export function SkillsAndExperience({ userData }: { userData: any }) {
-    console.log(userData)
     return (
         <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px]  flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md relative overflow-hidden py-[33px] px-[28.68px]">
             {/* Skills and Tools */}
