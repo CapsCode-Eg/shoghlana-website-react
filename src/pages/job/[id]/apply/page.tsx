@@ -37,7 +37,6 @@ export default function ApplyForJob() {
             })
         }
     }, [data?.country_id])
-
     // Handler for when an answer changes
     const handleAnswerChange = (questionId: string, answer: string) => {
         setApplication(prev => {
@@ -79,6 +78,7 @@ export default function ApplyForJob() {
             toast.error('Failed to save job')
         })
     }
+
     return (
         <MainLayout>
             <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px] flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md overflow-hidden">
@@ -101,7 +101,7 @@ export default function ApplyForJob() {
                         </span>
                     </div>
                     <p className="text-main flex flex-row items-center mt-2">
-                        <Link to={`/company/2`} className='font-[700] text-[14px]'>CapsCode EG</Link>
+                        <Link to={`/company/${data?.company_id}`} className='font-[700] text-[14px]'>{data?.company_name || 'Loading'}</Link>
                         <img src='/assets/icons/verified.svg' width={20} height={20} className='mb-1 mx-2' alt='Verified' />
                         {/* @ts-expect-error Type mismatch */}
                         <span className='text-[14px] text-[#4D6182] font-[600]'>- {cities.find((city) => city.id == data?.city_id)?.name}, {countries.find((country) => country.id == data?.country_id)?.name}</span>
