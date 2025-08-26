@@ -130,7 +130,7 @@ export default function ApplyForJob() {
                         </div>
                         <div className="flex flex-row space-x-4">
                             <div className="flex md:hidden items-center ms-0 md:ms-[30px]">
-                                <span className="font-[600] text-[28px] text-[#4D6182]">20</span>
+                                <span className="font-[600] text-[28px] text-[#4D6182]">{data?.apply || 0}</span>
                                 <span className="font-[600] text-[13px] ms-2 text-[#4D6182]">Applicants for</span>
                             </div>
                             <button onClick={() => {
