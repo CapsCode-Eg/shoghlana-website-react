@@ -3,7 +3,10 @@ import * as Yup from 'yup';
 export const SingUpAsUser = Yup.object().shape({
   job_title: Yup.string().required('Job title is required'),
   birth_day: Yup.date()
-    .max(new Date(new Date().setFullYear(new Date().getFullYear() - 21)))
+    .max(
+    new Date(new Date().setFullYear(new Date().getFullYear() - 21)),
+    'You must be at least 21 years old'
+    )
     .required('Birth date is required'),  gender: Yup.number().oneOf([0, 1]).required('Gender is required'),
   nationality_id: Yup.number().required('Nationality is required'),
   country_id: Yup.number().required('Country is required'),
