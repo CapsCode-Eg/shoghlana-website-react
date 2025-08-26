@@ -7,7 +7,6 @@ import { router } from './utils/routes'
 import { RouterProvider } from 'react-router'
 import { store } from './utils/redux/store'
 
-
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <StrictMode>
@@ -15,6 +14,7 @@ createRoot(document.getElementById('root')!).render(
       <RouterProvider router={router} />
     </StrictMode>
   </Provider>
+
 )
 
 

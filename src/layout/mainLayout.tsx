@@ -4,6 +4,8 @@ import NavbarTwo from "../components/common/navbarTwo/navbarTwo";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import { useLocation } from "react-router";
+import GlobalErrorBoundary from "../components/GlobalErrorBoundary";
+import { ErrorProvider } from "../utils/context/ErrorContext";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
     const [data, setData] = useState<any>('');
@@ -37,10 +39,14 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         }
     }, [])
     return (
-        <div className='flex flex-col max-w-screen min-h-screen overflow-hidden pb-4'>
-            {data ? <NavbarTwo /> : <Navbar />}
-            {children}
-            <Footer data={home?.settings} />
-        </div>
+        <GlobalErrorBoundary>
+            <ErrorProvider>
+                <div className='flex flex-col max-w-screen min-h-screen overflow-hidden pb-4'>
+                    {data ? <NavbarTwo /> : <Navbar />}
+                    {children}
+                    <Footer data={home?.settings} />
+                </div>
+            </ErrorProvider>
+        </GlobalErrorBoundary>
     )
 }

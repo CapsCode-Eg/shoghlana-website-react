@@ -37,150 +37,156 @@ import NotFound from "../pages/notfound/notfound";
 import CompanyUsers from "../pages/companyUser/companyUser";
 import CompanyJobs from "../pages/company_jobs/company_jobs";
 import ContactSection from "../pages/contactus/contactUs";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: '*',
-        element: <NotFound />
+        errorElement: <ErrorPage />,
+        element: <NotFound />,
     },
     {
         path: "/",
-        element: <Home />,
+        element: <Home />, errorElement: <ErrorPage />,
     },
     {
         path: "/applications",
-        element: <Applications />
+        element: <Applications />, errorElement: <ErrorPage />
     },
     {
         path: "/login",
-        element: <Login />
+        element: <Login />, errorElement: <ErrorPage />
     },
     {
         path: '/login-as-company',
-        element: <LoginAsCompany />
+        element: <LoginAsCompany />, errorElement: <ErrorPage />
     },
     {
         path: '/profile',
-        element: <Profile />
+        element: <Profile />, errorElement: <ErrorPage />
     },
     {
         path: '/signup',
-        element: <SignUp />
+        element: <SignUp />, errorElement: <ErrorPage />
     },
     {
         path: '/signup-as-company',
-        element: <CompanySignUp />
+        element: <CompanySignUp />, errorElement: <ErrorPage />
     },
     {
         path: '/signup-intro',
-        element: <SignUpIntro />
+        element: <SignUpIntro />, errorElement: <ErrorPage />
     },
     {
         path: "/company/:id",
-        element: <Company />
+        element: <Company />, errorElement: <ErrorPage />
     },
     {
         path: '/company_profile',
-        element: <CompanyProfile />
+        element: <CompanyProfile />, errorElement: <ErrorPage />
     },
     {
         path: '/explore',
-        element: <Explore />
+        element: <Explore />, errorElement: <ErrorPage />
     },
     {
         path: '/job/:id/view',
-        element: <ViewJob />
+        element: <ViewJob />, errorElement: <ErrorPage />
     },
     {
         path: '/job/:id/apply',
-        element: <ApplyForJob />
+        element: <ApplyForJob />, errorElement: <ErrorPage />
     },
     {
         path: '/saved',
-        element: <Saved />
+        element: <Saved />, errorElement: <ErrorPage />
     },
     {
         path: '/setting/career-interests',
-        element: <CareerInteresting />
+        element: <CareerInteresting />, errorElement: <ErrorPage />
     },
     {
         path: '/setting/change-password',
-        element: <ChangePassword />
+        element: <ChangePassword />, errorElement: <ErrorPage />
     },
     {
         path: '/setting/delete-account',
-        element: <DeleteAccount />
+        element: <DeleteAccount />, errorElement: <ErrorPage />
     },
     {
         path: '/setting/education-cv',
-        element: <Education />
+        element: <Education />, errorElement: <ErrorPage />
     },
     {
         path: '/setting/experience',
-        element: <ExperiencePage />
+        element: <ExperiencePage />, errorElement: <ErrorPage />
     },
     {
         path: '/setting/general-info',
-        element: <GeneralInfo />
+        element: <GeneralInfo />, errorElement: <ErrorPage />
     },
     {
         path: '/setting/online-presence',
-        element: <SocialMedia />
+        element: <SocialMedia />, errorElement: <ErrorPage />
     },
     {
         path: '/setting/public-profile',
-        element: <PublicProfile />
+        element: <PublicProfile />, errorElement: <ErrorPage />
     },
     {
         path: '/post_job/:func?/:id?',
-        element: <PostJob />
+        element: <PostJob />, errorElement: <ErrorPage />
     },
     {
         path: '/job_applications/:id?',
-        element: <JobApplications />
+        element: <JobApplications />, errorElement: <ErrorPage />
     },
     {
         path: '/job_applications/details/:id?',
-        element: <ApplicationDetails />
+        element: <ApplicationDetails />, errorElement: <ErrorPage />
     },
     {
         path: '/grantee',
-        element: <Grantee />
+        element: <Grantee />, errorElement: <ErrorPage />
     },
     {
         path: '/old-grantees',
-        element: <Oldgrantees />
+        element: <Oldgrantees />, errorElement: <ErrorPage />
     },
     {
         path: '/last-Subscription',
-        element: <LastSubscription />
+        element: <LastSubscription />, errorElement: <ErrorPage />
     },
     {
         path: 'user/:id',
-        element: <UserProfile />
+        element: <UserProfile />, errorElement: <ErrorPage />
     },
     {
         path: 'invite',
-        element: <InvitePerson />
+        element: <InvitePerson />, errorElement: <ErrorPage />
     },
     {
         path: 'invitations',
-        element: <Invitations />
+        element: <Invitations />, errorElement: <ErrorPage />
     },
     {
         path: 'company-users',
-        element: <CompanyUsers />
+        element: <CompanyUsers />, errorElement: <ErrorPage />
     },
     {
         path: 'pricing',
-        element: <PricingPlan />
+        element: <PricingPlan />, errorElement: <ErrorPage />
     },
     {
         path: 'company_jobs',
-        element: <CompanyJobs />
+        element: <CompanyJobs />, errorElement: <ErrorPage />
     },
     {
         path: 'contact-us',
-        element: <ContactSection />
+        element: <ContactSection />, errorElement: <ErrorPage />
+    },
+    {
+        path: '/error',
+        element: <ErrorPage />, errorElement: <ErrorPage />
     }
 ]);
