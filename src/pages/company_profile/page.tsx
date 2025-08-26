@@ -18,7 +18,7 @@ export default function CompanyProfile() {
         method: HttpMethod.GET,
         withOutToast: true
     })
-
+    console.log(payLoad)
     const [countries, setCountries] = useState([])
     const [cities, setCities] = useState([])
     useEffect(() => {
@@ -106,6 +106,7 @@ export default function CompanyProfile() {
                                 })
                             }
                         </div>
+                        <Link to='/company_jobs' className='w-full flex items-center justify-center text-white text-[16px] font-semibold h-[40px] mt-[24px] bg-main rounded-[5px]'>See All Jobs</Link>
                     </div>
                     <div className='border border-black/20 rounded-[16px] flex flex-col py-[24px] h-[350px] px-[28px] my-5'>
                         <span>Invite Users Now</span>

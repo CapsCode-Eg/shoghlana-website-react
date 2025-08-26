@@ -61,7 +61,7 @@ export default function JobApplications() {
                 <div className="flex flex-col bg-white w-[98%] xl:w-[80%] mx-auto -top-30 relative z-[2] rounded-2xl p-5 shadow-xl">
                     <span className="text-[#0055D9] text-[32px] font-bold">{data?.job?.title}</span>
                     <div dangerouslySetInnerHTML={{ __html: data?.job?.description }} />
-                    <span className="mt-4 p-2 shadow-2xl w-fit rounded-[8px] text-[16px] font-meduim text-[#0055D9] border border-[#c2c2c2]">Applier : {data?.applications?.length || 0}</span>
+                    <span className="mt-4 p-2 shadow-2xl w-fit rounded-[8px] text-[16px] font-meduim text-[#0055D9] border border-[#c2c2c2]">Applier : {data?.applications?.meta?.total || 0}</span>
                     <ResponsiveTabs setSelected={setSelected} />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                         {data?.applications?.data?.length > 0 ?
