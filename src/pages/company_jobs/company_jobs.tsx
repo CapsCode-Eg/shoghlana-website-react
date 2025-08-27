@@ -14,12 +14,20 @@ export default function CompanyJobs() {
                 const res = await axiosInstance.get(`/company/jobs-pagination?page=${page}`);
                 setData(res.data.data);
                 setMeta(res?.data?.data?.links['total-page']);
+                setPage(res?.data?.data?.meta?.current_page);
             } catch (err) {
                 console.error(err);
             }
         };
 
         fetchData();
+    }, [page]);
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
     }, [page]);
     return (
         <div className='flex flex-col max-w-screen min-h-screen overflow-hidden pb-4'>
@@ -31,7 +39,7 @@ export default function CompanyJobs() {
                 </div>
                 <span className='font-[700] text-[28px] mt-4 ms-4'>Jobs</span>
                 <TabsForJobs withoutShadow data={data} />
-                <Pagination currentPage={meta?.current_page} totalPages={meta || 1} onPageChange={(page: number) => { setPage(page) }}
+                <Pagination currentPage={page} totalPages={meta || 1} onPageChange={(page: number) => { setPage(page) }}
                 />
             </div>
         </div>

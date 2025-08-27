@@ -70,6 +70,7 @@ export default function CompanyProfile() {
             axiosInstance.get(`/users-search/10?search=${search}&page=${page}`).then((res) => {
                 setSearchResult(res.data.data?.data)
                 setMeta(res?.data?.data?.links['total-page']);
+                setPage(res?.data?.data?.meta?.current_page);
             })
         } else {
             setSearchResult([])

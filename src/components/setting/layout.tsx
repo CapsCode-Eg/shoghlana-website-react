@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <div className="flex flex-col font-inter overflow-hidden max-w-screen bg-[#f5f5f5]">
             <NavbarTwo />
-            <div className="flex flex-col min-h-[60vh] px-20 lg:flex-row w-[95%] xl:w-[80%] mx-auto justify-center xl:justify-between gap-[5px] main-body min-w-screen pb-[27px] pt-[10px] xl:pt-[calc(64px+32px)]">
+            <div className="flex flex-col min-h-[60vh] xl:px-20 lg:flex-row w-[95%] xl:w-[80%] mx-auto justify-center xl:justify-between gap-[5px] main-body min-w-screen pb-[27px] pt-[10px] xl:pt-[calc(64px+32px)]">
                 <div className="hidden me-3 !w-[clamp(300px,337px,369px)] lg:flex flex-row justify-center relative">
                     <SideMenu />
                 </div>

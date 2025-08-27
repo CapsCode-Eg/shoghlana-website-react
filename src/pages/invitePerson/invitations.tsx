@@ -12,8 +12,17 @@ export default function Invitations() {
         axiosInstance.get(`/company/invite-users?page=${page}`).then((res) => {
             setMeta(res?.data?.data?.links['total-page'])
             setData(res.data.data?.data)
+            setPage(res?.data?.data?.meta?.current_page);
         })
     }, [])
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
+    }, [page]);
     return (
         <div className='flex flex-col max-w-screen min-h-screen overflow-hidden pb-4'>
             <NavbarTwo />

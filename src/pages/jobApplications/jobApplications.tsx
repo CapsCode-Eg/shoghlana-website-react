@@ -19,6 +19,7 @@ export default function JobApplications() {
             axiosInstance.get(`/company/job-application/${id}?page=${page}`).then((res) => {
                 setData(res.data.data);
                 setMeta(res?.data?.data?.applications?.links['total-page'])
+                setPage(res?.data?.data?.meta?.current_page);
             }).catch((err) => {
                 toast.error(err?.response?.data?.message, { id: 'add-country' })
             });
@@ -53,6 +54,13 @@ export default function JobApplications() {
             toast.error(err?.response?.data?.message, { id: 'add-country' })
         })
     }, [])
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
+    }, [page]);
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />

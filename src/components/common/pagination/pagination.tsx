@@ -41,6 +41,8 @@ export default function Pagination({ isDark, currentPage, totalPages, onPageChan
 
         return pages;
     };
+    console.log(currentPage)
+
     return (
         <div className={`flex items-center relative z-[10] justify-center space-x-3  ${withoutMargin ? "mt-0" : "mt-[65px]"}`}>
             <button

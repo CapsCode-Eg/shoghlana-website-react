@@ -13,7 +13,6 @@ export default function Explore() {
     const [meta, setMeta] = useState<any>({});
     const [searchParams] = useSearchParams();
     const [selectedFilters, setSelectedFilters] = useState<any>({});
-    console.log(window.location.search);
     function toSearchParamsString(
         newFilters: Record<string, (string | number)[]>,
         existingParams: URLSearchParams
@@ -85,9 +84,9 @@ export default function Explore() {
                 } else {
                     res = await axiosInstance.get(`/jobs?${paramsString}&page=${page}`);
                 }
-
                 setData(res.data.data);
                 setMeta(res?.data?.data?.links['total-page']);
+                setPage(res?.data?.data?.meta?.current_page);
             } catch (err) {
                 console.error(err);
             }
@@ -102,6 +101,13 @@ export default function Explore() {
         setSelectedFilters(newFilters);
     }, [searchParams]);
 
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
+    }, [page]);
     return (
         <MainLayout>
             <div className='w-[98%] xl:w-[80%] min-h-[55vh] h-full flex flex-col md:flex-row gap-4 mx-auto my-[20px] xl:my-[54px]'>
@@ -117,7 +123,7 @@ export default function Explore() {
                     </span>
                     <TabsForJobs data={data} />
                     {data?.data?.length > 0 &&
-                        <Pagination currentPage={meta?.current_page} totalPages={meta || 1} onPageChange={(page: number) => { setPage(page) }}
+                        <Pagination currentPage={page} totalPages={meta || 1} onPageChange={(page: number) => { setPage(page) }}
                         />
                     }
                 </div>

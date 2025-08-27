@@ -62,7 +62,6 @@ export default function ApplyForJob() {
             navigate('/explore');
         }).catch((err) => {
             toast.error(err?.response?.data?.message, { id: 'add-country' })
-            toast.error('Failed to submit application');
         });
     };
 
