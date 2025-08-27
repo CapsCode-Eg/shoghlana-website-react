@@ -58,7 +58,7 @@ export default function Navbar() {
                     <Link to='/login' className="flex flex-row items-center me-[28.23px] gap-2 py-[9px] px-[18px] border-main border-[2px] rounded-[5px] ">
                         Log in
                     </Link>
-                    <Link to='/signup' className="flex flex-row items-center gap-2 py-[9px] px-[18px] border-main border-[2px] bg-main text-white rounded-[5px] ">
+                    <Link to='/sign' className="flex flex-row items-center gap-2 py-[9px] px-[18px] border-main border-[2px] bg-main text-white rounded-[5px] ">
                         Start Now
                     </Link>
                 </div>
@@ -88,7 +88,7 @@ export default function Navbar() {
                                 <Link to='/login' className="flex flex-row text-main font-bold items-center justify-center bg-white  gap-2 py-[9px] px-[18px] border-main border-[2px] rounded-[10px] ">
                                     Log in
                                 </Link>
-                                <Link to='/signup' className="flex flex-row text-main font-bold items-center justify-center bg-white gap-2 py-[9px] px-[18px] border-main border-[2px] rounded-[10px] ">
+                                <Link to='/sign' className="flex flex-row text-main font-bold items-center justify-center bg-white gap-2 py-[9px] px-[18px] border-main border-[2px] rounded-[10px] ">
                                     Start Now
                                 </Link>
                             </div>

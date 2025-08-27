@@ -38,6 +38,7 @@ import CompanyUsers from "../pages/companyUser/companyUser";
 import CompanyJobs from "../pages/company_jobs/company_jobs";
 import ContactSection from "../pages/contactus/contactUs";
 import ErrorPage from "../pages/ErrorPage";
+import Switcher from "../pages/switcher/switcher";
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
     {
         path: '/profile',
         element: <Profile />, errorElement: <ErrorPage />
+    },
+    {
+        path: '/sign',
+        element: <Switcher />, errorElement: <ErrorPage />
     },
     {
         path: '/signup',

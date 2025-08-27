@@ -21,8 +21,8 @@ export default function CompanySignUp() {
                     <form className="space-y-4 flex flex-col items-center max-w-[385px]">
                         <InputAndLabel name='email' setData={setData} error={errors?.email} type="email" value={data.email || ""} isLogin label="Email" placeholder="Shoghlana@email.com" />
                         <div className="grid grid-cols-2 gap-4">
-                            <InputAndLabel name='first_name' setData={setData} error={errors?.first_name} type="email" value={data.first_name || ""} isLogin label="First Name" placeholder="Shoghlana" />
-                            <InputAndLabel name='last_name' setData={setData} error={errors?.last_name} type="email" value={data.last_name || ""} isLogin label="Last name" placeholder="Academy" />
+                            <InputAndLabel name='first_name' setData={setData} error={errors?.first_name} type="email" value={data.first_name || ""} isLogin label="Company First Name" placeholder="Shoghlana" />
+                            <InputAndLabel name='last_name' setData={setData} error={errors?.last_name} type="email" value={data.last_name || ""} isLogin label="Company Last name" placeholder="Academy" />
                         </div>
 
                         <InputAndLabel see name='password' setData={setData} error={errors?.password} type="password" value={data.password || ""} isLogin label="Password" placeholder="Password" />
