@@ -12,7 +12,6 @@ export default function YourExperties({ handleNext, handleBack, setData, skills,
         language: '',
         level: '',
     }]);
-
     const languageLevels = [
         { id: 1, name: "beginner" },
         { id: 2, name: "intermediate" },
@@ -25,6 +24,7 @@ export default function YourExperties({ handleNext, handleBack, setData, skills,
             setLanguages(formData?.languages)
         }
     }, [])
+
     const handleRemoveLanguage = (id: string) => {
         if (languages.length > 1) {
             const updatedLanguages = languages.filter((lang) => lang.id !== id);
@@ -40,6 +40,37 @@ export default function YourExperties({ handleNext, handleBack, setData, skills,
             toast.error(errors?.languages)
         }
     }, [errors])
+    const handleNextMain = () => {
+        const last = languages[languages.length - 1];
+
+        // If the last row is filled but not saved yet → "auto add" it
+        if (last.language !== '' && last.level !== '') {
+            const updated = [...languages];
+
+            // only add a new blank row if we haven’t already added one
+            if (last.id === languages[languages.length - 1].id) {
+                // Add the filled one to data
+                setData((prev: any) => ({
+                    ...prev,
+                    languages: updated
+                }));
+
+                // then add the empty entry like pressing "Add"
+                updated.push({ id: uuidv4(), language: '', level: '' });
+                setLanguages(updated);
+            }
+
+            handleNext();
+        } else {
+            // If nothing is entered at all, show error
+            if (languages.length === 1 && (!last.language || !last.level)) {
+                toast.error('Please fill all fields first and add at least one language');
+            } else {
+                // If partially filled, force user to complete it
+                toast.error('Please complete the language fields before continuing');
+            }
+        }
+    };
     return (
         <div className='w-[99%] sm:w-[90%] lg:w-[60%] bg-white relative z-[2] -mt-[80px] minh-[693px] shadow-2xl mb-20 mx-auto rounded-[25px] pb-[32px] ps-[25px] pt-[45px] flex flex-col items-start'>
             <div className='flex flex-col sm:flex-row items-center w-full -ms-1 gap-1.5'>
@@ -120,7 +151,7 @@ export default function YourExperties({ handleNext, handleBack, setData, skills,
             </div>
             <div className='flex flex-row items-center w-full justify-end sm:justify-center gap-4 mt-12 mb-4 pe-10 sm:pe-0'>
                 <button type='button' onClick={handleBack} className='w-[130px] sm:w-[249px] h-[45px] rounded-[8px] flex flex-col items-center justify-center text-[20px] font-medium text-black border-[1px] border-[#D9D9D9]'>Back</button>
-                <button type='button' onClick={handleNext} className='w-[130px] sm:w-[249px] h-[45px] rounded-[8px] flex flex-col items-center justify-center text-[20px] font-medium text-white bg-main'>Continue</button>
+                <button type='button' onClick={handleNextMain} className='w-[130px] sm:w-[249px] h-[45px] rounded-[8px] flex flex-col items-center justify-center text-[20px] font-medium text-white bg-main'>Continue</button>
             </div>
         </div>
     )

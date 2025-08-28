@@ -1,7 +1,8 @@
 import { ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 
 export default function NotFound() {
+    const navigate = useNavigate()
     return (
         <div className="min-h-screen bg-gradient-to-br from-main via-blue-400 to-main flex items-center justify-center p-8">
             <div className="max-w-6xl w-full flex flex-col md:flex-row gap-16 items-center justify-between">
@@ -81,10 +82,13 @@ export default function NotFound() {
                     </p>
 
                     {/* Back to Home Button */}
-                    <Link to="/" className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-medium rounded-full hover:bg-white hover:text-blue-700 transition-all duration-300 text-lg">
+                    <button onClick={() => {
+                        window.localStorage.clear();
+                        navigate('/')
+                    }} className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-medium rounded-full hover:bg-white hover:text-blue-700 transition-all duration-300 text-lg">
                         <ArrowLeft className="mr-3 h-5 w-5" />
                         Back To Home
-                    </Link>
+                    </button>
                 </div>
             </div>
         </div>
