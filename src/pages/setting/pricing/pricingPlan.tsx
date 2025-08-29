@@ -200,35 +200,35 @@ export default function PricingPlan() {
                                                 aria-hidden="true"
                                                 className={classNames(tier.featured ? 'text-white' : 'text-main', 'h-6 w-5 flex-none')}
                                             />
-                                            {tier?.guarantee} Guarantee / month
+                                            {tier?.guarantee * (isAnnual ? 12 : 1)} Guarantee / {isAnnual ? 'year' : 'month'}
                                         </li>
                                         <li className="flex gap-x-3">
                                             <CheckIcon
                                                 aria-hidden="true"
                                                 className={classNames(tier.featured ? 'text-white' : 'text-main', 'h-6 w-5 flex-none')}
                                             />
-                                            {tier?.cv_unlock} CV Unlock / month
+                                            {tier?.cv_unlock * (isAnnual ? 12 : 1)} CV Unlock / {isAnnual ? 'year' : 'month'}
                                         </li>
                                         <li className="flex gap-x-3">
                                             <CheckIcon
                                                 aria-hidden="true"
                                                 className={classNames(tier.featured ? 'text-white' : 'text-main', 'h-6 w-5 flex-none')}
                                             />
-                                            {tier?.invitation} Invitation / month
+                                            {tier?.invitation * (isAnnual ? 12 : 1)} Invitation / {isAnnual ? 'year' : 'month'}
                                         </li>
                                         <li className="flex gap-x-3">
                                             <CheckIcon
                                                 aria-hidden="true"
                                                 className={classNames(tier.featured ? 'text-white' : 'text-main', 'h-6 w-5 flex-none')}
                                             />
-                                            {tier?.jobs} Jobs / month
+                                            {tier?.jobs * (isAnnual ? 12 : 1)} Jobs / {isAnnual ? 'year' : 'month'}
                                         </li>
                                         <li className="flex gap-x-3">
                                             <CheckIcon
                                                 aria-hidden="true"
                                                 className={classNames(tier.featured ? 'text-white' : 'text-main', 'h-6 w-5 flex-none')}
                                             />
-                                            {tier?.users} Users / month
+                                            {tier?.users * (isAnnual ? 12 : 1)} Users / {isAnnual ? 'year' : 'month'}
                                         </li>
                                     </ul>
                                     <button
