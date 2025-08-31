@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { HttpMethod, useApi } from '../../utils/hooks/useApi'
 import ProfileHeroSection from '../../components/profile/heroSection/profileHeroSection'
 import axiosInstance from '../../utils/axiosInstance'
@@ -18,7 +18,6 @@ export default function CompanyProfile() {
         method: HttpMethod.GET,
         withOutToast: true
     })
-    console.log(payLoad)
     const [countries, setCountries] = useState([])
     const [cities, setCities] = useState([])
     useEffect(() => {
@@ -65,6 +64,7 @@ export default function CompanyProfile() {
     const [searchResult, setSearchResult] = useState<any>([])
     const [page, setPage] = useState(1)
     const [meta, setMeta] = useState<any>({})
+    const divref = useRef<HTMLDivElement>(null)
     const handleSearch = () => {
         if (search !== '') {
             axiosInstance.get(`/users-search/10?search=${search}&page=${page}`).then((res) => {
@@ -77,6 +77,12 @@ export default function CompanyProfile() {
             setSearch('')
         }
     }
+
+    useEffect(() => {
+        handleSearch()
+        divref.current?.scroll({ top: 0, behavior: 'smooth' })
+    }, [page])
+
     return (
         <MainLayout>
             <ProfileHeroSection cities={cities} countries={countries} isCompany={true} userData={data} />
@@ -109,13 +115,13 @@ export default function CompanyProfile() {
                         </div>
                         <Link to='/company_jobs' className='w-full flex items-center justify-center text-white text-[16px] font-semibold h-[40px] mt-[24px] bg-main rounded-[5px]'>See All Jobs</Link>
                     </div>
-                    <div className='border border-black/20 rounded-[16px] flex flex-col py-[24px] h-[350px] px-[28px] my-5'>
+                    <div className={`border border-black/20 rounded-[16px] flex flex-col py-[24px]  px-[28px] my-5 ${searchResult?.length > 0 ? 'h-[550px]' : 'h-[350px]'} duration-500 transition-all`}>
                         <span>Invite Users Now</span>
                         <div className='relative mt-3'>
                             <input type="text" className='w-full bg-transparent text-[#001433] text-[16px] font-semibold border-b-[1px] border-black/20 outline-none' placeholder='Search For Users by Job Category' value={search} onChange={(e) => setSearch(e.target.value)} />
                             <Search onClick={() => handleSearch()} className='absolute top-[3px] hover:cursor-pointer right-0 w-[15px] h-[15px] bg-white' />
                         </div>
-                        {searchResult?.length > 0 ? <div className='flex flex-col gap-2 max-h-full h-full overflow-y-auto'>
+                        {searchResult?.length > 0 ? <div ref={divref} className='flex flex-col gap-2 max-h-full h-full overflow-y-auto'>
                             {
                                 searchResult?.map((user: any, index: number) => {
                                     return (
@@ -138,7 +144,9 @@ export default function CompanyProfile() {
                                     )
                                 })
                             }
-                            <Pagination currentPage={page} totalPages={meta} onPageChange={(page: number) => setPage(page)} />
+                            <Pagination currentPage={page} totalPages={meta} onPageChange={(page: number) => {
+                                setPage(page)
+                            }} />
 
                         </div> :
                             <div className='flex items-center justify-center mt-3 h-full'>
