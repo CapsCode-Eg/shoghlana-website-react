@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, useParams, useSearchParams } from "react-router";
 import NavbarTwo from "../../components/common/navbarTwo/navbarTwo";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
@@ -9,17 +9,19 @@ import ResponsiveTabs from "./responsiveTabs";
 
 export default function JobApplications() {
     const { id } = useParams<{ id?: string }>();
-    const [page, setPage] = useState(1);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    // Get page and selected from URL params
+    const page = parseInt(searchParams.get('page') || '1');
     const [meta, setMeta] = useState<any>({});
     const [data, setData] = useState<any>({});
     const [nationalties, setNationalties] = useState<any>([])
-    const [selected, setSelected] = useState('');
+    const selected = searchParams.get('tab') || '';
     useEffect(() => {
         if (selected === 'all') {
             axiosInstance.get(`/company/job-application/${id}?page=${page}`).then((res) => {
                 setData(res.data.data);
                 setMeta(res?.data?.data?.applications?.links['total-page'])
-                setPage(res?.data?.data?.meta?.current_page);
             }).catch((err) => {
                 toast.error(err?.response?.data?.message, { id: 'add-country' })
             });
@@ -61,6 +63,21 @@ export default function JobApplications() {
             behavior: "smooth",
         });
     }, [page]);
+    const handlePageChange = (newPage: number) => {
+        setSearchParams(prev => {
+            prev.set('page', newPage.toString());
+            return prev;
+        });
+    };
+
+
+    const handleSelectedChange = (newSelected: string) => {
+        setSearchParams(prev => {
+            prev.set('tab', newSelected);
+            prev.set('page', '1'); // Reset to page 1 when changing tabs
+            return prev;
+        });
+    };
     return (
         <div className='flex flex-col max-w-screen overflow-hidden pb-4'>
             <NavbarTwo />
@@ -70,7 +87,7 @@ export default function JobApplications() {
                     <span className="text-[#0055D9] text-[32px] font-bold">{data?.job?.title}</span>
                     <div dangerouslySetInnerHTML={{ __html: data?.job?.description }} />
                     <span className="mt-4 p-2 shadow-2xl w-fit rounded-[8px] text-[16px] font-meduim text-[#0055D9] border border-[#c2c2c2]">Applier : {data?.applications?.meta?.total || 0}</span>
-                    <ResponsiveTabs setSelected={setSelected} />
+                    <ResponsiveTabs setSelected={handleSelectedChange} />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                         {data?.applications?.data?.length > 0 ?
                             data?.applications?.data?.map((application: any) => {
@@ -141,7 +158,7 @@ export default function JobApplications() {
                         }
                     </div>
                     {data?.applications?.data?.length > 0 &&
-                        <Pagination currentPage={meta?.current_page} totalPages={meta || 1} onPageChange={(page: number) => { setPage(page) }}
+                        <Pagination currentPage={meta?.current_page} totalPages={meta || 1} onPageChange={handlePageChange}
                         />
                     }
                 </div>
