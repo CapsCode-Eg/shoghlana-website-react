@@ -49,9 +49,8 @@ const ContactSection = () => {
                             Our team is ready to respond to your inquiries and provide the support you need
                         </p>
                         <p className="mt-2 text-blue-600 font-medium underline underline-offset-4">
-                            Start your journey now with a shopping experience that combines elegance, innovation, and trust.
+                            Begin your journey with a hiring experience that blends elegance, innovation, and trust.
                         </p>
-
                         {/* Contact Cards */}
                         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
                             {/* Phone */}
