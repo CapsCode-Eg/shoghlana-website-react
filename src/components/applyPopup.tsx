@@ -51,7 +51,7 @@ export default function ApplyPopup({ isOpen, onClose }: PopupProps) {
             aria-modal="true"
             role="dialog"
         >
-            <div className="max-h-[92vh] 2xl:max-h-[90vh] overflow-y-auto rounded-[10px] md:rounded-[20px]">
+            <div className="max-h-[92vh] 2xl:max-h-[90vh] rounded-[10px] md:rounded-[20px]">
                 <div
                     className="w-[96%] md:w-[720px] 2md:w-[779px] lg:w-[956px] h-fit md:h-[300px] bg-white rounded-[10px] md:rounded-[20px] mx-auto flex flex-col md:flex-row "
                 >
