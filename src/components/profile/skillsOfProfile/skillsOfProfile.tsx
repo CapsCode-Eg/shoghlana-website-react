@@ -2,6 +2,9 @@ import { Link } from "react-router";
 import { educationLevels, languageLevels } from "../../../utils/constant/profile";
 
 export function SkillsAndExperience({ userData }: { userData: any }) {
+    const loggedInUser = typeof window !== 'undefined' ? window.localStorage.getItem('user') : null;
+    const user = loggedInUser ? JSON.parse(loggedInUser) : null;
+    console.log(user)
     return (
         <div className="w-[98%] xl:w-[80%] mx-auto mt-[20px] xl:mt-[54px]  flex flex-col bg-white rounded-t-[25px] rounded-b-xl shadow-md relative overflow-hidden py-[33px] px-[28.68px]">
             {/* Skills and Tools */}
@@ -18,10 +21,10 @@ export function SkillsAndExperience({ userData }: { userData: any }) {
 
             {/* Work Experience */}
             <div className="border-b pb-4 mb-4">
-                <div className="w-full flex flex-row items-center justify-between">
+                {user?.type !== 'company' && <div className="w-full flex flex-row items-center justify-between">
                     <h2 className="text-xl font-bold mb-2">Work Experience</h2>
                     <Link to='/setting/experience' className="bg-main text-white w-[30px] h-[30px] font-bold rounded-full flex items-center justify-center">+</Link>
-                </div>
+                </div>}
                 {
                     userData?.experience?.length > 0 ? (
                         userData.experience.map((exp: any, index: number) => {

@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { educationLevels, jobTypes, personal_type, workModes } from "../../../utils/constant/profile";
 import { useEffect, useState } from "react";
 
-export default function PersonalInformation({ userData, deleteCV, countries, jobCategory, handleFileChange, handleUnlockCv }: { jobCategory: any, countries: any, userData: any, deleteCV?: () => void, handleFileChange?: any, handleUnlockCv?: any }) {
+export default function PersonalInformation({ userData, deleteCV, countries, jobCategory, handleFileChange }: { jobCategory: any, countries: any, userData: any, deleteCV?: () => void, handleFileChange?: any, handleUnlockCv?: any }) {
     function getAge(dateString: string): number {
         const birthDate = new Date(dateString);
         const today = new Date();
@@ -92,9 +92,7 @@ export default function PersonalInformation({ userData, deleteCV, countries, job
                             </svg>
                         </span>}
                         {data && <div className="flex space-x-4 text-blue-600 text-[10px] md:text-sm">
-                            {data && handleUnlockCv ?
-                                <button onClick={handleUnlockCv} className="hover:underline">Unlock CV</button>
-                                : <Link to={userData?.seeker?.cv} target="_blank" className="hover:underline">Preview CV</Link>}
+                            <Link to={userData?.seeker?.cv} target="_blank" className="hover:underline">Preview CV</Link>
                             {data && handleFileChange &&
                                 <>
                                     <div className="w-[1px] h-4 bg-gray-300" />

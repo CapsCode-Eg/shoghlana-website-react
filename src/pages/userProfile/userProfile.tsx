@@ -5,7 +5,6 @@ import ProfileHeroSection from "../../components/profile/heroSection/profileHero
 import PersonalInformation from "../../components/profile/personalInformation/personalInformation";
 import { SkillsAndExperience } from "../../components/profile/skillsOfProfile/skillsOfProfile";
 import { useParams } from "react-router";
-import { toast } from "sonner";
 import ApplyPopup from "../../components/applyPopup";
 import MainLayout from "../../layout/mainLayout";
 
@@ -36,23 +35,7 @@ export default function UserProfile() {
     }, [])
 
 
-    const handleUnlockCv = () => {
-        axiosInstance.post('/company/cv-unlock', {
-            user_id: id
-        }).then(() => {
-            const cvUrl = payLoad?.data?.data?.seeker?.cv
-            if (cvUrl) {
-                window.open(cvUrl, '_blank')
-                toast.success('CV unlocked successfully')
-            } else {
-                toast.error('CV URL not found')
-            }
-            toast.success('CV unlocked successfully')
-        }).catch((err) => {
-            toast.error(err?.response?.data?.message, { id: 'add-companies' })
-            return console.error(err)
-        })
-    }
+
 
     const [isOpen, setIsOpen] = useState(false);
     const handleInvite = () => {
@@ -70,7 +53,7 @@ export default function UserProfile() {
         <MainLayout>
             <div className="mt-[54px]"></div>
             <ProfileHeroSection userData={payLoad?.data?.data && payLoad?.data?.data} isCompany={false} handleInvite={handleInvite} cities={cities} countries={countries} />
-            <PersonalInformation handleUnlockCv={handleUnlockCv} jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data && payLoad?.data?.data} />
+            <PersonalInformation jobCategory={jobCategory} countries={countries} userData={payLoad?.data?.data && payLoad?.data?.data} />
 
             <SkillsAndExperience userData={payLoad?.data?.data && payLoad?.data?.data} />
             <ApplyPopup isOpen={isOpen} onClose={() => setIsOpen(false)} />

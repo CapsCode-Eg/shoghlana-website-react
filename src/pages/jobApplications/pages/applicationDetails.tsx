@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import NavbarTwo from "../../../components/common/navbarTwo/navbarTwo";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/axiosInstance";
@@ -89,7 +89,17 @@ export default function ApplicationDetails() {
             setIsLoading(false);
         }
     };
-
+    const handleUnlockCv = () => {
+        axiosInstance.post('/company/cv-unlock', {
+            user_id: data?.user_id?.id,
+        }).then(() => {
+            navigate(`/user/${data?.user_id?.id}`)
+            toast.success('Profile unlocked successfully')
+        }).catch((err) => {
+            toast.error(err?.response?.data?.message, { id: 'add-companies' })
+            return console.error(err)
+        })
+    }
     const handleRejected = async () => {
         try {
             setIsLoading(true);
@@ -103,6 +113,7 @@ export default function ApplicationDetails() {
             setIsLoading(false);
         }
     };
+
 
     if (error) {
         return (
@@ -174,23 +185,27 @@ export default function ApplicationDetails() {
                                 {(user?.last_name?.charAt(0)?.toUpperCase() || '')}
                             </div>
                         )}
-                        <div className="flex flex-col">
-                            <div className="flex flex-row items-center gap-0.5">
-                                <Link
-                                    to={`/user/${user?.id}`}
-                                    className="font-medium text-[18px] text-black"
-                                >
-                                    {user?.first_name ?
-                                        `${user.first_name.charAt(0).toUpperCase()}${user.first_name.slice(1)}` : ''}
-                                    {user?.last_name ?
-                                        ` ${user.last_name.charAt(0).toUpperCase()}${user.last_name.slice(1)}` : ''}
-                                </Link>
-                                <span className="text-[14px] text-gray-500">
-                                    {seeker?.job_title ?
-                                        `(${seeker.job_title.charAt(0).toUpperCase()}${seeker.job_title.slice(1)})` : ''}
-                                </span>
+                        <div className="flex flex-row flex-wrap gap-2 mb-2 items-start justify-between w-full">
+                            <div className="flex flex-col">
+                                <div className="flex flex-row items-center gap-0.5">
+                                    <span
+                                        className="font-medium text-[18px] text-black"
+                                    >
+                                        {user?.first_name ?
+                                            `${user.first_name.charAt(0).toUpperCase()}${user.first_name.slice(1)}` : ''}
+                                        {user?.last_name ?
+                                            ` ${user.last_name.charAt(0).toUpperCase()}${user.last_name.slice(1)}` : ''}
+                                    </span>
+                                    <span className="text-[14px] text-gray-500">
+                                        {seeker?.job_title ?
+                                            `(${seeker.job_title.charAt(0).toUpperCase()}${seeker.job_title.slice(1)})` : ''}
+                                    </span>
+                                </div>
+                                <span className="text-gray-500 text-sm -mt-1">{user?.email || 'Email not provided'}</span>
                             </div>
-                            <span className="text-gray-500 text-sm -mt-1">{user?.email || 'Email not provided'}</span>
+                            <button onClick={handleUnlockCv} className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors duration-300">
+                                Unlock Profile
+                            </button>
                         </div>
                     </div>
                     <div className="flex flex-row items-center mt-1 ms-1">
